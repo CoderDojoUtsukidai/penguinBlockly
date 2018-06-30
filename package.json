@@ -1,0 +1,14 @@
+{
+  "name": "blocklyPenguin",
+  "version": "1.0.0",
+  "repository": "",
+  "author": "ken yuasa <simujyaky@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "http-server": "http-server -o -d false -c 0"
+  },
+  "dependencies": {
+    "eslint": "^4.13.1",
+    "http-server": "^0.10.0"
+  }
+}

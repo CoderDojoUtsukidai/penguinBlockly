@@ -25,7 +25,7 @@ function showCode() {
     var code = Blockly.JavaScript.workspaceToCode(workspace);
     var codeElement = document.getElementById('jsCode');
     codeElement.value = code;
-    console.log('code:'+code);
+    console.log('code:' + code);
     debugger
 }
 function runCode() {
@@ -54,7 +54,7 @@ function runCode_Version() {
 }
 
 function sampleCode() {
-var code = function(){/*
+    var code = function () {/*
 var game = document.getElementById("game");
 var ctx = game.getContext("2d");
 ctx.fillStyle = "lightblue";
@@ -72,7 +72,7 @@ ctx.lineTo(150,350);
 ctx.moveTo(200,400);
 ctx.lineTo(220,380);
 ctx.stroke();
-    */}.toString().split("\n").slice(1,-1).join("\n")
+    */}.toString().split("\n").slice(1, -1).join("\n")
     var codeElement = document.getElementById('jsCode').value = code;
 }
 function clearCode() {
@@ -86,3 +86,30 @@ document.getElementById('runCode').addEventListener('click', runCode, false);
 
 document.getElementById('sampleCode').addEventListener('click', sampleCode, false);
 document.getElementById('clearCode').addEventListener('click', clearCode, false);
+
+//Web Apiをコールするテスト
+// 
+function runAPI() {
+    alert('before send');
+    var url = "http://weather.livedoor.com/forecast/webservice/json/v1?city=130010";
+    var xhr = new XMLHttpRequest();
+    // url = location.href;
+    xhr.open("GET", url);
+    xhr.onreadystatechange = function () {
+        alert('readyState:' + xhr.readyState);
+        alert('status:' + xhr.status);
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            alert('responseText:' + xhr.responseText);
+            console.log(xhr.responseText);
+            var res = JSON.parse(xhr.responseText)
+            alert('RES:' + res);
+            console.log(res);
+        }
+        if (xhr.readyState === 4 && xhr.status === 0) {
+            alert('responseText:' + xhr.responseText);
+        }
+    }
+    xhr.send();
+    alert('after send');
+}
+document.getElementById('runAPI').addEventListener('click', runAPI, false);

@@ -47,6 +47,7 @@
               <button id="runCode">コードを実行（じっこう）</button>
               <button id="clearCode">コードをクリアする</button>
               <button id="sampleCode">サンプルコード</button>
+              <button id="runAPI">testAPI</button>
             </td>
           </tr>
           <tr>
@@ -438,6 +439,11 @@
   <script src="index.js"></script>
 </body>
 <script>
+
+
+
+
+
   //ファイルを保存する
   document.querySelector('#DLlink').onclick = function () {
     // var text = document.querySelector('#jsCode').value;
@@ -452,15 +458,15 @@
 
   var obj1 = document.getElementById("selfile");
 
-//ダイアログでファイルが選択された時
-obj1.addEventListener("change",function(evt){
-  var file = evt.target.files;
-  var reader = new FileReader();
-  reader.readAsText(file[0]);
-  reader.onload = function(ev){
-    document.getElementById("jsCode").value=reader.result;
-  }
-},false);
+  //ダイアログでファイルが選択された時
+  obj1.addEventListener("change", function (evt) {
+    var file = evt.target.files;
+    var reader = new FileReader();
+    reader.readAsText(file[0]);
+    reader.onload = function (ev) {
+      document.getElementById("jsCode").value = reader.result;
+    }
+  }, false);
 </script>
 
 </html>

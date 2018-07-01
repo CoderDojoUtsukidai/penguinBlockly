@@ -37,7 +37,8 @@
                 alert('こんにちは　世界')
               </textarea>
               <br>
-              <a href="" id="DLlink" download="download.txt">ファイルを書く</a>
+              <input type="file" id="selfile" value="ファイルを読む">
+              <a href="" id="DLlink" download="download.txt">ファイルに保存する</a>
             </td>
           </tr>
           <tr>
@@ -437,6 +438,7 @@
   <script src="index.js"></script>
 </body>
 <script>
+  //ファイルを保存する
   document.querySelector('#DLlink').onclick = function () {
     // var text = document.querySelector('#jsCode').value;
     var text = document.getElementById("jsCode").value;
@@ -447,6 +449,18 @@
     this.href = 'data:text/plain;charset=utf-8,'
       + encodeURIComponent(text);
   };
+
+  var obj1 = document.getElementById("selfile");
+
+//ダイアログでファイルが選択された時
+obj1.addEventListener("change",function(evt){
+  var file = evt.target.files;
+  var reader = new FileReader();
+  reader.readAsText(file[0]);
+  reader.onload = function(ev){
+    document.getElementById("jsCode").value=reader.result;
+  }
+},false);
 </script>
 
 </html>

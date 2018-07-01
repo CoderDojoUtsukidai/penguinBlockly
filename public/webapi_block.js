@@ -1,7 +1,7 @@
 Blockly.Blocks['webapi'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("url");
+        .appendField("URL");
     this.appendValueInput("url")
         .setCheck("String")
         .appendField("");
@@ -16,7 +16,7 @@ Blockly.Blocks['webapi'] = {
         .setCheck("String")
         .appendField("");
     this.appendDummyInput()
-        .appendField("param");
+        .appendField("Param");
     this.appendValueInput("param")
         .setCheck("String")
         .appendField("");

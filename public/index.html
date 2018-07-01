@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Penguin Blockly</title>
 </head>
+
 <body>
   <table border='1'>
     <tr>
@@ -11,18 +13,17 @@
         <table border="1">
           <tr>
             <td>
-            <h1>ペンギン　ブロックリー</h1>
-            <li>①ブロックを並べる or コードを打ち込む (あるいは、サンプルコード　ボタンを押す)</li>
-            <li>②コードに変換ボタンを押す</li>
-            <li>③コードを実行ボタンを押す</li>
+              <h1>ペンギン　ブロックリー</h1>
+              <li>①ブロックを並べる or コードを打ち込む (あるいは、サンプルコード　ボタンを押す)</li>
+              <li>②コードに変換ボタンを押す</li>
+              <li>③コードを実行ボタンを押す</li>
             </td>
           </tr>
           <tr>
             <td>
-                <div>
-                    <canvas id="game" width="800px" height="600px" />
-                  </div>
-                        
+              <div>
+                <canvas id="game" width="800px" height="600px" />
+              </div>
             </td>
           </tr>
         </table>
@@ -35,6 +36,8 @@
               <textarea name="texarea" id="jsCode" cols="80" rows="20" style="color:white; background-color: darkblue">
                 alert('こんにちは　世界')
               </textarea>
+              <br>
+              <a href="" id="DLlink" download="download.txt">ファイルを書く</a>
             </td>
           </tr>
           <tr>
@@ -89,7 +92,28 @@
       <block type="text_print"></block>
     </category>
     <category name="WEB API">
-      <block type="webapi"></block>
+      <block type="webapi">
+        <value name="url">
+          <block type="text">
+            <field name="TEXT">https://api-tokyochallenge.odpt.org/api/v4/odpt:TrainInformation?odpt:operator=odpt.Operator:Tokyu&acl:consumerKey=9a3f010d43185ae92b2c198431dc9aa41e189fc3c750c778b31935cec3e335ff</field>
+          </block>
+        </value>
+        <value name="apikey">
+          <block type="text">
+            <field name="TEXT">secret</field>
+          </block>
+        </value>
+        <value name="method">
+          <block type="text">
+            <field name="TEXT">GET</field>
+          </block>
+        </value>
+        <value name="param">
+          <block type="text">
+            <field name="TEXT">etc</field>
+          </block>
+        </value>
+      </block>
     </category>
     <category name="ロジック">
       <category name="If">
@@ -412,5 +436,17 @@
 
   <script src="index.js"></script>
 </body>
+<script>
+  document.querySelector('#DLlink').onclick = function () {
+    // var text = document.querySelector('#jsCode').value;
+    var text = document.getElementById("jsCode").value;
+    // debugger
+    // console.log(text);
+    // alert(text);
+    this.download = "penguin.txt";
+    this.href = 'data:text/plain;charset=utf-8,'
+      + encodeURIComponent(text);
+  };
+</script>
 
 </html>

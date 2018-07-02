@@ -4,21 +4,52 @@ Blockly.Blocks['penguin_getcontext2d'] = {
         .appendField("絵を描く準備をする");
     this.setNextStatement(true, null);
     this.setColour(230);
- this.setTooltip("");
- this.setHelpUrl("");
+    this.setTooltip("");
+    this.setHelpUrl("");
   }
 };
 
 Blockly.Blocks['penguin_fillstyle'] = {
   init: function() {
     this.appendDummyInput()
-        .appendField("色をぬる")
-        .appendField(new Blockly.FieldDropdown([["みずいろ","lightblue"], ["みどり","green"], ["ちゃいろ","brown"]]), "color");
+        .appendField("塗りつぶしの色を")
+        .appendField(new Blockly.FieldDropdown([["みずいろ","lightblue"], ["みどり","green"], ["ちゃいろ","brown"]]), "color")
+        .appendField("にする");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
- this.setTooltip("");
- this.setHelpUrl("");
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['penguin_strokestyle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("筆の色を")
+        .appendField(new Blockly.FieldDropdown([["みずいろ","lightblue"], ["みどり","green"], ["ちゃいろ","brown"]]), "color")
+        .appendField("にする");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['penguin_linewidth'] = {
+  init: function() {
+    this.appendValueInput("width")
+        .setCheck("Number")
+        .appendField("筆の太さを");
+    this.appendDummyInput()
+        .appendField("にする");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("筆の太さを指定します");
+    this.setHelpUrl("");
   }
 };
 
@@ -42,8 +73,8 @@ Blockly.Blocks['penguin_fillrect'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
- this.setTooltip("開始横、縦、幅、高さを指定します");
- this.setHelpUrl("");
+    this.setTooltip("開始横、縦、幅、高さを指定します");
+    this.setHelpUrl("");
   }
 };
 
@@ -67,12 +98,12 @@ Blockly.Blocks['penguin_strokerect'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
- this.setTooltip("開始横、縦、幅、高さを指定します");
- this.setHelpUrl("");
+    this.setTooltip("開始横、縦、幅、高さを指定します");
+    this.setHelpUrl("");
   }
 };
 
-Blockly.Blocks['penguin__clearrect'] = {
+Blockly.Blocks['penguin_clearrect'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("四角く消す");
@@ -92,7 +123,7 @@ Blockly.Blocks['penguin__clearrect'] = {
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
- this.setTooltip("開始横、縦、幅、高さを指定します");
- this.setHelpUrl("");
+    this.setTooltip("開始横、縦、幅、高さを指定します");
+    this.setHelpUrl("");
   }
 };

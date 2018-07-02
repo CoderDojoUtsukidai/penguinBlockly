@@ -26,7 +26,6 @@ function showCode() {
     var codeElement = document.getElementById('jsCode');
     codeElement.value = code;
     console.log('code:'+code);
-    debugger
 }
 function runCode() {
     var val1 = document.getElementById("jsCode").value;

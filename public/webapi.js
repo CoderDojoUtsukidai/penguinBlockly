@@ -6,36 +6,30 @@ Blockly.JavaScript['webapi'] = function (block) {
   // TODO: Assemble JavaScript into code variable.
   var url = value_url;
   var token = ''
-  url = 'https://api-tokyochallenge.odpt.org/api/v4/odpt:TrainInformation?odpt:operator=odpt.Operator:Tokyu&acl:consumerKey=9a3f010d43185ae92b2c198431dc9aa41e189fc3c750c778b31935cec3e335ff'
-  var xmlHttp = "var xhr = new XMLHttpRequest();";
-  var xmlopen = "xhr.open( '" + value_method + "', '" + url + "', false );";
-  var xmltry = "xhr.send( null );" + '\n' + "alert(xmlHttp.responseText)";
-  var code = xmlHttp + '\n' + xmlopen + '\n' + xmltry;
+  var  param = "?city="+ "130010";
+  var  url = "http://weather.livedoor.com/forecast/webservice/json/v1" + param;
 
-  // var array = [];
-  var array = ["Banana", "Orange", "Apple", "Mango"];
-  var str = array.toString();
-  var join = array.join('\n');
-  array.push("give");
-  array.push("gave");
-  array.push("given");
-  array.forEach(function(element) {
+  // url = 'https://api-tokyochallenge.odpt.org/api/v4/odpt:TrainInformation?odpt:operator=odpt.Operator:Tokyu&acl:consumerKey=9a3f010d43185ae92b2c198431dc9aa41e189fc3c750c778b31935cec3e335ff'
+  // var xmlHttp = "var xhr = new XMLHttpRequest();";
+  // var xmlopen = "xhr.open( '" + value_method + "', '" + url + "', false );";
+  // var xmltry = "xhr.send( null );" + '\n' + "alert(xmlHttp.responseText)";
+  // var code = xmlHttp + '\n' + xmlopen + '\n' + xmltry;
+
+  var codes = [];
+  codes.push('var url = "' + url + '";');
+  codes.push('var xhr = new XMLHttpRequest();');
+  codes.push('xhr.open("GET", url);');
+  codes.push('xhr.send();');
+  codes.push('xhr.onreadystatechange = function() {');
+  codes.push('  if(xhr.readyState === 4 && xhr.status === 200) {');
+  codes.push('    console.log( JSON.parse(xhr.responseText) );');
+  codes.push('  }');
+  codes.push('}');
+  codes.forEach(function(element) {
     console.log(element);
   });
-  // var url = "https://api.github.com/search/repositories?q=javascript";
-  // var xhr = new XMLHttpRequest();
-  // xhr.open('GET', url);
-  // xhr.send();
-  // xhr.onreadystatechange = function() {
-  //   if(xhr.readyState === 4 && xhr.status === 200) {
-  //     console.log( JSON.parse(xhr.responseText) );
-  //   }
-  // }
-
-
+  var code = codes.join('\n');
   //npm run http-server
-
-
 
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];

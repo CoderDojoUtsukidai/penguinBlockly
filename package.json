@@ -5,7 +5,7 @@
   "author": "ken yuasa <simujyaky@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "http-server": "http-server -o -d false -c 0"
+    "http-server": "http-server -d false -c 0 "
   },
   "dependencies": {
     "eslint": "^4.13.1",

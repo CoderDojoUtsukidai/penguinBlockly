@@ -47,3 +47,30 @@ Blockly.JavaScript['penguin_clearrect'] = function(block) {
   var code = 'ctx.clearRect(' + value_x + ',' + value_y + ','+value_width+','+value_height+');\n';
   return code;
 };
+
+Blockly.JavaScript['penguin_strokepath'] = function(block) {
+  var statements_path_block = Blockly.JavaScript.statementToCode(block, 'path_block');
+  var code = 'ctx.beginPath();\n' + statements_path_block + 'ctx.stroke();\n';
+  return code;
+};
+
+Blockly.JavaScript['penguin_fillpath'] = function(block) {
+  var statements_path_block = Blockly.JavaScript.statementToCode(block, 'path_block');
+  var code = 'ctx.beginPath();\n' + statements_path_block + 'ctx.fill();\n';
+  return code;
+};
+
+Blockly.JavaScript['penguin_moveto'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'ctx.moveTo(' + value_x + ',' + value_y + ');\n';
+  return code;
+};
+
+Blockly.JavaScript['penguin_lineto'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'ctx.lineTo(' + value_x + ',' + value_y + ');\n';
+  return code;
+};
+

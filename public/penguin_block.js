@@ -127,3 +127,76 @@ Blockly.Blocks['penguin_clearrect'] = {
     this.setHelpUrl("");
   }
 };
+
+Blockly.Blocks['penguin_strokepath'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("形を描く");
+    this.appendStatementInput("path_block")
+        .setCheck(null);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("形を描きます");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['penguin_fillpath'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("形を塗りつぶす");
+    this.appendStatementInput("path_block")
+        .setCheck(null);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("形を塗りつぶします");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['penguin_moveto'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("ペンを");
+    this.appendValueInput("x")
+        .setCheck("Number")
+        .appendField("　X：");
+    this.appendValueInput("y")
+        .setCheck("Number")
+        .appendField("　Y：");
+    this.appendDummyInput()
+        .appendField("まで動かす");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("ペンを動かします");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['penguin_lineto'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("線を");
+    this.appendValueInput("x")
+        .setCheck("Number")
+        .appendField("　X：");
+    this.appendValueInput("y")
+        .setCheck("Number")
+        .appendField("　Y：");
+    this.appendDummyInput()
+        .appendField("まで描く");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("線を描きます");
+    this.setHelpUrl("");
+  }
+};
+

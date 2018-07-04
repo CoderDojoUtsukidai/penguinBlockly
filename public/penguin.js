@@ -74,3 +74,9 @@ Blockly.JavaScript['penguin_lineto'] = function(block) {
   return code;
 };
 
+Blockly.JavaScript['penguin_animation'] = function(block) {
+  var statements_path_block = Blockly.JavaScript.statementToCode(block, 'animation_block');
+  var code = 'var animation = function () {\n' + statements_path_block + '  window.requestAnimationFrame(animation);\n};\nanimation();\n';
+  return code;
+};
+

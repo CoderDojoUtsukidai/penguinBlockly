@@ -200,3 +200,18 @@ Blockly.Blocks['penguin_lineto'] = {
   }
 };
 
+Blockly.Blocks['penguin_animation'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("ずっと繰り返す");
+    this.appendStatementInput("animation_block")
+        .setCheck(null);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("繰り返します");
+    this.setHelpUrl("");
+  }
+};
+

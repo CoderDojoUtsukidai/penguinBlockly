@@ -48,6 +48,14 @@ Blockly.JavaScript['penguin_clearrect'] = function(block) {
   return code;
 };
 
+Blockly.JavaScript['penguin_circle'] = function(block) {
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_radius = Blockly.JavaScript.valueToCode(block, 'radius', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'ctx.arc(' + value_x + ',' + value_y + ',' + value_radius + ',0,2*Math.PI);\n';
+  return code;
+};
+
 Blockly.JavaScript['penguin_strokepath'] = function(block) {
   var statements_path_block = Blockly.JavaScript.statementToCode(block, 'path_block');
   var code = 'ctx.beginPath();\n' + statements_path_block + 'ctx.stroke();\n';

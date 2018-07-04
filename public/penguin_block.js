@@ -9,11 +9,28 @@ Blockly.Blocks['penguin_getcontext2d'] = {
   }
 };
 
+var colors = [
+    ["赤","red"],
+    ["オレンジ","orange"],
+    ["黄色","yellow"],
+    ["みどり","green"],
+    ["きみどり","lightgreen"],
+    ["みずいろ","lightblue"],
+    ["青","blue"],
+    ["シアン","cyan"],
+    ["ピンク","pink"],
+    ["むらさき","purple"],
+    ["マジェンタ","magenta"],
+    ["ちゃいろ","brown"],
+    ["黒","black"],
+    ["白","white"]
+];
+
 Blockly.Blocks['penguin_fillstyle'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("塗りつぶしの色を")
-        .appendField(new Blockly.FieldDropdown([["みずいろ","lightblue"], ["みどり","green"], ["ちゃいろ","brown"]]), "color")
+        .appendField(new Blockly.FieldDropdown(colors), "color")
         .appendField("にする");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -27,7 +44,7 @@ Blockly.Blocks['penguin_strokestyle'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("筆の色を")
-        .appendField(new Blockly.FieldDropdown([["みずいろ","lightblue"], ["みどり","green"], ["ちゃいろ","brown"]]), "color")
+        .appendField(new Blockly.FieldDropdown(colors), "color")
         .appendField("にする");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -124,6 +141,28 @@ Blockly.Blocks['penguin_clearrect'] = {
     this.setNextStatement(true, null);
     this.setColour(230);
     this.setTooltip("開始横、縦、幅、高さを指定します");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['penguin_circle'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("円形を描く");
+    this.appendValueInput("x")
+        .setCheck("Number")
+        .appendField("　X：");
+    this.appendValueInput("y")
+        .setCheck("Number")
+        .appendField("　Y：");
+    this.appendValueInput("radius")
+        .setCheck("Number")
+        .appendField("半径：");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("円形を描きます");
     this.setHelpUrl("");
   }
 };

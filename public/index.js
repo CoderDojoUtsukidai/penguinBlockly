@@ -34,28 +34,29 @@ function runCode() {
 createPseudoContext = function(interpreter, context) {
     var myContext = interpreter.createObjectProto(interpreter.OBJECT_PROTO);
     var contextFunctions = ['beginPath', 'stroke', 'fill',
-        'moveTo', 'lineTo', 'fillRect', 'strokeRect', 'clearRect', 'arc'];
+        'moveTo', 'lineTo', 'fillRect', 'strokeRect', 'clearRect', 'arc'
+    ];
     for (var i = 0; i < contextFunctions.length; i++) {
         const fn = contextFunctions[i];
         var wrapper;
         switch (context[fn].length) { // Check arity
             case 0:
-                wrapper = function () {
+                wrapper = function() {
                     return interpreter.createPrimitive(context[fn].call(context));
                 };
                 break;
             case 2:
-                wrapper = function (arg0, arg1) {
+                wrapper = function(arg0, arg1) {
                     return interpreter.createPrimitive(context[fn].call(context, arg0, arg1));
                 };
                 break;
             case 4:
-                wrapper = function (arg0, arg1, arg2, arg3) {
+                wrapper = function(arg0, arg1, arg2, arg3) {
                     return interpreter.createPrimitive(context[fn].call(context, arg0, arg1, arg2, arg3));
                 };
                 break;
             case 5:
-                wrapper = function (arg0, arg1, arg2, arg3, arg4) {
+                wrapper = function(arg0, arg1, arg2, arg3, arg4) {
                     return interpreter.createPrimitive(context[fn].call(context, arg0, arg1, arg2, arg3, arg4));
                 };
                 break;
@@ -86,6 +87,7 @@ createPseudoContext = function(interpreter, context) {
 
 createPseudoCanvas = function(interpreter, canvas) {
     var myCanvas = interpreter.createObjectProto(interpreter.OBJECT_PROTO);
+
     function getContextWrapper(type) {
         if (type !== '2d') {
             throw IllegalArgument('Only 2d context is supported (got ' + type + ')');
@@ -102,6 +104,7 @@ createPseudoCanvas = function(interpreter, canvas) {
 initDocument = function(interpreter, scope) {
     var myDocument = interpreter.createObjectProto(interpreter.OBJECT_PROTO);
     interpreter.setProperty(scope, 'document', myDocument);
+
     function getElementWrapper(id) {
         var nativeElement = interpreter.createPrimitive(document.getElementById(id));
         if (nativeElement.tagName !== 'CANVAS') {

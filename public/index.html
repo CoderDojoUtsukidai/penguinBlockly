@@ -4,62 +4,54 @@
 <head>
   <meta charset="utf-8">
   <title>Penguin Blockly</title>
+  <link rel="stylesheet" href="main.css" />
 </head>
 
 <body>
-  <table border='1'>
-    <tr>
-      <td>
-
-        <table border="1">
-          <tr>
-            <td>
-              <h1>ペンギン　ブロックリー</h1>
-              <li>①ブロックを並べる or コードを打ち込む (あるいは、サンプルコード　ボタンを押す)</li>
-              <li>②コードに変換ボタンを押す</li>
-              <li>③コードを実行ボタンを押す</li>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div>
-                <canvas id="game" width="800px" height="600px" />
-              </div>
-            </td>
-          </tr>
-        </table>
-
-      </td>
-      <td>
-        <table border="1">
-          <tr>
-            <td>
-              <textarea name="texarea" id="jsCode" cols="80" rows="20" style="color:white; background-color: darkblue">
-                alert('こんにちは　世界')
-              </textarea>
-              <br>
-              <input type="file" id="selfile" value="ファイルを読む">
-              <a href="" id="DLlink" download="download.txt">ファイルに保存する</a>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <button id="showCode">コードに変換（へんかん）</button>
-              <button id="runCode">コードを実行（じっこう）</button>
-              <button id="clearCode">コードをクリアする</button>
-              <button id="sampleCode">サンプルコード</button>
-              <button id="runAPI">testAPI</button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div id="blocklyDiv" style="height: 480px; width: 640px;"></div>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
+  <div id="titlePanel">
+    <h1>ペンギン　ブロックリー</h1>
+    <div id="instructionsPanel">
+      <li>① ブロックを並べる or コードを打ち込む (あるいは、サンプルコード　ボタンを押す)</li>
+      <li>② コードに変換ボタンを押す</li>
+      <li>③ コードを実行ボタンを押す</li>
+    </div>
+  </div>
+  <div id="leftColumn" class="column left">
+    <div id="gameButtonPanel" class="toolbar">
+      <button id="runBtn">実行（じっこう）</button>
+    </div>
+    <div id="gamePanel">
+      <canvas id="game" width="800px" height="600px" />
+    </div>
+  </div>
+  <div id="rightColumn" class="column right">
+    <div id="tabNavigation" class="toolbar">
+      <button id="blocklyTabBtn">ブロック</button>
+      <button id="codeTabBtn">コード</button>
+    </div>
+    <!--
+    <div id="buttonPanel" class="toolbar">
+      <button id="showCode">コードに変換（へんかん）</button>
+      <button id="runCode">コードを実行（じっこう）</button>
+      <button id="clearCode">コードをクリアする</button>
+      <button id="sampleCode">サンプルコード</button>
+      <button id="runAPI">testAPI</button>
+    </div>
+    -->
+    <div id="blocklyTab" class="tab">
+      <div id="blocklyPanel"></div>
+    </div>
+    <div id="codeTab" class="tab" style="display: none;">
+      <div id="codePanel">
+        <textarea name="texarea" id="jsCode" cols="80" rows="20" style="color:white; background-color: darkblue">
+        alert('こんにちは　世界')
+        </textarea>
+        <br>
+        <input type="file" id="selfile" value="ファイルを読む">
+        <a href="" id="DLlink" download="download.txt">ファイルに保存する</a>
+      </div>
+    </div>
+  </div>
 
   <xml id="toolbox" style="display: none">
     <category name="ペンギンカスタム">
@@ -536,34 +528,6 @@
   <script src="index.js"></script>
 </body>
 <script>
-
-
-
-
-
-  //ファイルを保存する
-  document.querySelector('#DLlink').onclick = function () {
-    // var text = document.querySelector('#jsCode').value;
-    var text = document.getElementById("jsCode").value;
-    // debugger
-    // console.log(text);
-    // alert(text);
-    this.download = "penguin.txt";
-    this.href = 'data:text/plain;charset=utf-8,'
-      + encodeURIComponent(text);
-  };
-
-  var obj1 = document.getElementById("selfile");
-
-  //ダイアログでファイルが選択された時
-  obj1.addEventListener("change", function (evt) {
-    var file = evt.target.files;
-    var reader = new FileReader();
-    reader.readAsText(file[0]);
-    reader.onload = function (ev) {
-      document.getElementById("jsCode").value = reader.result;
-    }
-  }, false);
 </script>
 
 </html>

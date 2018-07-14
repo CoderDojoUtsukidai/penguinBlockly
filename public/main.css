@@ -1,0 +1,13 @@
+.column {
+  display: inline-block;
+  vertical-align: top;
+}
+.tab {
+  height: 600px;
+}
+.toolbar {
+  margin: 10px;
+}
+#game {
+  border: #000 solid 1px;
+}

@@ -73,14 +73,13 @@ createPseudoContext = function(interpreter, context) {
         var setProp = function(value) {
             context[prop] = value;
         };
-        // var descriptor = {
-        //     configurable: true,
-        //     enumerable: true,
-        //     get: getProp,
-        //     set: setProp
-        // };
-        // interpreter.setProperty(myContext, prop, null, descriptor);
-        interpreter.setProperty(myContext, prop, null, Interpreter.VARIABLE_DESCRIPTOR);
+        var descriptor = {
+            configurable: true,
+            enumerable: true,
+            get: interpreter.createNativeFunction(getProp, false),
+            set: interpreter.createNativeFunction(setProp, false)
+        };
+        interpreter.setProperty(myContext, prop, Interpreter.VALUE_IN_DESCRIPTOR, descriptor);
     }
     return myContext;
 };
@@ -135,19 +134,6 @@ initHighlight = function(interpreter, scope) {
     interpreter.setProperty(scope, 'highlightBlock',
         interpreter.createAsyncFunction(highlightWrapper));
 
-    // var delayWrapper = function(callback) {
-    // };
-    // interpreter.setProperty(scope, 'delay',
-    //     interpreter.createAsyncFunction(delayWrapper));
-
-    // var delayWrapper = function(id) {
-    //     var ms = 1000;
-    //     ms += new Date().getTime();
-    //     while (new Date() < ms) { }
-    // };
-    // interpreter.setProperty(scope, 'delay',
-    //     interpreter.createNativeFunction(delayWrapper));
-
     function alertWrapper(text) {
         const msg = text ? text.toString() : '';
         return interpreter.createPrimitive(window.alert(msg));
@@ -158,11 +144,8 @@ initHighlight = function(interpreter, scope) {
 
 function runCode_Version() {
     let maxSteps = 10000;
-    const code = Blockly.JavaScript.workspaceToCode(workspace);
+    const code = Blockly.JavaScript.workspaceToCode(workspace) + "highlightBlock(null);\n";
 
-    // const code = "var g = document.getElementById('game');var c = g.getContext('2d');\nconsole.log(c);";
-    // const code = "var w = document.getElementById('game');\nconsole.log(w);";
-    // const code = "var w = document.getElementById('game').clientWidth;\nconsole.log(w);";
     console.log(code);
 
     function initialize(interpreter, scope) {

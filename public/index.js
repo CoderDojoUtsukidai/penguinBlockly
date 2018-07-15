@@ -178,40 +178,61 @@ function generateCode(workspace, highlightBlocks = false) {
     return code;
 }
 
+var running = false;
+var mustStop = false;
+setRunning(false);
+
 function runBlocks() {
+    setRunning(true);
     let maxSteps = 10000;
     const code = generateCode(workspace, false);
     const jsInterpreter = createInterpreter(code);
-    while (jsInterpreter.step() && maxSteps) {
+    while (maxSteps && !mustStop) {
+        if (!jsInterpreter.step()) {
+            break;
+        }
         maxSteps -= 1;
     }
     if (!maxSteps) {
         throw EvalError('Infinite loop.');
     }
+    setRunning(false);
 }
 
 function debugBlocks() {
+    setRunning(true);
     const code = generateCode(workspace, true);
     const jsInterpreter = createInterpreter(code);
     var runOnce = function() {
-        if (jsInterpreter.run()) {
+        if (jsInterpreter.run() && !mustStop) {
             setTimeout(runOnce, 1000);
+        }
+        else {
+            if (mustStop) {
+                workspace.highlightBlock(null);
+            }
+            setRunning(false);
         }
     };
     runOnce();
 }
 
 function runCode() {
+    setRunning(true);
     let maxSteps = 10000;
     const code = editor.getSession().getValue();
     console.log(code);
     const jsInterpreter = createInterpreter(code);
-    while (jsInterpreter.step() && maxSteps) {
+    while (maxSteps && !mustStop) {
+        if (!jsInterpreter.step()) {
+            break;
+        }
         maxSteps -= 1;
     }
     if (!maxSteps) {
         throw EvalError('Infinite loop.');
     }
+    setRunning(false);
 }
 
 function annotateCode(code) {
@@ -225,12 +246,19 @@ function annotateCode(code) {
 }
 
 function debugCode() {
+    setRunning(true);
     const code = annotateCode(editor.getSession().getValue());
     console.log(code);
     const jsInterpreter = createInterpreter(code);
     var runOnce = function() {
-        if (jsInterpreter.run()) {
+        if (jsInterpreter.run() && !mustStop) {
             setTimeout(runOnce, 1000);
+        }
+        else {
+            if (mustStop) {
+                editor.selection.clearSelection();
+            }
+            setRunning(false);
         }
     };
     runOnce();
@@ -241,6 +269,9 @@ function isBlocklyVisible() {
 }
 
 function runProgram() {
+    if (running) {
+        return;
+    }
     if (isBlocklyVisible()) {
         runBlocks();
     }
@@ -250,11 +281,40 @@ function runProgram() {
 }
 
 function debugProgram() {
+    if (running) {
+        return;
+    }
     if (isBlocklyVisible()) {
         debugBlocks();
     }
     else {
         debugCode();
+    }
+}
+
+function stopProgram() {
+    if (!running) {
+        return;
+    }
+    mustStop = true;
+}
+
+function setRunning(value) {
+    running = value;
+    mustStop = false;
+    if (running) {
+        $('#runBtn').addClass('disabled');
+        $('#debugBtn').addClass('disabled');
+        $('#sampleBtn').addClass('disabled');
+        $('#stopBtn').removeClass('disabled');
+        $('.nav-link').addClass('disabled');
+    }
+    else {
+        $('#runBtn').removeClass('disabled');
+        $('#debugBtn').removeClass('disabled');
+        $('#sampleBtn').removeClass('disabled');
+        $('#stopBtn').addClass('disabled');
+        $('.nav-link').removeClass('disabled');
     }
 }
 
@@ -317,6 +377,9 @@ ctx.stroke();
 }
 
 function sampleProgram() {
+    if (running) {
+        return;
+    }
     if (isBlocklyVisible()) {
         sampleBlocks();
     }
@@ -327,6 +390,7 @@ function sampleProgram() {
 
 document.getElementById('runBtn').addEventListener('click', runProgram, false);
 document.getElementById('debugBtn').addEventListener('click', debugProgram, false);
+document.getElementById('stopBtn').addEventListener('click', stopProgram, false);
 document.getElementById('sampleBtn').addEventListener('click', sampleProgram, false);
 
 // Initialize ACE Javascript editor

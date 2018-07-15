@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>Penguin Blockly</title>
   <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css" />
 </head>
 
 <body>
@@ -17,38 +18,30 @@
     </div>
   </div>
   <div id="leftColumn" class="column left">
-    <div id="gameButtonPanel" class="toolbar">
-      <button id="runBtn">実行（じっこう）</button>
+    <div class="toolbar">
+      <button type="button" id="runBtn" class="btn btn-success">実行（じっこう）</button>
+      <button type="button" id="debugBtn" class="btn btn-secondary">ステップ実行</button>
     </div>
     <div id="gamePanel">
       <canvas id="game" width="800px" height="600px" />
     </div>
   </div>
   <div id="rightColumn" class="column right">
-    <div id="tabNavigation" class="toolbar">
-      <button id="blocklyTabBtn">ブロック</button>
-      <button id="codeTabBtn">コード</button>
+    <div id="tabNavigation" class="nav nav-tabs" role="tablist">
+      <a class="nav-item nav-link active" id="blockly-tab" data-toggle="tab" href="#blockly" role="tab" aria-controls="blockly" aria-selected="true">ブロック</a>
+      <a class="nav-item nav-link" id="code-tab" data-toggle="tab" href="#code" role="tab" aria-controls="code" aria-selected="false">コード</a>
     </div>
-    <!--
-    <div id="buttonPanel" class="toolbar">
-      <button id="showCode">コードに変換（へんかん）</button>
-      <button id="runCode">コードを実行（じっこう）</button>
-      <button id="clearCode">コードをクリアする</button>
-      <button id="sampleCode">サンプルコード</button>
-      <button id="runAPI">testAPI</button>
-    </div>
-    -->
-    <div id="blocklyTab" class="tab">
-      <div id="blocklyPanel"></div>
-    </div>
-    <div id="codeTab" class="tab" style="display: none;">
-      <div id="codePanel">
-        <textarea name="texarea" id="jsCode" cols="80" rows="20" style="color:white; background-color: darkblue">
-        alert('こんにちは　世界')
-        </textarea>
-        <br>
-        <input type="file" id="selfile" value="ファイルを読む">
-        <a href="" id="DLlink" download="download.txt">ファイルに保存する</a>
+    <div class="tab-content" id="tabNavContent">
+      <div id="blockly" class="tab-pane fade show active" role="tabpanel" aria-labelledby="blockly-tab">
+        <div id="blocklyPanel" class="fit-parent"></div>
+      </div>
+      <div id="code" class="tab-pane fade" role="tabpanel" aria-labelledby="code-tab">
+        <div id="codePanel" class="fit-parent">
+          <div id="jsCode" class="fit-parent">alert('こんにちは　世界');</div>
+          <br>
+          <input type="file" id="selfile" value="ファイルを読む">
+          <a href="" id="DLlink" download="download.txt">ファイルに保存する</a>
+        </div>
       </div>
     </div>
   </div>
@@ -513,12 +506,19 @@
     </category>
   </xml>
 
-  <script src="lib/js-interpreter/acorn_interpreter.js"></script>
+  <script src="lib/bootstrap/jquery-3.3.1.slim.min.js"></script>
+  <script src="lib/bootstrap/popper.min.js"></script>
+  <script src="lib/bootstrap/bootstrap.min.js"></script>
+  <!-- <script src="lib/js-interpreter/acorn_interpreter.js"></script> -->
+  <script src="lib/js-interpreter/acorn.js"></script>
+  <script src="lib/js-interpreter/interpreter.js"></script>
   <script src="lib/google-blockly/blockly_compressed.js"></script>
   <script src="lib/google-blockly/blocks_compressed.js"></script>
   <script src="lib/google-blockly/javascript_compressed.js"></script>
   <script src="lib/google-blockly/msg/js/ja.js"></script>
-
+  <script src="lib/ace/ace.js"></script>
+  <script src="lib/ace/mode-javascript.js"></script>
+  <script src="lib/ace/theme-monokai.js"></script>
   <script src="penguin_block.js"></script>
   <script src="penguin.js"></script>
 

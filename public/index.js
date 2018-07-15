@@ -26,11 +26,6 @@ function showCode() {
     console.log('code:' + code);
 }
 
-function runCode() {
-    var code = document.getElementById("jsCode").value;
-    eval(code);
-}
-
 createPseudoContext = function(interpreter, context) {
     var myContext = interpreter.createObjectProto(interpreter.OBJECT_PROTO);
     var contextFunctions = ['beginPath', 'stroke', 'fill',
@@ -145,30 +140,59 @@ initHighlight = function(interpreter, scope) {
         interpreter.createNativeFunction(alertWrapper));
 };
 
-function runCode_Version() {
-    let maxSteps = 10000;
-    const code = Blockly.JavaScript.workspaceToCode(workspace) + "highlightBlock(null);\n";
-
-    console.log(code);
-
+function createInterpreter(code) {
     function initialize(interpreter, scope) {
         initHighlight(interpreter, scope);
         initDocument(interpreter, scope);
         initConsole(interpreter, scope);
     }
-    const jsInterpreter = new Interpreter(code, initialize);
-    // while (jsInterpreter.step() && maxSteps) {
-    //     maxSteps -= 1;
-    // }
-    // if (!maxSteps) {
-    //     throw EvalError('Infinite loop.');
-    // }
+    return new Interpreter(code, initialize);
+}
+
+function generateCode(workspace, highlightBlocks = false) {
+    if (highlightBlocks) {
+        Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+    }
+    else {
+        Blockly.JavaScript.STATEMENT_PREFIX = '';
+    }
+    var code = Blockly.JavaScript.workspaceToCode(workspace);
+    if (highlightBlocks) {
+        code += "highlightBlock(null);\n";
+    }
+    console.log(code);
+    return code;
+}
+
+function runBlocks() {
+    let maxSteps = 10000;
+    const code = generateCode(workspace, false);
+    const jsInterpreter = createInterpreter(code);
+    while (jsInterpreter.step() && maxSteps) {
+        maxSteps -= 1;
+    }
+    if (!maxSteps) {
+        throw EvalError('Infinite loop.');
+    }
+}
+
+function debugBlocks() {
+    const code = generateCode(workspace, true);
+    const jsInterpreter = createInterpreter(code);
     var runOnce = function() {
         if (jsInterpreter.run()) {
             setTimeout(runOnce, 1000);
         }
     };
     runOnce();
+}
+
+function runCode() {
+    runBlocks();
+}
+
+function debugCode() {
+    debugBlocks();
 }
 
 function sampleCode() {
@@ -198,17 +222,27 @@ function sampleCode() {
     var codeElement = document.getElementById('jsCode').value = code;
 }
 
-function clearCode() {
-    var codeElement = document.getElementById('jsCode').value = "";
-}
+document.getElementById('runBtn').addEventListener('click', runCode, false);
+document.getElementById('debugBtn').addEventListener('click', debugCode, false);
 
-document.getElementById('runBtn').addEventListener('click', runCode_Version, false);
+// Initialize ACE Javascript editor
+var editor = ace.edit("jsCode");
+editor.setTheme("ace/theme/monokai");
+editor.session.setMode("ace/mode/javascript");
+editor.setOptions({
+    // fontFamily: "tahoma",
+    fontSize: "12pt"
+});
 
-// document.getElementById('showCode').addEventListener('click', showCode, false);
-// document.getElementById('runCode').addEventListener('click', runCode, false);
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    if (e.target.id === 'code-tab') {
+        const code = generateCode(workspace, false);
+        editor.getSession().setValue(code);
+    }
+})
 
 // document.getElementById('sampleCode').addEventListener('click', sampleCode, false);
-// document.getElementById('clearCode').addEventListener('click', clearCode, false);
+
 
 //Web Apiをコールするテスト
 // 
@@ -242,7 +276,7 @@ function resize() {
     console.log("resize");
     var w = window.innerWidth - 850;
     var h = document.getElementById("game").clientHeight;
-    var p = document.getElementById("blocklyPanel");
+    var p = document.getElementById("tabNavContent");
     if (p.clientWidth != w) {
         p.setAttribute("style", "width: " + w + "px; height: " + h + "px;");
         // This is a hack to force resize after selecting another

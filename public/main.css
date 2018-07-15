@@ -2,12 +2,21 @@
   display: inline-block;
   vertical-align: top;
 }
-.tab {
+#tabNavContent .tab-pane {
   height: 600px;
 }
 .toolbar {
-  margin: 10px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 #game {
   border: #000 solid 1px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.fit-parent {
+  width: inherit;
+  height: inherit;
 }

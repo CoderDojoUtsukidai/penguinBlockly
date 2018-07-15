@@ -1,8 +1,8 @@
 {
-  "name": "blocklyPenguin",
+  "name": "penguinBlockly",
   "version": "1.0.0",
-  "repository": "",
-  "author": "ken yuasa <simujyaky@gmail.com>",
+  "repository": "https://github.com/CoderDojoUtsukidai/penguinBlockly",
+  "author": "Ken Yuasa <simujyaky@gmail.com>",
   "license": "MIT",
   "scripts": {
     "http-server": "http-server -d false -c 0 "

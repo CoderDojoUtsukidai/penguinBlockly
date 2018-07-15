@@ -1,5 +1,6 @@
 Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
 Blockly.JavaScript.addReservedWords('highlightBlock');
+Blockly.JavaScript.addReservedWords('highlightLine');
 
 Blockly.JavaScript['penguin_getcontext2d'] = function(block) {
   var code = 'var game = document.getElementById("game");\nvar ctx = game.getContext("2d");\n';

@@ -124,13 +124,27 @@ initConsole = function(interpreter, scope) {
 };
 
 initHighlight = function(interpreter, scope) {
-    var highlightWrapper = function(id, callback) {
+    var highlightBlockWrapper = function(id, callback) {
         var ret = workspace.highlightBlock(id);
         setTimeout(callback, 1000);
         return ret;
     };
     interpreter.setProperty(scope, 'highlightBlock',
-        interpreter.createAsyncFunction(highlightWrapper));
+        interpreter.createAsyncFunction(highlightBlockWrapper));
+
+    var highlightLineWrapper = function(lineNum, callback) {
+        if (-1 === lineNum) {
+            editor.selection.clearSelection();
+        }
+        else {
+            editor.selection.moveCursorToPosition({row: lineNum, column: 0});
+            editor.selection.selectLine();
+            setTimeout(callback, 1000);
+        }
+        return true;
+    };
+    interpreter.setProperty(scope, 'highlightLine',
+        interpreter.createAsyncFunction(highlightLineWrapper));
 
     function alertWrapper(text) {
         const msg = text ? text.toString() : '';
@@ -188,42 +202,132 @@ function debugBlocks() {
 }
 
 function runCode() {
-    runBlocks();
+    let maxSteps = 10000;
+    const code = editor.getSession().getValue();
+    console.log(code);
+    const jsInterpreter = createInterpreter(code);
+    while (jsInterpreter.step() && maxSteps) {
+        maxSteps -= 1;
+    }
+    if (!maxSteps) {
+        throw EvalError('Infinite loop.');
+    }
+}
+
+function annotateCode(code) {
+    const lines = code.split("\n");
+    var annotatedLines = [];
+    lines.forEach((l, i) => {
+        annotatedLines[2*i] = 'highlightLine(' + i + ');';
+        annotatedLines[2*i+1] = l;
+    });
+    return annotatedLines.join("\n") + 'highlightLine(-1);';
 }
 
 function debugCode() {
-    debugBlocks();
+    const code = annotateCode(editor.getSession().getValue());
+    console.log(code);
+    const jsInterpreter = createInterpreter(code);
+    var runOnce = function() {
+        if (jsInterpreter.run()) {
+            setTimeout(runOnce, 1000);
+        }
+    };
+    runOnce();
+}
+
+function isBlocklyVisible() {
+    return document.getElementById('blockly').classList.contains('active');
+}
+
+function runProgram() {
+    if (isBlocklyVisible()) {
+        runBlocks();
+    }
+    else {
+        runCode();
+    }
+}
+
+function debugProgram() {
+    if (isBlocklyVisible()) {
+        debugBlocks();
+    }
+    else {
+        debugCode();
+    }
+}
+
+function sampleBlocks() {
+    var blocks = function() {
+/*
+<xml xmlns="http://www.w3.org/1999/xhtml">
+    <variables></variables>
+    <block type="penguin_getcontext2d" id="{?{S(h!qLu~9+8|sqqUf" x="28" y="23"><next>
+    <block type="penguin_clearrect" id="`iP._71rw=#z+j{ewM11"><value name="x"><block type="math_number" id="h.f[IdL#]4=r,|ZrO[dn"><field name="NUM">0</field></block></value><value name="y"><block type="math_number" id="h=!koJS~M|`G[1c=wDH9"><field name="NUM">0</field></block></value><value name="width"><block type="math_number" id="2_(`GESem?3N@~J%i+y]"><field name="NUM">800</field></block></value><value name="height"><block type="math_number" id="nl+Ne2/Skxdb[Zkw2Dpl"><field name="NUM">600</field></block></value><next>
+    <block type="penguin_fillstyle" id="%l(|m.irwrl#}iDdr6+1"><field name="color">lightblue</field><next>
+    <block type="penguin_fillrect" id="o#fO{oo0DJ6D79uj{(;d"><value name="x"><block type="math_number" id="U+!J3HC245a@jYg!e)ij"><field name="NUM">0</field></block></value><value name="y"><block type="math_number" id="fL3PZP,9B6b5$nRFW7G)"><field name="NUM">0</field></block></value><value name="width"><block type="math_number" id="L8?d{E/.34mT,yj8@-+4"><field name="NUM">800</field></block></value><value name="height"><block type="math_number" id="0[UQDZ$:q]|5X]$ULl/f"><field name="NUM">600</field></block></value><next>
+    <block type="penguin_fillstyle" id="W]_oflp$K{1MymA.CK?."><field name="color">green</field><next>
+    <block type="penguin_fillrect" id="og2zth*[L.S?L]$b8Bj_"><value name="x"><block type="math_number" id="H6Wao:,_|uTlsJK(Pid)"><field name="NUM">0</field></block></value><value name="y"><block type="math_number" id="8^F#x]Hi|a2dU+#H:QW:"><field name="NUM">500</field></block></value><value name="width"><block type="math_number" id="FLi8FP3%;U.8O)~.O[?a"><field name="NUM">800</field></block></value><value name="height"><block type="math_number" id="V{E80CiHYlXj$;/}W~%d"><field name="NUM">100</field></block></value><next>
+    <block type="penguin_strokestyle" id="o;q*FMlnW]Ok[qX@[vd="><field name="color">brown</field><next>
+    <block type="penguin_strokepath" id="sXkeG^Y2lrzV-$v_3V]*"><statement name="path_block"><block type="penguin_linewidth" id="C%aaRJ.uM`K3C25mGY4z"><value name="width"><block type="math_number" id="_iw_G}]62Cl~}g]UwnDN"><field name="NUM">10</field></block></value><next>
+    <block type="penguin_moveto" id="2;|7quaR99DY%DtQTZF-"><value name="x"><block type="math_number" id="gV5-8T:(?UITI(iOMJS`"><field name="NUM">200</field></block></value><value name="y"><block type="math_number" id="M5|*{y|swytl51jKZQyJ"><field name="NUM">500</field></block></value><next>
+    <block type="penguin_lineto" id="XKyx/$a^ulZT7ctbUWfa"><value name="x"><block type="math_number" id="yPSyjG)B5[dLeHSIPoj*"><field name="NUM">200</field></block></value><value name="y"><block type="math_number" id="+-^NyRqtZmiSRU8n+Q@G"><field name="NUM">400</field></block></value></block></next>
+    </block></next>
+    </block></statement><next>
+    <block type="penguin_strokepath" id="E!OR;MRW3VW%Bopk|Y-7"><statement name="path_block"><block type="penguin_linewidth" id="%Rf/5^wyKN[BrP!,sl3S"><value name="width"><block type="math_number" id="NyT^}f%?f$rA4nWd}nh="><field name="NUM">5</field></block></value><next>
+    <block type="penguin_moveto" id="WDp4fgD%2,|aw#i~Pb|F"><value name="x"><block type="math_number" id="o@X}I!)TrD:vixi0EOnh"><field name="NUM">200</field></block></value><value name="y"><block type="math_number" id="z`SMT|,YYLE9vDct:vOM"><field name="NUM">400</field></block></value><next>
+    <block type="penguin_lineto" id=")U$!-lr(iun7N]P5t;X4"><value name="x"><block type="math_number" id="Jd[Z%?XLoI[1j{?O{W[j"><field name="NUM">150</field></block></value><value name="y"><block type="math_number" id="Qw70J$JwG$R(SA=nn$y$"><field name="NUM">350</field></block></value><next>
+    <block type="penguin_moveto" id="o_hp6/ow(R_$Xb-i!8Y%"><value name="x"><block type="math_number" id="bZ#$u^GZJlVw!q.9VfG5"><field name="NUM">200</field></block></value><value name="y"><block type="math_number" id="omPF0?:mUSwU/*V@$Qpc"><field name="NUM">400</field></block></value><next>
+    <block type="penguin_lineto" id="jI)y-T3e81yF`WV5apQT"><value name="x"><block type="math_number" id="/6?#:B)}XjYjh=6fOy^b"><field name="NUM">220</field></block></value><value name="y"><block type="math_number" id="o_h?!D|MwR5;I*E^4}P5"><field name="NUM">380</field></block></value></block></next>
+    </block></next></block></next></block></next></block></statement></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block>
+</xml>
+*/
+    }.toString().split("\n").slice(2, -2).join("\n");
+    var xml = Blockly.Xml.textToDom(blocks);
+    Blockly.Xml.domToWorkspace(xml, workspace);
 }
 
 function sampleCode() {
     var code = function() {
-        /*
-        var game = document.getElementById("game");
-        var ctx = game.getContext("2d");
-        ctx.fillStyle = "lightblue";
-        ctx.fillRect(0,0,800,600);
-        ctx.fillStyle = "green";
-        ctx.fillRect(0,500,800,100);
-        ctx.strokeStyle = "brown";
-        ctx.beginPath();
-        ctx.lineWidth = 10;
-        ctx.moveTo(200,500);
-        ctx.lineTo(200,400);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.lineWidth = 5;
-        ctx.moveTo(200,400);
-        ctx.lineTo(150,350);
-        ctx.moveTo(200,400);
-        ctx.lineTo(220,380);
-        ctx.stroke();
-            */
-    }.toString().split("\n").slice(1, -1).join("\n")
-    var codeElement = document.getElementById('jsCode').value = code;
+/*
+var game = document.getElementById("game");
+var ctx = game.getContext("2d");
+ctx.clearRect(0,0,800,600);
+ctx.fillStyle = "lightblue";
+ctx.fillRect(0,0,800,600);
+ctx.fillStyle = "green";
+ctx.fillRect(0,500,800,100);
+ctx.strokeStyle = "brown";
+ctx.beginPath();
+  ctx.lineWidth = 10;
+  ctx.moveTo(200,500);
+  ctx.lineTo(200,400);
+ctx.stroke();
+ctx.beginPath();
+  ctx.lineWidth = 5;
+  ctx.moveTo(200,400);
+  ctx.lineTo(150,350);
+  ctx.moveTo(200,400);
+  ctx.lineTo(220,380);
+ctx.stroke();
+*/
+    }.toString().split("\n").slice(2, -2).join("\n");
+    editor.getSession().setValue(code);
 }
 
-document.getElementById('runBtn').addEventListener('click', runCode, false);
-document.getElementById('debugBtn').addEventListener('click', debugCode, false);
+function sampleProgram() {
+    if (isBlocklyVisible()) {
+        sampleBlocks();
+    }
+    else {
+        sampleCode();
+    }
+}
+
+document.getElementById('runBtn').addEventListener('click', runProgram, false);
+document.getElementById('debugBtn').addEventListener('click', debugProgram, false);
+document.getElementById('sampleBtn').addEventListener('click', sampleProgram, false);
 
 // Initialize ACE Javascript editor
 var editor = ace.edit("jsCode");
@@ -238,6 +342,10 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     if (e.target.id === 'code-tab') {
         const code = generateCode(workspace, false);
         editor.getSession().setValue(code);
+
+        var xml = Blockly.Xml.workspaceToDom(workspace);
+        var xml_text = Blockly.Xml.domToText(xml);
+        console.log(xml_text);
     }
 })
 

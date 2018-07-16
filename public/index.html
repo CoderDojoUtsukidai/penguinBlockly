@@ -21,7 +21,39 @@
     <div class="toolbar">
       <button type="button" id="runBtn" class="btn btn-success">実行（じっこう）</button>
       <button type="button" id="debugBtn" class="btn btn-secondary">ステップ実行</button>
-      <button type="button" id="stopBtn" class="btn btn-danger">プログラムを止める</button>
+      <button type="button" id="stopBtn" class="btn btn-danger">止める</button>
+      <div class="dropdown" style="display: inline-block;">
+        <a class="btn btn-info dropdown-toggle" href="#" role="button" id="saveDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          保存
+        </a>
+        <div class="dropdown-menu" aria-labelledby="saveDropdownLink" style="width: 400px;">
+          <form class="px-4 py-3">
+            <div class="form-group">
+              <label for="saveFilename">ファイル名</label>
+              <input type="input" class="form-control" id="saveFilename" value="penguin">
+            </div>
+            <a role="button" id="saveBtn" class="btn btn-info" href="#">保存</a>
+          </form>
+        </div>
+      </div>
+      <div class="dropdown" style="display: inline-block;">
+        <a class="btn btn-info dropdown-toggle" href="#" role="button" id="loadDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          読込
+        </a>
+        <div class="dropdown-menu" aria-labelledby="loadDropdownLink" style="width: 400px;">
+          <form class="px-4 py-3">
+            <div class="form-group">
+              <div class="input-group mb-3">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="loadFilename">
+                  <label class="custom-file-label" for="loadFilename">ファイルを選ぶ</label>
+                </div>
+              </div>
+            </div>
+            <a role="button" id="loadBtn" class="btn btn-info" href="#">読込</a>
+          </form>
+        </div>
+      </div>
       <button type="button" id="sampleBtn" class="btn btn-primary">サンプル</button>
     </div>
     <div id="gamePanel">
@@ -49,7 +81,7 @@
   </div>
 
   <xml id="toolbox" style="display: none">
-    <category name="ペンギンカスタム">
+    <category name="お絵描き">
       <block type="penguin_getcontext2d"></block>
       <block type="penguin_fillstyle"></block>
       <block type="penguin_strokestyle"></block>
@@ -171,8 +203,6 @@
       </block>
       <block type="penguin_animation"></block>
     </category>
-
-
     <category name="文字と出力">
       <block type="text"></block>
       <block type="text_print"></block>
@@ -201,8 +231,8 @@
         </value>
       </block>
     </category>
-    <category name="ロジック">
-      <category name="If">
+    <category name="じょうけん">
+      <category name="もし">
         <block type="controls_if"></block>
         <block type="controls_if">
           <mutation else="1"></mutation>
@@ -211,7 +241,7 @@
           <mutation elseif="1" else="1"></mutation>
         </block>
       </category>
-      <category name="Boolean">
+      <category name="ロジック">
         <block type="logic_compare"></block>
         <block type="logic_operation"></block>
         <block type="logic_negate"></block>

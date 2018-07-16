@@ -18,14 +18,6 @@ const workspace = Blockly.inject(
     },
 );
 
-function showCode() {
-    Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-    var code = Blockly.JavaScript.workspaceToCode(workspace);
-    var codeElement = document.getElementById('jsCode');
-    codeElement.value = code;
-    console.log('code:' + code);
-}
-
 createPseudoContext = function(interpreter, context) {
     var myContext = interpreter.createObjectProto(interpreter.OBJECT_PROTO);
     var contextFunctions = ['beginPath', 'stroke', 'fill',
@@ -123,6 +115,46 @@ initConsole = function(interpreter, scope) {
     }
 };
 
+initWindow = function(interpreter, scope) {
+    function requestAnimationFrameWrapper(animationCallback, callback) {
+        function callbackWrapper() {
+            const stack = interpreter.stateStack;
+            const currentState = stack.pop();
+            const fnName = currentState.node.arguments[0].name;
+            console.log('Looking for ' + fnName + ' in call stack.');
+            var found = false;
+            var i = stack.length - 1;
+            for (; i > 0; i --) {
+                var s = stack[i];
+                if (s.node.type === 'CallExpression' &&
+                    s.node.callee.name === fnName) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                throw EvalError('Could not find ' + fnName + ' in call stack.');
+            }
+            for (var j = stack.length - 1; j > i; j --) {
+                stack.pop();
+            }
+            var state = stack[stack.length - 1];
+            state.doneCallee_ = 0;
+            state.doneExec_ = false;
+            state.doneArgs_ = false;
+            console.log(state);
+            stack.push(currentState);
+            console.log(stack[stack.length - 1]);
+            // debugger;
+            callback();
+        }
+        return interpreter.createPrimitive(window.requestAnimationFrame(callbackWrapper));
+    }
+    interpreter.setProperty(scope, 'requestAnimationFrame',
+        interpreter.createAsyncFunction(requestAnimationFrameWrapper),
+        Interpreter.NONENUMERABLE_DESCRIPTOR);
+};
+
 initHighlight = function(interpreter, scope) {
     var highlightBlockWrapper = function(id, callback) {
         var ret = workspace.highlightBlock(id);
@@ -156,9 +188,10 @@ initHighlight = function(interpreter, scope) {
 
 function createInterpreter(code) {
     function initialize(interpreter, scope) {
-        initHighlight(interpreter, scope);
         initDocument(interpreter, scope);
         initConsole(interpreter, scope);
+        initWindow(interpreter, scope);
+        initHighlight(interpreter, scope);
     }
     return new Interpreter(code, initialize);
 }
@@ -182,21 +215,20 @@ var running = false;
 var mustStop = false;
 setRunning(false);
 
+function annotateCodeForStopping(code) {
+    const lines = code.split("\n");
+    var annotatedLines = [];
+    lines.forEach((l, i) => {
+        annotatedLines[2*i] = l;
+        annotatedLines[2*i+1] = 'if (mustStop) { setRunning(false); throw EvalError("Stopped."); }';
+    });
+    return annotatedLines.join("\n");
+}
+
 function runBlocks() {
     setRunning(true);
-    let maxSteps = 10000;
-    const code = generateCode(workspace, false);
-    const jsInterpreter = createInterpreter(code);
-    while (maxSteps && !mustStop) {
-        if (!jsInterpreter.step()) {
-            break;
-        }
-        maxSteps -= 1;
-    }
-    if (!maxSteps) {
-        throw EvalError('Infinite loop.');
-    }
-    setRunning(false);
+    const code = annotateCodeForStopping(generateCode(workspace, false));
+    eval(code);
 }
 
 function debugBlocks() {
@@ -219,23 +251,11 @@ function debugBlocks() {
 
 function runCode() {
     setRunning(true);
-    let maxSteps = 10000;
-    const code = editor.getSession().getValue();
-    console.log(code);
-    const jsInterpreter = createInterpreter(code);
-    while (maxSteps && !mustStop) {
-        if (!jsInterpreter.step()) {
-            break;
-        }
-        maxSteps -= 1;
-    }
-    if (!maxSteps) {
-        throw EvalError('Infinite loop.');
-    }
-    setRunning(false);
+    const code = annotateCodeForStopping(editor.getSession().getValue());
+    eval(code);
 }
 
-function annotateCode(code) {
+function annotateCodeForHighlight(code) {
     const lines = code.split("\n");
     var annotatedLines = [];
     lines.forEach((l, i) => {
@@ -247,7 +267,7 @@ function annotateCode(code) {
 
 function debugCode() {
     setRunning(true);
-    const code = annotateCode(editor.getSession().getValue());
+    const code = annotateCodeForHighlight(editor.getSession().getValue());
     console.log(code);
     const jsInterpreter = createInterpreter(code);
     var runOnce = function() {
@@ -318,7 +338,7 @@ function setRunning(value) {
     }
 }
 
-function sampleBlocks() {
+function sampleBlocks_() {
     var blocks = function() {
 /*
 <xml xmlns="http://www.w3.org/1999/xhtml">
@@ -342,6 +362,26 @@ function sampleBlocks() {
     <block type="penguin_lineto" id="jI)y-T3e81yF`WV5apQT"><value name="x"><block type="math_number" id="/6?#:B)}XjYjh=6fOy^b"><field name="NUM">220</field></block></value><value name="y"><block type="math_number" id="o_h?!D|MwR5;I*E^4}P5"><field name="NUM">380</field></block></value></block></next>
     </block></next></block></next></block></next></block></statement></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block>
 </xml>
+*/
+    }.toString().split("\n").slice(2, -2).join("\n");
+    var xml = Blockly.Xml.textToDom(blocks);
+    Blockly.Xml.domToWorkspace(xml, workspace);
+}
+
+function sampleBlocks() {
+// Program to run animation
+    var blocks = function() {
+/*
+<xml xmlns="http://www.w3.org/1999/xhtml">
+    <variables><variable type="" id="%hqk*.WtWb6?[?dG^mSb">x</variable><variable type="" id="(Jy!R%Sxw;$!V9|,m)P1">vx</variable></variables>
+    <block type="penguin_getcontext2d" id="v7:iaM*S!P{pi~(7tnGA" x="28" y="12"><next>
+    <block type="variables_set" id="jA[xJscr[k,?Ct(F[y1O"><field name="VAR" id="%hqk*.WtWb6?[?dG^mSb" variabletype="">x</field><value name="VALUE"><block type="math_number" id="|NQS24{FBA@F+U/att:U"><field name="NUM">100</field></block></value><next>
+    <block type="variables_set" id="iRS!=!M{B;U8|PE,NxGP"><field name="VAR" id="(Jy!R%Sxw;$!V9|,m)P1" variabletype="">vx</field><value name="VALUE"><block type="math_number" id="f%Q}eJcE0yMKgZ2c}GW$"><field name="NUM">10</field></block></value><next>
+    <block type="penguin_fillstyle" id="%@?C(j[~`3Z||Wj0S8%."><field name="color">red</field><next>
+    <block type="penguin_animation" id="d1c:+kzWynQiC|Dp`|IJ"><statement name="animation_block"><block type="penguin_clearrect" id="peE$BTe!WH=WXkwZeO#^"><value name="x"><block type="math_number" id="A|)2;esX~:XlnC4IC-[k"><field name="NUM">0</field></block></value><value name="y"><block type="math_number" id="1O1T$*WVu_5:{|QU(2{;"><field name="NUM">0</field></block></value><value name="width"><block type="math_number" id="+JH85%C++y](e}}z(zm{"><field name="NUM">800</field></block></value><value name="height"><block type="math_number" id="uC1{yK]q]K($lDSbF#Ts"><field name="NUM">600</field></block></value><next>
+    <block type="penguin_fillpath" id="od_=U0O+!.YWD_K|H;.O"><statement name="path_block"><block type="penguin_circle" id="Diqx[w#X.v~EbsJy[-Ug"><value name="x"><block type="variables_get" id="(60S`@lr+NG.3R3_Ro:M"><field name="VAR" id="%hqk*.WtWb6?[?dG^mSb" variabletype="">x</field></block></value><value name="y"><block type="math_number" id=";qmzq]9D7*o+s2Bs45;z"><field name="NUM">400</field></block></value><value name="radius"><block type="math_number" id="tQS(?AgIQO`^.;pM2aVY"><field name="NUM">50</field></block></value><next>
+    <block type="math_change" id="VZR2+l%|Njp7d64rUTs^"><field name="VAR" id="%hqk*.WtWb6?[?dG^mSb" variabletype="">x</field><value name="DELTA"><shadow type="math_number" id="Xld|-+;LQIy:@}HE65O3"><field name="NUM">1</field></shadow><block type="variables_get" id="nnx|A_XB6`/5:Ue3Og2I"><field name="VAR" id="(Jy!R%Sxw;$!V9|,m)P1" variabletype="">vx</field></block></value><next>
+    <block type="controls_if" id="fe[L;Lz14,V5!|Z_RK4/"><value name="IF0"><block type="logic_operation" id=")#vt|=]*rwi}d1|XIf^B"><field name="OP">OR</field><value name="A"><block type="logic_compare" id="{nAEp|GvanqEDcOBT4:p"><field name="OP">LT</field><value name="A"><block type="variables_get" id="KnQwlQq!2o8qWW.3emEo"><field name="VAR" id="%hqk*.WtWb6?[?dG^mSb" variabletype="">x</field></block></value><value name="B"><block type="math_number" id="}Lw4tRMa}mx7~ZOY4m:?"><field name="NUM">100</field></block></value></block></value><value name="B"><block type="logic_compare" id="1vkj80YG8^ND.?zR9V.I"><field name="OP">GT</field><value name="A"><block type="variables_get" id="4VOG/gVeT[]PO65c9m;]"><field name="VAR" id="%hqk*.WtWb6?[?dG^mSb" variabletype="">x</field></block></value><value name="B"><block type="math_number" id="~Zx3;R)PF)m9%Fv]EzLe"><field name="NUM">700</field></block></value></block></value></block></value><statement name="DO0"><block type="variables_set" id="tOtiDhs1!?L_p_xWjR.}"><field name="VAR" id="(Jy!R%Sxw;$!V9|,m)P1" variabletype="">vx</field><value name="VALUE"><block type="math_arithmetic" id=".{P,bei{,@~,nKa(}v5i"><field name="OP">MINUS</field><value name="A"><block type="math_number" id="_ak[qb~xP?^^/EP+^%p7"><field name="NUM">0</field></block></value><value name="B"><block type="variables_get" id="7zM]S7j]*]H;N{Q0@q}n"><field name="VAR" id="(Jy!R%Sxw;$!V9|,m)P1" variabletype="">vx</field></block></value></block></value></block></statement></block></next></block></next></block></statement></block></next></block></statement></block></next></block></next></block></next></block></next></block></xml>
 */
     }.toString().split("\n").slice(2, -2).join("\n");
     var xml = Blockly.Xml.textToDom(blocks);
@@ -388,9 +428,83 @@ function sampleProgram() {
     }
 }
 
+function saveBlocks() {
+    const xml = Blockly.Xml.workspaceToDom(workspace);
+    const xml_text = Blockly.Xml.domToText(xml);
+    const filename = document.getElementById('saveFilename').value;
+    var link = document.getElementById('saveBtn');
+    link.download = filename;
+    link.href = 'data:text/xml;charset=utf-8,' +
+        encodeURIComponent(xml_text);
+}
+
+function saveCode() {
+    const code = editor.getSession().getValue();
+    const filename = document.getElementById('saveFilename').value;
+    var link = document.getElementById('saveBtn');
+    link.download = filename;
+    link.href = 'data:text/plain;charset=utf-8,' +
+        encodeURIComponent(code);
+}
+
+function saveProgram(e) {
+    if (isBlocklyVisible()) {
+        saveBlocks();
+    }
+    else {
+        saveCode();
+    }
+}
+
+function loadBlocks() {
+    const fileSelector = document.getElementById('loadFilename');
+    const loadFilename = fileSelector.files[0];
+    var reader = new FileReader();
+    reader.readAsText(loadFilename);
+    reader.onload = function(ev) {
+        const xml = Blockly.Xml.textToDom(reader.result);
+        Blockly.Xml.domToWorkspace(xml, workspace);
+    }
+    $('#loadDropdownLink').dropdown('toggle');
+}
+
+function loadCode() {
+    const fileSelector = document.getElementById('loadFilename');
+    const loadFilename = fileSelector.files[0];
+    var reader = new FileReader();
+    reader.readAsText(loadFilename);
+    reader.onload = function(ev) {
+        editor.getSession().setValue(reader.result);
+    }
+    $('#loadDropdownLink').dropdown('toggle');
+}
+
+function loadProgram() {
+    if (isBlocklyVisible()) {
+        loadBlocks();
+    }
+    else {
+        loadCode();
+    }
+}
+
+var obj1 = document.getElementById("selfile");
+
+//ダイアログでファイルが選択された時
+obj1.addEventListener("change", function(evt) {
+    var file = evt.target.files;
+    var reader = new FileReader();
+    reader.readAsText(file[0]);
+    reader.onload = function(ev) {
+        document.getElementById("jsCode").value = reader.result;
+    }
+}, false);
+
 document.getElementById('runBtn').addEventListener('click', runProgram, false);
 document.getElementById('debugBtn').addEventListener('click', debugProgram, false);
 document.getElementById('stopBtn').addEventListener('click', stopProgram, false);
+document.getElementById('saveBtn').addEventListener('click', saveProgram, false);
+document.getElementById('loadBtn').addEventListener('click', loadProgram, false);
 document.getElementById('sampleBtn').addEventListener('click', sampleProgram, false);
 
 // Initialize ACE Javascript editor
@@ -462,27 +576,3 @@ function resize() {
 resize();
 
 window.onresize = resize;
-
-//ファイルを保存する
-document.querySelector('#DLlink').onclick = function() {
-    // var text = document.querySelector('#jsCode').value;
-    var text = document.getElementById("jsCode").value;
-    // debugger
-    // console.log(text);
-    // alert(text);
-    this.download = "penguin.txt";
-    this.href = 'data:text/plain;charset=utf-8,' +
-        encodeURIComponent(text);
-};
-
-var obj1 = document.getElementById("selfile");
-
-//ダイアログでファイルが選択された時
-obj1.addEventListener("change", function(evt) {
-    var file = evt.target.files;
-    var reader = new FileReader();
-    reader.readAsText(file[0]);
-    reader.onload = function(ev) {
-        document.getElementById("jsCode").value = reader.result;
-    }
-}, false);

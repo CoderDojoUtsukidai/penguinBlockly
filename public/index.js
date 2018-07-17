@@ -222,7 +222,12 @@ function annotateCodeForStopping(code) {
         annotatedLines[2*i] = l;
         annotatedLines[2*i+1] = 'if (mustStop) { setRunning(false); throw EvalError("Stopped."); }';
     });
-    return annotatedLines.join("\n");
+    var annotatedCode = annotatedLines.join("\n");
+    if (annotatedCode.indexOf('requestAnimationFrame') === -1 &&
+        annotatedCode.indexOf('setTimeout') === -1) {
+        annotatedCode += '\nsetRunning(false);\n';
+    }
+    return annotatedCode;
 }
 
 function runBlocks() {
@@ -326,6 +331,8 @@ function setRunning(value) {
         $('#runBtn').addClass('disabled');
         $('#debugBtn').addClass('disabled');
         $('#sampleBtn').addClass('disabled');
+        $('#saveDropdownLink').addClass('disabled');
+        $('#loadDropdownLink').addClass('disabled');
         $('#stopBtn').removeClass('disabled');
         $('.nav-link').addClass('disabled');
     }
@@ -333,6 +340,8 @@ function setRunning(value) {
         $('#runBtn').removeClass('disabled');
         $('#debugBtn').removeClass('disabled');
         $('#sampleBtn').removeClass('disabled');
+        $('#saveDropdownLink').removeClass('disabled');
+        $('#loadDropdownLink').removeClass('disabled');
         $('#stopBtn').addClass('disabled');
         $('.nav-link').removeClass('disabled');
     }
@@ -488,18 +497,6 @@ function loadProgram() {
     }
 }
 
-var obj1 = document.getElementById("selfile");
-
-//ダイアログでファイルが選択された時
-obj1.addEventListener("change", function(evt) {
-    var file = evt.target.files;
-    var reader = new FileReader();
-    reader.readAsText(file[0]);
-    reader.onload = function(ev) {
-        document.getElementById("jsCode").value = reader.result;
-    }
-}, false);
-
 document.getElementById('runBtn').addEventListener('click', runProgram, false);
 document.getElementById('debugBtn').addEventListener('click', debugProgram, false);
 document.getElementById('stopBtn').addEventListener('click', stopProgram, false);
@@ -526,37 +523,6 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         console.log(xml_text);
     }
 })
-
-// document.getElementById('sampleCode').addEventListener('click', sampleCode, false);
-
-
-//Web Apiをコールするテスト
-// 
-function runAPI() {
-    alert('before send');
-    var url = "http://weather.livedoor.com/forecast/webservice/json/v1?city=130010";
-    var xhr = new XMLHttpRequest();
-    // url = location.href;
-    xhr.open("GET", url);
-    xhr.onreadystatechange = function() {
-        alert('readyState:' + xhr.readyState);
-        alert('status:' + xhr.status);
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            alert('responseText:' + xhr.responseText);
-            console.log(xhr.responseText);
-            var res = JSON.parse(xhr.responseText)
-            alert('RES:' + res);
-            console.log(res);
-        }
-        if (xhr.readyState === 4 && xhr.status === 0) {
-            alert('responseText:' + xhr.responseText);
-        }
-    }
-    xhr.send();
-    alert('after send');
-}
-
-// document.getElementById('runAPI').addEventListener('click', runAPI, false);
 
 function resize() {
     console.log("resize");

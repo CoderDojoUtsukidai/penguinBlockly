@@ -18,7 +18,7 @@ const workspace = Blockly.inject(
     },
 );
 
-createPseudoContext = function(interpreter, context) {
+const createPseudoContext = function(interpreter, context) {
     var myContext = interpreter.createObjectProto(interpreter.OBJECT_PROTO);
     var contextFunctions = ['beginPath', 'stroke', 'fill',
         'moveTo', 'lineTo', 'fillRect', 'strokeRect', 'clearRect', 'arc'
@@ -72,7 +72,7 @@ createPseudoContext = function(interpreter, context) {
     return myContext;
 };
 
-createPseudoCanvas = function(interpreter, canvas) {
+const createPseudoCanvas = function(interpreter, canvas) {
     var myCanvas = interpreter.createObjectProto(interpreter.OBJECT_PROTO);
 
     function getContextWrapper(type) {
@@ -88,7 +88,7 @@ createPseudoCanvas = function(interpreter, canvas) {
     return myCanvas;
 };
 
-initDocument = function(interpreter, scope) {
+const initDocument = function(interpreter, scope) {
     var myDocument = interpreter.createObjectProto(interpreter.OBJECT_PROTO);
     interpreter.setProperty(scope, 'document', myDocument);
 
@@ -104,7 +104,7 @@ initDocument = function(interpreter, scope) {
         Interpreter.NONENUMERABLE_DESCRIPTOR);
 };
 
-initConsole = function(interpreter, scope) {
+const initConsole = function(interpreter, scope) {
     var myConsole = interpreter.createObjectProto(interpreter.OBJECT_PROTO);
     interpreter.setProperty(scope, 'console', myConsole);
     var consoleFunctions = ['log'];
@@ -115,7 +115,7 @@ initConsole = function(interpreter, scope) {
     }
 };
 
-initWindow = function(interpreter, scope) {
+const initWindow = function(interpreter, scope) {
     function requestAnimationFrameWrapper(animationCallback, callback) {
         function callbackWrapper() {
             const stack = interpreter.stateStack;
@@ -155,7 +155,7 @@ initWindow = function(interpreter, scope) {
         Interpreter.NONENUMERABLE_DESCRIPTOR);
 };
 
-initHighlight = function(interpreter, scope) {
+const initHighlight = function(interpreter, scope) {
     var highlightBlockWrapper = function(id, callback) {
         var ret = workspace.highlightBlock(id);
         setTimeout(callback, 1000);
@@ -463,6 +463,7 @@ function saveProgram(e) {
     else {
         saveCode();
     }
+    $('#saveDropdownLink').dropdown('toggle');
 }
 
 function loadBlocks() {

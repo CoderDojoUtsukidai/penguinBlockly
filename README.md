@@ -1,26 +1,23 @@
-# Blockly Penguin
+# Penguin Blockly
 
-[Blockly](https://developers.google.com/blockly/) Customize sample
+[Blockly](https://developers.google.com/blockly/)-based environment to teach programming to kids.
 
 
 ## Getting started
 
 Install node
 
-ref
 - [node.js](https://nodejs.org/ja/)
-- [nodebrew](https://github.com/hokaccha/nodebrew)
 
-
-Install yarn & dependencies
+Build
 
 ```
-$ npm install yarn -g
-$ yarn
+$ npm install
 ```
 
 Run http-server
+
 ```
-$ npm run http-server
+$ npm run serve
 ```
 

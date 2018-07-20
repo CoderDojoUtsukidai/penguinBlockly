@@ -1,14 +1,35 @@
 {
   "name": "penguinBlockly",
   "version": "1.0.0",
+  "description": "Blockly environment to teach programming to kids",
   "repository": "https://github.com/CoderDojoUtsukidai/penguinBlockly",
   "author": "Ken Yuasa <simujyaky@gmail.com>",
   "license": "MIT",
-  "scripts": {
-    "http-server": "http-server -d false -c 0 "
-  },
+  "main": "webpack.config.js",
   "dependencies": {
+    "bootstrap": "^4.1.1",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.3"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.1.4",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-react-html-attrs": "^2.1.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "concurrently": "^3.5.1",
+    "css-loader": "^0.28.11",
     "eslint": "^4.13.1",
-    "http-server": "^0.10.0"
+    "http-server": "^0.11.1",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --progress --watch",
+    "serve": "http-server -d false -c 0",
+    "start": "concurrently -k -p \"[{name}]\" -n \"Webpack,HTTP-Server\" -c \"cyan.bold,green.bold\"  \"npm run watch\" \"npm run serve\" "
   }
 }

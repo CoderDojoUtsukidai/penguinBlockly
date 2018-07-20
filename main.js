@@ -332,7 +332,6 @@ function setRunning(value) {
     if (running) {
         $('#runBtn').addClass('disabled');
         $('#debugBtn').addClass('disabled');
-        $('#sampleBtn').addClass('disabled');
         $('#saveDropdownLink').addClass('disabled');
         $('#loadDropdownLink').addClass('disabled');
         $('#stopBtn').removeClass('disabled');
@@ -341,70 +340,10 @@ function setRunning(value) {
     else {
         $('#runBtn').removeClass('disabled');
         $('#debugBtn').removeClass('disabled');
-        $('#sampleBtn').removeClass('disabled');
         $('#saveDropdownLink').removeClass('disabled');
         $('#loadDropdownLink').removeClass('disabled');
         $('#stopBtn').addClass('disabled');
         $('.nav-link').removeClass('disabled');
-    }
-}
-
-function sampleBlocks_() {
-    var blocks = function() {
-/*
-*/
-    }.toString().split("\n").slice(2, -2).join("\n");
-    var xml = Blockly.Xml.textToDom(blocks);
-    Blockly.Xml.domToWorkspace(xml, workspace);
-}
-
-function sampleBlocks() {
-// Program to run animation
-    var blocks = function() {
-/*
-*/
-    }.toString().split("\n").slice(2, -2).join("\n");
-    var xml = Blockly.Xml.textToDom(blocks);
-    Blockly.Xml.domToWorkspace(xml, workspace);
-}
-
-function sampleCode() {
-    var code = function() {
-/*
-var game = document.getElementById("game");
-var ctx = game.getContext("2d");
-ctx.clearRect(0,0,800,600);
-ctx.fillStyle = "lightblue";
-ctx.fillRect(0,0,800,600);
-ctx.fillStyle = "green";
-ctx.fillRect(0,500,800,100);
-ctx.strokeStyle = "brown";
-ctx.beginPath();
-  ctx.lineWidth = 10;
-  ctx.moveTo(200,500);
-  ctx.lineTo(200,400);
-ctx.stroke();
-ctx.beginPath();
-  ctx.lineWidth = 5;
-  ctx.moveTo(200,400);
-  ctx.lineTo(150,350);
-  ctx.moveTo(200,400);
-  ctx.lineTo(220,380);
-ctx.stroke();
-*/
-    }.toString().split("\n").slice(2, -2).join("\n");
-    editor.getSession().setValue(code);
-}
-
-function sampleProgram() {
-    if (running) {
-        return;
-    }
-    if (isBlocklyVisible()) {
-        sampleBlocks();
-    }
-    else {
-        sampleCode();
     }
 }
 
@@ -425,6 +364,7 @@ function saveCode() {
     link.download = filename;
     link.href = 'data:text/plain;charset=utf-8,' +
         encodeURIComponent(code);
+    codeUpdated = false;
 }
 
 function saveProgram(e) {
@@ -474,9 +414,9 @@ document.getElementById('debugBtn').addEventListener('click', debugProgram, fals
 document.getElementById('stopBtn').addEventListener('click', stopProgram, false);
 document.getElementById('saveBtn').addEventListener('click', saveProgram, false);
 document.getElementById('loadBtn').addEventListener('click', loadProgram, false);
-document.getElementById('sampleBtn').addEventListener('click', sampleProgram, false);
 
 // Initialize ACE Javascript editor
+var codeUpdated = false;
 var editor = ace.edit("jsCode");
 editor.setTheme("ace/theme/monokai");
 editor.session.setMode("ace/mode/javascript");
@@ -484,6 +424,26 @@ editor.setOptions({
     // fontFamily: "tahoma",
     fontSize: "12pt"
 });
+editor.getSession().on('change', function() {
+    codeUpdated = true;
+});
+
+$('a[data-toggle="tab"]').on('hide.bs.tab', function (e) {
+    if (e.target.id === 'code-tab') {
+        if (codeUpdated) {
+            $('#switch-blockly-confirmation').modal('show');
+            e.preventDefault();
+        }
+    }
+});
+
+function confirmSwitchTab() {
+    codeUpdated = false;  // ignore code updates
+    $('#blockly-tab').tab('show');
+    $('#switch-blockly-confirmation').modal('hide');
+}
+
+document.getElementById('confirmSwitchTabBtn').addEventListener('click', confirmSwitchTab, false);
 
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     if (e.target.id === 'code-tab') {
@@ -493,8 +453,9 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         var xml = Blockly.Xml.workspaceToDom(workspace);
         var xml_text = Blockly.Xml.domToText(xml);
         console.log(xml_text);
+        codeUpdated = false;
     }
-})
+});
 
 function resize() {
     console.log("resize");

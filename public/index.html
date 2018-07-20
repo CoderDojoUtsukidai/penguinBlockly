@@ -54,7 +54,6 @@
           </form>
         </div>
       </div>
-      <button type="button" id="sampleBtn" class="btn btn-primary">サンプル</button>
     </div>
     <div id="gamePanel">
       <canvas id="game" width="800px" height="600px" />
@@ -72,6 +71,27 @@
       <div id="code" class="tab-pane fade" role="tabpanel" aria-labelledby="code-tab">
         <div id="codePanel" class="fit-parent">
           <div id="jsCode" class="fit-parent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="switch-blockly-confirmation" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">本当にブロックへ行くのですか？</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>コードが変わりました。</p>
+          <p>ブロックへ行くと、コードの修正が失われます。</p>
+          <p>本当にブロックへ行くのですか？</p>
+        </div>
+        <div class="modal-footer">
+          <button id="noSwitchTabBtn" type="button" class="btn btn-secondary" data-dismiss="modal">ここに残る</button>
+          <button id="confirmSwitchTabBtn" type="button" class="btn btn-danger">コードの修正を捨ててブロックへ行く</button>
         </div>
       </div>
     </div>

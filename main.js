@@ -1,6 +1,8 @@
+const toolbox = require('./toolbox.xml')
+
 const workspace = Blockly.inject(
     'blocklyPanel', {
-        toolbox: document.getElementById('toolbox'),
+        toolbox: toolbox,
         grid: {
             spacing: 18,
             length: 3,
@@ -350,27 +352,6 @@ function setRunning(value) {
 function sampleBlocks_() {
     var blocks = function() {
 /*
-<xml xmlns="http://www.w3.org/1999/xhtml">
-    <variables></variables>
-    <block type="penguin_getcontext2d" id="{?{S(h!qLu~9+8|sqqUf" x="28" y="23"><next>
-    <block type="penguin_clearrect" id="`iP._71rw=#z+j{ewM11"><value name="x"><block type="math_number" id="h.f[IdL#]4=r,|ZrO[dn"><field name="NUM">0</field></block></value><value name="y"><block type="math_number" id="h=!koJS~M|`G[1c=wDH9"><field name="NUM">0</field></block></value><value name="width"><block type="math_number" id="2_(`GESem?3N@~J%i+y]"><field name="NUM">800</field></block></value><value name="height"><block type="math_number" id="nl+Ne2/Skxdb[Zkw2Dpl"><field name="NUM">600</field></block></value><next>
-    <block type="penguin_fillstyle" id="%l(|m.irwrl#}iDdr6+1"><field name="color">lightblue</field><next>
-    <block type="penguin_fillrect" id="o#fO{oo0DJ6D79uj{(;d"><value name="x"><block type="math_number" id="U+!J3HC245a@jYg!e)ij"><field name="NUM">0</field></block></value><value name="y"><block type="math_number" id="fL3PZP,9B6b5$nRFW7G)"><field name="NUM">0</field></block></value><value name="width"><block type="math_number" id="L8?d{E/.34mT,yj8@-+4"><field name="NUM">800</field></block></value><value name="height"><block type="math_number" id="0[UQDZ$:q]|5X]$ULl/f"><field name="NUM">600</field></block></value><next>
-    <block type="penguin_fillstyle" id="W]_oflp$K{1MymA.CK?."><field name="color">green</field><next>
-    <block type="penguin_fillrect" id="og2zth*[L.S?L]$b8Bj_"><value name="x"><block type="math_number" id="H6Wao:,_|uTlsJK(Pid)"><field name="NUM">0</field></block></value><value name="y"><block type="math_number" id="8^F#x]Hi|a2dU+#H:QW:"><field name="NUM">500</field></block></value><value name="width"><block type="math_number" id="FLi8FP3%;U.8O)~.O[?a"><field name="NUM">800</field></block></value><value name="height"><block type="math_number" id="V{E80CiHYlXj$;/}W~%d"><field name="NUM">100</field></block></value><next>
-    <block type="penguin_strokestyle" id="o;q*FMlnW]Ok[qX@[vd="><field name="color">brown</field><next>
-    <block type="penguin_strokepath" id="sXkeG^Y2lrzV-$v_3V]*"><statement name="path_block"><block type="penguin_linewidth" id="C%aaRJ.uM`K3C25mGY4z"><value name="width"><block type="math_number" id="_iw_G}]62Cl~}g]UwnDN"><field name="NUM">10</field></block></value><next>
-    <block type="penguin_moveto" id="2;|7quaR99DY%DtQTZF-"><value name="x"><block type="math_number" id="gV5-8T:(?UITI(iOMJS`"><field name="NUM">200</field></block></value><value name="y"><block type="math_number" id="M5|*{y|swytl51jKZQyJ"><field name="NUM">500</field></block></value><next>
-    <block type="penguin_lineto" id="XKyx/$a^ulZT7ctbUWfa"><value name="x"><block type="math_number" id="yPSyjG)B5[dLeHSIPoj*"><field name="NUM">200</field></block></value><value name="y"><block type="math_number" id="+-^NyRqtZmiSRU8n+Q@G"><field name="NUM">400</field></block></value></block></next>
-    </block></next>
-    </block></statement><next>
-    <block type="penguin_strokepath" id="E!OR;MRW3VW%Bopk|Y-7"><statement name="path_block"><block type="penguin_linewidth" id="%Rf/5^wyKN[BrP!,sl3S"><value name="width"><block type="math_number" id="NyT^}f%?f$rA4nWd}nh="><field name="NUM">5</field></block></value><next>
-    <block type="penguin_moveto" id="WDp4fgD%2,|aw#i~Pb|F"><value name="x"><block type="math_number" id="o@X}I!)TrD:vixi0EOnh"><field name="NUM">200</field></block></value><value name="y"><block type="math_number" id="z`SMT|,YYLE9vDct:vOM"><field name="NUM">400</field></block></value><next>
-    <block type="penguin_lineto" id=")U$!-lr(iun7N]P5t;X4"><value name="x"><block type="math_number" id="Jd[Z%?XLoI[1j{?O{W[j"><field name="NUM">150</field></block></value><value name="y"><block type="math_number" id="Qw70J$JwG$R(SA=nn$y$"><field name="NUM">350</field></block></value><next>
-    <block type="penguin_moveto" id="o_hp6/ow(R_$Xb-i!8Y%"><value name="x"><block type="math_number" id="bZ#$u^GZJlVw!q.9VfG5"><field name="NUM">200</field></block></value><value name="y"><block type="math_number" id="omPF0?:mUSwU/*V@$Qpc"><field name="NUM">400</field></block></value><next>
-    <block type="penguin_lineto" id="jI)y-T3e81yF`WV5apQT"><value name="x"><block type="math_number" id="/6?#:B)}XjYjh=6fOy^b"><field name="NUM">220</field></block></value><value name="y"><block type="math_number" id="o_h?!D|MwR5;I*E^4}P5"><field name="NUM">380</field></block></value></block></next>
-    </block></next></block></next></block></next></block></statement></block></next></block></next></block></next></block></next></block></next></block></next></block></next></block>
-</xml>
 */
     }.toString().split("\n").slice(2, -2).join("\n");
     var xml = Blockly.Xml.textToDom(blocks);
@@ -381,16 +362,6 @@ function sampleBlocks() {
 // Program to run animation
     var blocks = function() {
 /*
-<xml xmlns="http://www.w3.org/1999/xhtml">
-    <variables><variable type="" id="%hqk*.WtWb6?[?dG^mSb">x</variable><variable type="" id="(Jy!R%Sxw;$!V9|,m)P1">vx</variable></variables>
-    <block type="penguin_getcontext2d" id="v7:iaM*S!P{pi~(7tnGA" x="28" y="12"><next>
-    <block type="variables_set" id="jA[xJscr[k,?Ct(F[y1O"><field name="VAR" id="%hqk*.WtWb6?[?dG^mSb" variabletype="">x</field><value name="VALUE"><block type="math_number" id="|NQS24{FBA@F+U/att:U"><field name="NUM">100</field></block></value><next>
-    <block type="variables_set" id="iRS!=!M{B;U8|PE,NxGP"><field name="VAR" id="(Jy!R%Sxw;$!V9|,m)P1" variabletype="">vx</field><value name="VALUE"><block type="math_number" id="f%Q}eJcE0yMKgZ2c}GW$"><field name="NUM">10</field></block></value><next>
-    <block type="penguin_fillstyle" id="%@?C(j[~`3Z||Wj0S8%."><field name="color">red</field><next>
-    <block type="penguin_animation" id="d1c:+kzWynQiC|Dp`|IJ"><statement name="animation_block"><block type="penguin_clearrect" id="peE$BTe!WH=WXkwZeO#^"><value name="x"><block type="math_number" id="A|)2;esX~:XlnC4IC-[k"><field name="NUM">0</field></block></value><value name="y"><block type="math_number" id="1O1T$*WVu_5:{|QU(2{;"><field name="NUM">0</field></block></value><value name="width"><block type="math_number" id="+JH85%C++y](e}}z(zm{"><field name="NUM">800</field></block></value><value name="height"><block type="math_number" id="uC1{yK]q]K($lDSbF#Ts"><field name="NUM">600</field></block></value><next>
-    <block type="penguin_fillpath" id="od_=U0O+!.YWD_K|H;.O"><statement name="path_block"><block type="penguin_circle" id="Diqx[w#X.v~EbsJy[-Ug"><value name="x"><block type="variables_get" id="(60S`@lr+NG.3R3_Ro:M"><field name="VAR" id="%hqk*.WtWb6?[?dG^mSb" variabletype="">x</field></block></value><value name="y"><block type="math_number" id=";qmzq]9D7*o+s2Bs45;z"><field name="NUM">400</field></block></value><value name="radius"><block type="math_number" id="tQS(?AgIQO`^.;pM2aVY"><field name="NUM">50</field></block></value><next>
-    <block type="math_change" id="VZR2+l%|Njp7d64rUTs^"><field name="VAR" id="%hqk*.WtWb6?[?dG^mSb" variabletype="">x</field><value name="DELTA"><shadow type="math_number" id="Xld|-+;LQIy:@}HE65O3"><field name="NUM">1</field></shadow><block type="variables_get" id="nnx|A_XB6`/5:Ue3Og2I"><field name="VAR" id="(Jy!R%Sxw;$!V9|,m)P1" variabletype="">vx</field></block></value><next>
-    <block type="controls_if" id="fe[L;Lz14,V5!|Z_RK4/"><value name="IF0"><block type="logic_operation" id=")#vt|=]*rwi}d1|XIf^B"><field name="OP">OR</field><value name="A"><block type="logic_compare" id="{nAEp|GvanqEDcOBT4:p"><field name="OP">LT</field><value name="A"><block type="variables_get" id="KnQwlQq!2o8qWW.3emEo"><field name="VAR" id="%hqk*.WtWb6?[?dG^mSb" variabletype="">x</field></block></value><value name="B"><block type="math_number" id="}Lw4tRMa}mx7~ZOY4m:?"><field name="NUM">100</field></block></value></block></value><value name="B"><block type="logic_compare" id="1vkj80YG8^ND.?zR9V.I"><field name="OP">GT</field><value name="A"><block type="variables_get" id="4VOG/gVeT[]PO65c9m;]"><field name="VAR" id="%hqk*.WtWb6?[?dG^mSb" variabletype="">x</field></block></value><value name="B"><block type="math_number" id="~Zx3;R)PF)m9%Fv]EzLe"><field name="NUM">700</field></block></value></block></value></block></value><statement name="DO0"><block type="variables_set" id="tOtiDhs1!?L_p_xWjR.}"><field name="VAR" id="(Jy!R%Sxw;$!V9|,m)P1" variabletype="">vx</field><value name="VALUE"><block type="math_arithmetic" id=".{P,bei{,@~,nKa(}v5i"><field name="OP">MINUS</field><value name="A"><block type="math_number" id="_ak[qb~xP?^^/EP+^%p7"><field name="NUM">0</field></block></value><value name="B"><block type="variables_get" id="7zM]S7j]*]H;N{Q0@q}n"><field name="VAR" id="(Jy!R%Sxw;$!V9|,m)P1" variabletype="">vx</field></block></value></block></value></block></statement></block></next></block></next></block></statement></block></next></block></statement></block></next></block></next></block></next></block></next></block></xml>
 */
     }.toString().split("\n").slice(2, -2).join("\n");
     var xml = Blockly.Xml.textToDom(blocks);

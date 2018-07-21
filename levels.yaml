@@ -1,0 +1,20 @@
+1:
+    instructions: "<p>お描きを始めるには、「お絵描き」のカテゴリで「絵を描く準備をする」というブロックを探そう。</p><img src=\"images/1-level1-1.png\">"
+    completes-when: "window.codeContains('getContext(\"2d\");')"
+    next-level: 2
+2:
+    instructions: "<p>いいですね。次は、背景を水色にするために、「塗りつぶしの色を〇〇にする」というブロックを選んで、色を「みずいる」にしましょう。</p><img src=\"images/1-level2-1.png\">"
+    completes-when: "window.codeContains('ctx.fillStyle = \"lightblue\";')"
+    next-level: 3
+3:
+    instructions: "<p>出来ましたね。次はいよいよ、背景をみずいろで塗りましょう。「四角ぬる」というブロックを使って、左上をX=0、Y=0に設定し、幅を800ピクセルと高さを600ピクセルにしよう。</p><img src=\"images/1-level3-1.png\">"
+    completes-when: "window.codeContains('ctx.fillRect(0,0,800,600);')"
+    next-level: 4
+4:
+    instructions: "<p>ではプログラムを実行してみよう。</p><img src=\"images/1-level4-1.png\">"
+    completes-when: "window.buttonPressed('runBtn')"
+    next-level: 5
+5:
+    instructions: "<p>素晴らしい</p>"
+    completes-when: 
+    next-level: 

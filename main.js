@@ -4,6 +4,11 @@ import workspace from './workspace';
 import editor from './editor';
 import ProgramCode from './ProgramCode';
 import ProgramBlocks from './ProgramBlocks';
+import './blocks/penguin_blocks';
+import './blocks/penguin_javascript';
+import './blocks/webapi_blocks';
+import './blocks/webapi_javascript';
+import Tutorial from './Tutorial';
 
 const programBlocks = new ProgramBlocks(workspace);
 const programCode = new ProgramCode(editor);
@@ -15,8 +20,7 @@ function isBlocklyVisible() {
 function getCurrentProgram() {
     if (isBlocklyVisible()) {
         return programBlocks;
-    }
-    else {
+    } else {
         return programCode;
     }
 }
@@ -34,8 +38,7 @@ window.setRunning = function(value) {
         $('#loadDropdownLink').addClass('disabled');
         $('#stopBtn').removeClass('disabled');
         $('.nav-link').addClass('disabled');
-    }
-    else {
+    } else {
         $('#runBtn').removeClass('disabled');
         $('#debugBtn').removeClass('disabled');
         $('#saveDropdownLink').removeClass('disabled');
@@ -83,7 +86,7 @@ editor.getSession().on('change', function() {
     getCurrentProgram().notifyCodeUpdated();
 });
 
-$('a[data-toggle="tab"]').on('hide.bs.tab', function (e) {
+$('a[data-toggle="tab"]').on('hide.bs.tab', function(e) {
     if (e.target.id === 'code-tab') {
         if (getCurrentProgram().isCodeUpdated()) {
             $('#switch-blockly-confirmation').modal('show');
@@ -100,7 +103,7 @@ function confirmSwitchTab() {
 
 document.getElementById('confirmSwitchTabBtn').addEventListener('click', confirmSwitchTab, false);
 
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
     if (e.target.id === 'code-tab') {
         const code = programBlocks.generateCode(false);
         editor.getSession().setValue(code);
@@ -126,3 +129,7 @@ function resize() {
 resize();
 
 window.onresize = resize;
+
+var tutorial = new Tutorial(workspace, programBlocks);
+tutorial.notifyHashChanged();
+

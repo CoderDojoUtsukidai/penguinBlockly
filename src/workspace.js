@@ -1,4 +1,4 @@
-const toolbox = require('./toolbox.xml');
+const toolbox = require('./blocks/toolbox.xml');
 
 const workspace = Blockly.inject(
     'blocklyPanel', {

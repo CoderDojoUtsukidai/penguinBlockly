@@ -1,6 +1,6 @@
 'use strict';
 
-const levels = require('json-loader!yaml-loader!./levels.yaml');
+const levels = require('json-loader!yaml-loader!./data/levels.yaml');
 
 export default class Tutorial {
 

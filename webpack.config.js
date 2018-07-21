@@ -4,7 +4,7 @@ const webpack = require("webpack");
 module.exports = {
     context: __dirname,
     devtool: debug ? "inline-sourcemap" : null,
-    entry: "./main.js",
+    entry: "./src/main.js",
     module: {
         rules: [
             {

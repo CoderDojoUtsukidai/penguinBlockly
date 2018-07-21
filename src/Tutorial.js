@@ -31,7 +31,6 @@ export default class Tutorial {
         document.getElementById('instructionsPanel').innerHTML = this.currentLevel['instructions'];
         var completesWhen = this.currentLevel['completes-when'];
         if (completesWhen) {
-            console.log(completesWhen);
             eval(completesWhen);
         }
     }

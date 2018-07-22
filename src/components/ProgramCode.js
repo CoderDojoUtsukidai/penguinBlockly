@@ -1,13 +1,26 @@
 'use strict';
 
-import createInterpreter from './interpreter';
+import React from "react";
+
+import createInterpreter from '../interpreter';
 import Program from './Program';
 
 export default class ProgramCode extends Program {
 
-    constructor(editor) {
-        super();
+    constructor(props) {
+        super(props);
         this.codeUpdated = false;
+    }
+
+    componentDidMount() {
+        this.props.onRef(this);
+    }
+
+    componentWillUnmount() {
+        this.props.onRef(undefined);
+    }
+
+    setEditor(editor) {
         this.editor = editor;
     }
 
@@ -74,6 +87,14 @@ export default class ProgramCode extends Program {
 
     discardUpdates() {
         this.codeUpdated = false;
+    }
+
+    render() {
+        return (
+        <div id="codePanel" class="fit-parent">
+          <div id="jsCode" class="fit-parent"></div>
+        </div>
+        );
     }
 };
 

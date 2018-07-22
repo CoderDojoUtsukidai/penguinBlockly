@@ -5,71 +5,38 @@ import React from "react";
 import TitlePanel from './components/TitlePanel';
 import Toolbar from './components/Toolbar';
 import GamePanel from './components/GamePanel';
-import TabPanel from './components/TabPanel';
+import ProgramPanel from './components/ProgramPanel';
 import ConfirmationDialog from './components/ConfirmationDialog';
 
-import ProgramCode from './ProgramCode';
-import ProgramBlocks from './ProgramBlocks';
 import './blocks/penguin_blocks';
 import './blocks/penguin_javascript';
 import './blocks/webapi_blocks';
 import './blocks/webapi_javascript';
 import Tutorial from './Tutorial';
-const toolbox = require('./blocks/toolbox.xml');
 
 
-export default class Layout extends React.Component {
+export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.programPanel = null;
+    }
+
+    getCurrentProgram() {
+        return this.programPanel.getCurrentProgram();
+    }
+
     componentDidMount() {
 
-const workspace = Blockly.inject(
-    'blocklyPanel', {
-        toolbox: toolbox,
-        grid: {
-            spacing: 18,
-            length: 3,
-            colour: '#ccc',
-            snap: true,
-        },
-        trashcan: true,
-        zoom: {
-            controls: true,
-            startScale: 1.0,
-            maxScale: 3,
-            minScale: 0.3,
-            scaleSpeed: 1.2,
-        },
-    },
-);
-
-// Initialize ACE Javascript editor
-var editor = ace.edit("jsCode");
-editor.setTheme("ace/theme/monokai");
-editor.session.setMode("ace/mode/javascript");
-editor.setOptions({
-    fontSize: "12pt"
-});
-
-const programBlocks = new ProgramBlocks(workspace);
-const programCode = new ProgramCode(editor);
-
-function isBlocklyVisible() {
-    return document.getElementById('blockly').classList.contains('active');
-}
-
-function getCurrentProgram() {
-    if (isBlocklyVisible()) {
-        return programBlocks;
-    } else {
-        return programCode;
-    }
-}
+var app = this;
+var editor = app.programPanel.programCode.editor;
+var workspace = app.programPanel.programBlocks.workspace;
 
 window.mustStop = function() {
-    return getCurrentProgram().mustStop;
+    return app.getCurrentProgram().mustStop;
 }
 
 window.setRunning = function(value) {
-    getCurrentProgram().setRunning(value);
+    app.getCurrentProgram().setRunning(value);
     if (value) {
         $('#runBtn').addClass('disabled');
         $('#debugBtn').addClass('disabled');
@@ -88,28 +55,28 @@ window.setRunning = function(value) {
 }
 
 function runProgram() {
-    getCurrentProgram().run();
+    app.getCurrentProgram().run();
 }
 
 function debugProgram() {
-    getCurrentProgram().debug();
+    app.getCurrentProgram().debug();
 }
 
 function stopProgram() {
-    getCurrentProgram().stop();
+    app.getCurrentProgram().stop();
 }
 
 function saveProgram() {
     const filename = document.getElementById('saveFilename').value;
     var link = document.getElementById('saveBtn');
-    getCurrentProgram().save(filename, link);
+    app.getCurrentProgram().save(filename, link);
     $('#saveDropdownLink').dropdown('toggle');
 }
 
 function loadProgram() {
     const fileSelector = document.getElementById('loadFilename');
     const filename = fileSelector.files[0];
-    getCurrentProgram().load(filename);
+    app.getCurrentProgram().load(filename);
     $('#loadDropdownLink').dropdown('toggle');
 }
 
@@ -122,12 +89,12 @@ document.getElementById('loadBtn').addEventListener('click', loadProgram, false)
 window.setRunning(false);
 
 editor.getSession().on('change', function() {
-    getCurrentProgram().notifyCodeUpdated();
+    app.getCurrentProgram().notifyCodeUpdated();
 });
 
 $('a[data-toggle="tab"]').on('hide.bs.tab', function(e) {
     if (e.target.id === 'code-tab') {
-        if (getCurrentProgram().isCodeUpdated()) {
+        if (app.getCurrentProgram().isCodeUpdated()) {
             $('#switch-blockly-confirmation').modal('show');
             e.preventDefault();
         }
@@ -135,7 +102,7 @@ $('a[data-toggle="tab"]').on('hide.bs.tab', function(e) {
 });
 
 function confirmSwitchTab() {
-    getCurrentProgram().discardUpdates();
+    app.getCurrentProgram().discardUpdates();
     $('#blockly-tab').tab('show');
     $('#switch-blockly-confirmation').modal('hide');
 }
@@ -144,9 +111,9 @@ document.getElementById('confirmSwitchTabBtn').addEventListener('click', confirm
 
 $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
     if (e.target.id === 'code-tab') {
-        const code = programBlocks.generateCode(false);
+        const code = app.programPanel.programBlocks.generateCode(false);
         editor.getSession().setValue(code);
-        getCurrentProgram().discardUpdates();
+        app.getCurrentProgram().discardUpdates();
     }
 });
 
@@ -169,7 +136,7 @@ resize();
 
 window.onresize = resize;
 
-var tutorial = new Tutorial(workspace, programBlocks);
+var tutorial = new Tutorial(workspace, app.programPanel.programBlocks);
 tutorial.notifyHashChanged();
 
     }
@@ -183,7 +150,7 @@ tutorial.notifyHashChanged();
     <GamePanel />
   </div>
   <div id="rightColumn" class="column right">
-    <TabPanel />
+    <ProgramPanel onRef={ref => (this.programPanel = ref)} />;
   </div>
   <ConfirmationDialog />
 </div>

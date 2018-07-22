@@ -1,12 +1,25 @@
 'use strict';
 
-import createInterpreter from './interpreter';
+import React from "react";
+
+import createInterpreter from '../interpreter';
 import Program from './Program';
 
 export default class ProgramBlocks extends Program {
 
-    constructor(workspace) {
-        super();
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        this.props.onRef(this);
+    }
+
+    componentWillUnmount() {
+        this.props.onRef(undefined);
+    }
+
+    setWorkspace(workspace) {
         this.workspace = workspace;
     }
 
@@ -66,6 +79,12 @@ export default class ProgramBlocks extends Program {
             const xml = Blockly.Xml.textToDom(reader.result);
             Blockly.Xml.domToWorkspace(xml, workspace);
         }
+    }
+
+    render() {
+        return (
+        <div id="blocklyPanel" class="fit-parent"></div>
+        );
     }
 };
 

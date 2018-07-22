@@ -1,8 +1,11 @@
 'use strict';
 
-export default class Program {
+import React from "react";
 
-    constructor() {
+export default class Program extends React.Component {
+
+    constructor(props) {
+        super(props);
         this.running = false;
         this.mustStop = false;
         this.setRunning(false);

@@ -13,15 +13,21 @@ export default class ProgramCode extends Program {
     }
 
     componentDidMount() {
+        this.editor = ace.edit("jsCode");
+        this.editor.setTheme("ace/theme/monokai");
+        this.editor.session.setMode("ace/mode/javascript");
+        this.editor.setOptions({
+            fontSize: "12pt"
+        });
+        const notifyCodeUpdated = this.notifyCodeUpdated.bind(this);
+        this.editor.getSession().on('change', function() {
+            notifyCodeUpdated();
+        });
         this.props.onRef(this);
     }
 
     componentWillUnmount() {
         this.props.onRef(undefined);
-    }
-
-    setEditor(editor) {
-        this.editor = editor;
     }
 
     annotateCodeForHighlight(code) {

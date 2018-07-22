@@ -8,10 +8,6 @@ import GamePanel from './components/GamePanel';
 import ProgramPanel from './components/ProgramPanel';
 import ConfirmationDialog from './components/ConfirmationDialog';
 
-import './blocks/penguin_blocks';
-import './blocks/penguin_javascript';
-import './blocks/webapi_blocks';
-import './blocks/webapi_javascript';
 import Tutorial from './Tutorial';
 
 
@@ -54,43 +50,7 @@ window.setRunning = function(value) {
     }
 }
 
-function runProgram() {
-    app.getCurrentProgram().run();
-}
-
-function debugProgram() {
-    app.getCurrentProgram().debug();
-}
-
-function stopProgram() {
-    app.getCurrentProgram().stop();
-}
-
-function saveProgram() {
-    const filename = document.getElementById('saveFilename').value;
-    var link = document.getElementById('saveBtn');
-    app.getCurrentProgram().save(filename, link);
-    $('#saveDropdownLink').dropdown('toggle');
-}
-
-function loadProgram() {
-    const fileSelector = document.getElementById('loadFilename');
-    const filename = fileSelector.files[0];
-    app.getCurrentProgram().load(filename);
-    $('#loadDropdownLink').dropdown('toggle');
-}
-
-document.getElementById('runBtn').addEventListener('click', runProgram, false);
-document.getElementById('debugBtn').addEventListener('click', debugProgram, false);
-document.getElementById('stopBtn').addEventListener('click', stopProgram, false);
-document.getElementById('saveBtn').addEventListener('click', saveProgram, false);
-document.getElementById('loadBtn').addEventListener('click', loadProgram, false);
-
 window.setRunning(false);
-
-editor.getSession().on('change', function() {
-    app.getCurrentProgram().notifyCodeUpdated();
-});
 
 $('a[data-toggle="tab"]').on('hide.bs.tab', function(e) {
     if (e.target.id === 'code-tab') {
@@ -124,7 +84,7 @@ function resize() {
     var p = document.getElementById("tabNavContent");
     if (p.clientWidth != w) {
         p.setAttribute("style", "width: " + w + "px; height: " + h + "px;");
-        // This is a hack to force resize after selecting another
+        // This is a hack to force resize
         setTimeout(() => {
             var e = new CustomEvent("resize");
             window.dispatchEvent(e);
@@ -146,7 +106,7 @@ tutorial.notifyHashChanged();
 <div>
   <TitlePanel />
   <div id="leftColumn" class="column left">
-    <Toolbar />
+    <Toolbar getCurrentProgram={this.getCurrentProgram.bind(this)} />
     <GamePanel />
   </div>
   <div id="rightColumn" class="column right">

@@ -4,7 +4,6 @@ import React from "react";
 
 import ProgramBlocks from './ProgramBlocks';
 import ProgramCode from './ProgramCode';
-const toolbox = require('../blocks/toolbox.xml');
 
 export default class ProgramPanel extends React.Component {
     constructor(props) {
@@ -27,37 +26,6 @@ export default class ProgramPanel extends React.Component {
 
     componentDidMount() {
         this.props.onRef(this);
-
-const workspace = Blockly.inject(
-    'blocklyPanel', {
-        toolbox: toolbox,
-        grid: {
-            spacing: 18,
-            length: 3,
-            colour: '#ccc',
-            snap: true,
-        },
-        trashcan: true,
-        zoom: {
-            controls: true,
-            startScale: 1.0,
-            maxScale: 3,
-            minScale: 0.3,
-            scaleSpeed: 1.2,
-        },
-    },
-);
-
-// Initialize ACE Javascript editor
-var editor = ace.edit("jsCode");
-editor.setTheme("ace/theme/monokai");
-editor.session.setMode("ace/mode/javascript");
-editor.setOptions({
-    fontSize: "12pt"
-});
-
-        this.programBlocks.setWorkspace(workspace);
-        this.programCode.setEditor(editor);
     }
 
     componentWillUnmount() {

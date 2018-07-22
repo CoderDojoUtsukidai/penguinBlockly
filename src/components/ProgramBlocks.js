@@ -4,6 +4,11 @@ import React from "react";
 
 import createInterpreter from '../interpreter';
 import Program from './Program';
+import '../blocks/penguin_blocks';
+import '../blocks/penguin_javascript';
+import '../blocks/webapi_blocks';
+import '../blocks/webapi_javascript';
+const toolbox = require('../blocks/toolbox.xml');
 
 export default class ProgramBlocks extends Program {
 
@@ -12,15 +17,30 @@ export default class ProgramBlocks extends Program {
     }
 
     componentDidMount() {
+        this.workspace = Blockly.inject(
+            'blocklyPanel', {
+                toolbox: toolbox,
+                grid: {
+                    spacing: 18,
+                    length: 3,
+                    colour: '#ccc',
+                    snap: true,
+                },
+                trashcan: true,
+                zoom: {
+                    controls: true,
+                    startScale: 1.0,
+                    maxScale: 3,
+                    minScale: 0.3,
+                    scaleSpeed: 1.2,
+                },
+            },
+        );
         this.props.onRef(this);
     }
 
     componentWillUnmount() {
         this.props.onRef(undefined);
-    }
-
-    setWorkspace(workspace) {
-        this.workspace = workspace;
     }
 
     generateCode(highlightBlocks = false) {

@@ -3,6 +3,19 @@
 import React from "react";
 
 export default class ConfirmationDialog extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.getCurrentProgram = props.getCurrentProgram;
+        this.confirmSwitchTab = this.confirmSwitchTab.bind(this);
+    }
+
+    confirmSwitchTab() {
+        this.getCurrentProgram().discardUpdates();
+        $('#blockly-tab').tab('show');
+        $('#switch-blockly-confirmation').modal('hide');
+    }
+
     render() {
         return (
   <div id="switch-blockly-confirmation" class="modal" tabIndex="-1" role="dialog">
@@ -21,7 +34,7 @@ export default class ConfirmationDialog extends React.Component {
         </div>
         <div class="modal-footer">
           <button id="noSwitchTabBtn" type="button" class="btn btn-secondary" data-dismiss="modal">ここに残る</button>
-          <button id="confirmSwitchTabBtn" type="button" class="btn btn-danger">コードの修正を捨ててブロックへ行く</button>
+          <button id="confirmSwitchTabBtn" type="button" onClick={this.confirmSwitchTab} class="btn btn-danger">コードの修正を捨ててブロックへ行く</button>
         </div>
       </div>
     </div>

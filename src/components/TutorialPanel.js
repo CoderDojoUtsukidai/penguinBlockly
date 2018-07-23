@@ -1,14 +1,15 @@
 'use strict';
 
-const levels = require('json-loader!yaml-loader!./data/levels.yaml');
+import React from "react";
 
-export default class Tutorial {
+const levels = require('json-loader!yaml-loader!../data/levels.yaml');
 
-    constructor(workspace, programBlocks) {
-        this.workspace = workspace;
-        this.programBlocks = programBlocks;
+export default class TutorialPanel extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.getProgramBlocks = props.getProgramBlocks;
         this.currentLevel = null;
-
         const tutorial = this;
         window.addEventListener('hashchange', function() {
             tutorial.notifyHashChanged();
@@ -19,6 +20,10 @@ export default class Tutorial {
         window.buttonPressed = function(buttonId) {
             tutorial.buttonPressed(buttonId);
         };
+    }
+
+    componentDidMount() {
+        setTimeout(this.notifyHashChanged.bind(this), 1);
     }
 
     setLevelInHash(level) {
@@ -44,17 +49,19 @@ export default class Tutorial {
 
     codeContains(snippet) {
         const tutorial = this;
+        const programBlocks = tutorial.getProgramBlocks();
+        const workspace = programBlocks.workspace;
         function onCodeContainsSnippet(event) {
             if (event.type == Blockly.Events.CREATE ||
                 event.type == Blockly.Events.CHANGE) {
-                const code = tutorial.programBlocks.generateCode(false);
+                const code = programBlocks.generateCode(false);
                 if (code.indexOf(snippet) !== -1) {
-                    tutorial.workspace.removeChangeListener(onCodeContainsSnippet);
+                    workspace.removeChangeListener(onCodeContainsSnippet);
                     tutorial.nextLevel();
                 }
             }
         }
-        this.workspace.addChangeListener(onCodeContainsSnippet);
+        workspace.addChangeListener(onCodeContainsSnippet);
     }
 
     buttonPressed(buttonId) {
@@ -77,5 +84,15 @@ export default class Tutorial {
             this.setLevelInHash('1');
         }
     }
-};
+
+    render() {
+        return (
+  <div id="titlePanel">
+    <h1><a href="/">ペンギン ブロックリー</a></h1>
+    <div id="tutorialProgress"></div>
+    <div id="instructionsPanel"></div>
+  </div>
+        );
+    }
+}
 

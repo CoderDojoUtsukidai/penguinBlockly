@@ -33,6 +33,7 @@ export default class Program extends React.Component {
     setRunning(value) {
         this.running = value;
         this.mustStop = false;
+        document.dispatchEvent(new CustomEvent('PROGRAM_RUNNING', {detail: {running: this.running}}));
     }
 
     run() {

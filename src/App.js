@@ -35,7 +35,7 @@ export default class App extends React.Component {
     <GamePanel />
   </div>
   <div id="rightColumn" class="column right">
-    <ProgramPanel onRef={ref => (this.programPanel = ref)} />;
+    <ProgramPanel onRef={ref => (this.programPanel = ref)} />
   </div>
   <ConfirmationDialog getCurrentProgram={this.getCurrentProgram} />
 </div>

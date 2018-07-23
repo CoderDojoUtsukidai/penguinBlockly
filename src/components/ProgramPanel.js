@@ -8,7 +8,7 @@ import ProgramCode from './ProgramCode';
 export default class ProgramPanel extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {running: false};
+        this.state = {running: false, active: 'blocks'};
         this.programBlocks = undefined;
         this.programCode = undefined;
         this.onHideCodeTab = this.onHideCodeTab.bind(this);
@@ -57,6 +57,10 @@ export default class ProgramPanel extends React.Component {
         $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
             if (e.target.id === 'code-tab') {
                 programPanel.onShowCodeTab();
+                programPanel.setState({active: 'code'});
+            }
+            else if (e.target.id === 'blockly-tab') {
+                programPanel.setState({active: 'blocks'});
             }
         });
         window.mustStop = function() {
@@ -75,8 +79,8 @@ export default class ProgramPanel extends React.Component {
         return (
   <div>
     <div id="tabNavigation" class="nav nav-tabs" role="tablist">
-      <a class={"nav-item nav-link active" + (this.state.running ? " disabled" : "")} id="blockly-tab" data-toggle="tab" href="#blockly" role="tab" aria-controls="blockly" aria-selected="true">ブロック</a>
-      <a class={"nav-item nav-link" + (this.state.running ? " disabled" : "")} id="code-tab" data-toggle="tab" href="#code" role="tab" aria-controls="code" aria-selected="false">コード</a>
+      <a class={"nav-item nav-link" + (this.state.active === "blocks" ? " active" : "") + (this.state.running ? " disabled" : "")} id="blockly-tab" data-toggle="tab" href="#blockly" role="tab" aria-controls="blockly" aria-selected="true">ブロック</a>
+      <a class={"nav-item nav-link" + (this.state.active === "code" ? " active" : "") + (this.state.running ? " disabled" : "")} id="code-tab" data-toggle="tab" href="#code" role="tab" aria-controls="code" aria-selected="false">コード</a>
     </div>
     <div class="tab-content" id="tabNavContent">
       <div id="blockly" class="tab-pane fade show active" role="tabpanel" aria-labelledby="blockly-tab">

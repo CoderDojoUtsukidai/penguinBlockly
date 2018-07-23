@@ -9,15 +9,21 @@ Install node
 
 - [node.js](https://nodejs.org/ja/)
 
-Build
+Fetch dependencies
 
 ```
 $ npm install
 ```
 
-Run http-server
+Run http-server, and webpack in watch mode
 
 ```
-$ npm run serve
+$ npm run start
+```
+
+To build bundle for production
+
+```
+$ webpack --mode production
 ```
 

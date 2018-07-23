@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Blockly environment to teach programming to kids",
   "repository": "https://github.com/CoderDojoUtsukidai/penguinBlockly",
-  "author": "Ken Yuasa <simujyaky@gmail.com>",
+  "contributors": ["Ken Yuasa <simujyaky@gmail.com>", "Antoine Choppin <antoine@japonophile.com>"],
   "license": "MIT",
   "main": "webpack.config.js",
   "dependencies": {

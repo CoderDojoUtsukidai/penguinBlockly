@@ -9,7 +9,7 @@ export default class TutorialPanel extends React.Component {
     constructor(props) {
         super(props);
         this.getProgramBlocks = props.getProgramBlocks;
-        this.currentLevel = null;
+        this.state = {currentLevel: -1};
         const tutorial = this;
         window.addEventListener('hashchange', function() {
             tutorial.notifyHashChanged();
@@ -32,16 +32,17 @@ export default class TutorialPanel extends React.Component {
 
     loadLevel(level) {
         console.log('Load level ' + level);
-        this.currentLevel = levels[level];
-        document.getElementById('instructionsPanel').innerHTML = this.currentLevel['instructions'];
-        var completesWhen = this.currentLevel['completes-when'];
+        this.setState({currentLevel: level});
+        document.getElementById('instructionsPanel').innerHTML = levels[level]['instructions'];
+        var completesWhen = levels[level]['completes-when'];
         if (completesWhen) {
             eval(completesWhen);
         }
     }
 
     nextLevel() {
-        var nextLevel = this.currentLevel['next-level'];
+        this.playSound();
+        var nextLevel = levels[this.state.currentLevel]['next-level'];
         if (nextLevel) {
             this.setLevelInHash(nextLevel);
         }
@@ -85,12 +86,20 @@ export default class TutorialPanel extends React.Component {
         }
     }
 
+    playSound() {
+        console.log('Play sound');
+        var son = document.getElementById("levelCompleteSound");
+        son.play();
+    }
+
     render() {
+        const Dots = Object.keys(levels).map(l => <div key={"progress-dot-" + l} class={"progress-dot" + (l < this.state.currentLevel ? " level-completed" : (l == this.state.currentLevel ? " current-level" : ""))}></div>);
         return (
   <div id="titlePanel">
     <h1><a href="/">ペンギン ブロックリー</a></h1>
-    <div id="tutorialProgress"></div>
+    <div id="tutorialProgress">{Dots}</div>
     <div id="instructionsPanel"></div>
+    <audio id="levelCompleteSound" src="media/win.mp3" hidden="true" volume="100"></audio>
   </div>
         );
     }

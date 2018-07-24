@@ -43,3 +43,20 @@ h1 a:hover {
   width: inherit;
   height: inherit;
 }
+#tutorialProgress {
+  padding-left: 30px;
+}
+.progress-dot {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: gray solid 1px;
+  border-radius: 8px;
+  margin: 2px 4px;
+}
+.current-level {
+  background-color: lightgreen;
+}
+.level-completed {
+  background-color: green;
+}

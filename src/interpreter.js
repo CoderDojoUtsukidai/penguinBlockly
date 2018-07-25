@@ -3,7 +3,7 @@
 const createPseudoContext = function(interpreter, context) {
     var myContext = interpreter.createObjectProto(interpreter.OBJECT_PROTO);
     var contextFunctions = ['beginPath', 'stroke', 'fill',
-        'moveTo', 'lineTo', 'fillRect', 'strokeRect', 'clearRect', 'arc'
+        'moveTo', 'lineTo', 'fillRect', 'strokeRect', 'clearRect', 'arc', 'drawImage'
     ];
     for (var i = 0; i < contextFunctions.length; i++) {
         const fn = contextFunctions[i];
@@ -27,6 +27,12 @@ const createPseudoContext = function(interpreter, context) {
             case 5:
                 wrapper = function(arg0, arg1, arg2, arg3, arg4) {
                     return interpreter.createPrimitive(context[fn].call(context, arg0, arg1, arg2, arg3, arg4));
+                };
+                break;
+            case 9:
+                wrapper = function(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) {
+                    return interpreter.createPrimitive(context[fn].call(
+                        context, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8));
                 };
                 break;
         }

@@ -121,6 +121,44 @@
       </value>
     </block>
     <block type="penguin_animation"/>
+    <block type="penguin_displayimage">
+      <value name="image">
+        <block type="text">
+          <field name="TEXT">img_donkeykong</field>
+        </block>
+      </value>
+      <value name="x">
+        <block type="math_number">
+          <field name="NUM">0</field>
+        </block>
+      </value>
+      <value name="y">
+        <block type="math_number">
+          <field name="NUM">140</field>
+        </block>
+      </value>
+      <value name="width">
+        <block type="math_number">
+          <field name="NUM">12</field>
+        </block>
+      </value>
+      <value name="height">
+        <block type="math_number">
+          <field name="NUM">20</field>
+        </block>
+      </value>
+      <value name="dispx">
+        <block type="math_number">
+          <field name="NUM">200</field>
+        </block>
+      </value>
+      <value name="dispy">
+        <block type="math_number">
+          <field name="NUM">480</field>
+        </block>
+      </value>
+    </block>
+    <block type="penguin_gettime"/>
   </category>
   <category name="&#x6587;&#x5B57;&#x3068;&#x51FA;&#x529B;">
     <block type="text"/>
@@ -603,6 +641,237 @@
                                 </statement>
                               </block>
                             </next>
+                          </block>
+                        </statement>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </category>
+    <category name="&#x6B69;&#x304D;&#x5C0F;&#x50E7;">
+      <variables>
+        <variable type="" id="B2:t1r,td-=A4fO,R8kl">前回時刻</variable>
+        <variable type="" id="x-;88Q%YYwgzbbQv|R?D">コスチューム</variable>
+      </variables>
+      <block type="penguin_getcontext2d" id="WbjW./XkH]P%+v5nIF?7" x="9" y="9">
+        <next>
+          <block type="penguin_clearrect" id="Kucd6t2XHCXdQ:Y[x_w:">
+            <value name="x">
+              <block type="math_number" id="4.nQaML{/N]*!StL$y_t">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+            <value name="y">
+              <block type="math_number" id="Xc+-pt5-$dL^e?dFjwV}">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+            <value name="width">
+              <block type="math_number" id="%}940H@Wc*T;/IZ6V.j6">
+                <field name="NUM">800</field>
+              </block>
+            </value>
+            <value name="height">
+              <block type="math_number" id="Y)O_-f!hmqxAIm?!~~+;">
+                <field name="NUM">600</field>
+              </block>
+            </value>
+            <next>
+              <block type="variables_set" id="j6Zp/oJ^H#zC(.Nm7|pv">
+                <field name="VAR" id="B2:t1r,td-=A4fO,R8kl" variabletype="">前回時刻</field>
+                <value name="VALUE">
+                  <block type="penguin_gettime" id="lYjNwb2Zz`0;N,j*d-V]"/>
+                </value>
+                <next>
+                  <block type="variables_set" id="{z6hmAyL);cLY),n|~?{">
+                    <field name="VAR" id="x-;88Q%YYwgzbbQv|R?D" variabletype="">コスチューム</field>
+                    <value name="VALUE">
+                      <block type="math_number" id="i|6)=}Xo46v;?#oK}g?I">
+                        <field name="NUM">0</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="penguin_animation" id="pk@ZcPCiZt-P539fTL+h">
+                        <statement name="animation_block">
+                          <block type="controls_if" id=")l8/~{$#6]a0$CQp1mNI">
+                            <value name="IF0">
+                              <block type="logic_compare" id="kjV[O6h*ZR.%D6^bSqfs">
+                                <field name="OP">GT</field>
+                                <value name="A">
+                                  <block type="math_arithmetic" id="XC%jUrRg1lxfCzgg%fRX">
+                                    <field name="OP">MINUS</field>
+                                    <value name="A">
+                                      <block type="penguin_gettime" id="]Wxo#6(Kn4P.[_l1SycG"/>
+                                    </value>
+                                    <value name="B">
+                                      <block type="variables_get" id="$c?q$(8CpT8FDio71Ip,">
+                                        <field name="VAR" id="B2:t1r,td-=A4fO,R8kl" variabletype="">前回時刻</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="math_number" id="L[vn`qN~#|(#Cu{9whbo">
+                                    <field name="NUM">500</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <statement name="DO0">
+                              <block type="penguin_clearrect" id="!Oj*u*~KePR,BrsWAFP1">
+                                <value name="x">
+                                  <block type="math_number" id="gXAe-}ht2qn!/Z-TP1.}">
+                                    <field name="NUM">200</field>
+                                  </block>
+                                </value>
+                                <value name="y">
+                                  <block type="math_number" id=")mWSfu~gPx[V?,8?]0PV">
+                                    <field name="NUM">480</field>
+                                  </block>
+                                </value>
+                                <value name="width">
+                                  <block type="math_number" id="@b8wX?_+gl~#aRf8mJVc">
+                                    <field name="NUM">16</field>
+                                  </block>
+                                </value>
+                                <value name="height">
+                                  <block type="math_number" id="`/r@AEM?5yWpd.AAL?`e">
+                                    <field name="NUM">20</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="controls_if" id="Y3QA3nC`gl}3UE--tkmb">
+                                    <mutation else="1"/>
+                                    <value name="IF0">
+                                      <block type="logic_compare" id="MSb2t644(J[jWpU)}*|4">
+                                        <field name="OP">EQ</field>
+                                        <value name="A">
+                                          <block type="variables_get" id="1pFy[1?HNye$+o1tDp]!">
+                                            <field name="VAR" id="x-;88Q%YYwgzbbQv|R?D" variabletype="">コスチューム</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="math_number" id="Z*LD35]3)+KKk:cTi(X8">
+                                            <field name="NUM">0</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <statement name="DO0">
+                                      <block type="penguin_displayimage" id="%dd}f0B]/(9xoz2y=9.x">
+                                        <value name="image">
+                                          <block type="text" id="en)$%BIgHi8+i}/JbDK7">
+                                            <field name="TEXT">img_donkeykong</field>
+                                          </block>
+                                        </value>
+                                        <value name="x">
+                                          <block type="math_number" id="kT6Wn8Qw+eV!4uK;6BC9">
+                                            <field name="NUM">0</field>
+                                          </block>
+                                        </value>
+                                        <value name="y">
+                                          <block type="math_number" id="~F%McwBnjT?XMUJd,|!]">
+                                            <field name="NUM">140</field>
+                                          </block>
+                                        </value>
+                                        <value name="width">
+                                          <block type="math_number" id="lf~8mz[n7a45Cc|~_Yid">
+                                            <field name="NUM">12</field>
+                                          </block>
+                                        </value>
+                                        <value name="height">
+                                          <block type="math_number" id="kBtP0)nCgM9~bZ*JBf65">
+                                            <field name="NUM">20</field>
+                                          </block>
+                                        </value>
+                                        <value name="dispx">
+                                          <block type="math_number" id="MiW-7}OJ!M`G1F2.8Kk.">
+                                            <field name="NUM">200</field>
+                                          </block>
+                                        </value>
+                                        <value name="dispy">
+                                          <block type="math_number" id="=l@yzA1pa=RaXjav46Cg">
+                                            <field name="NUM">480</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="variables_set" id="U]:o_BnkO[(dW@#;GBUH">
+                                            <field name="VAR" id="x-;88Q%YYwgzbbQv|R?D" variabletype="">コスチューム</field>
+                                            <value name="VALUE">
+                                              <block type="math_number" id=",_TW4.p=7S2Amxe,GHmQ">
+                                                <field name="NUM">1</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </statement>
+                                    <statement name="ELSE">
+                                      <block type="penguin_displayimage" id="dvdq2r1On^K!8`$a-Qxv">
+                                        <value name="image">
+                                          <block type="text" id="2f|4kHn|gJWsE0MBAT0U">
+                                            <field name="TEXT">img_donkeykong</field>
+                                          </block>
+                                        </value>
+                                        <value name="x">
+                                          <block type="math_number" id="d:3B6A[b^+jU7(yG?!``">
+                                            <field name="NUM">16</field>
+                                          </block>
+                                        </value>
+                                        <value name="y">
+                                          <block type="math_number" id=";U:*!@g(Ig7B!jk?dNXC">
+                                            <field name="NUM">140</field>
+                                          </block>
+                                        </value>
+                                        <value name="width">
+                                          <block type="math_number" id="d_gwyb0}5*^^e@(hz1Dv">
+                                            <field name="NUM">16</field>
+                                          </block>
+                                        </value>
+                                        <value name="height">
+                                          <block type="math_number" id="2V$ra;}G$isnRa3_zY|V">
+                                            <field name="NUM">20</field>
+                                          </block>
+                                        </value>
+                                        <value name="dispx">
+                                          <block type="math_number" id="F3?,!S|DfI#XbQn}*_3u">
+                                            <field name="NUM">200</field>
+                                          </block>
+                                        </value>
+                                        <value name="dispy">
+                                          <block type="math_number" id="`?0JHlL_?FUWK_KcyO=H">
+                                            <field name="NUM">480</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="variables_set" id="/|b8JU_iKfD[zfK(qEz=">
+                                            <field name="VAR" id="x-;88Q%YYwgzbbQv|R?D" variabletype="">コスチューム</field>
+                                            <value name="VALUE">
+                                              <block type="math_number" id="(bBCx(S(j=b.z0g%uS#@">
+                                                <field name="NUM">0</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </statement>
+                                    <next>
+                                      <block type="variables_set" id="w4Ulj1rz%x)~F8;`4u}{">
+                                        <field name="VAR" id="B2:t1r,td-=A4fO,R8kl" variabletype="">前回時刻</field>
+                                        <value name="VALUE">
+                                          <block type="penguin_gettime" id="}U8GhUy.^}^3t#R52[}["/>
+                                        </value>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </statement>
                           </block>
                         </statement>
                       </block>

@@ -254,3 +254,46 @@ Blockly.Blocks['penguin_animation'] = {
   }
 };
 
+Blockly.Blocks['penguin_displayimage'] = {
+  init: function() {
+    this.appendValueInput("image")
+        .setCheck("String")
+        .appendField("画像");
+    this.appendValueInput("x")
+        .setCheck("Number")
+        .appendField("の一部（X:");
+    this.appendValueInput("y")
+        .setCheck("Number")
+        .appendField("Y:");
+    this.appendValueInput("width")
+        .setCheck("Number")
+        .appendField("幅:");
+    this.appendValueInput("height")
+        .setCheck("Number")
+        .appendField("高さ:");
+    this.appendValueInput("dispx")
+        .setCheck("Number")
+        .appendField("）を表示する X:");
+    this.appendValueInput("dispy")
+        .setCheck("Number")
+        .appendField("Y:");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['penguin_gettime'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("現在の時刻");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+

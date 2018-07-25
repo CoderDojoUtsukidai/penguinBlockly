@@ -92,3 +92,22 @@ Blockly.JavaScript['penguin_animation'] = function(block) {
   return code;
 };
 
+Blockly.JavaScript['penguin_displayimage'] = function(block) {
+  var value_image = Blockly.JavaScript.valueToCode(block, 'image', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_x = Blockly.JavaScript.valueToCode(block, 'x', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_y = Blockly.JavaScript.valueToCode(block, 'y', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_width = Blockly.JavaScript.valueToCode(block, 'width', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_height = Blockly.JavaScript.valueToCode(block, 'height', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_dispx = Blockly.JavaScript.valueToCode(block, 'dispx', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_dispy = Blockly.JavaScript.valueToCode(block, 'dispy', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'var sprite = document.getElementById(' + value_image + ');\n' +
+        'ctx.drawImage(sprite, ' + value_x + ', ' + value_y + ', ' + value_width + ', ' + value_height + ', ' +
+        value_dispx + ', ' + value_dispy + ', ' + value_width + ', ' + value_height + ');\n';
+  return code;
+};
+
+Blockly.JavaScript['penguin_gettime'] = function(block) {
+  var code = '(new Date()).getTime()';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+

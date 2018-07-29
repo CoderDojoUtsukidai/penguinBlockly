@@ -3,7 +3,7 @@
     completes-when: "window.codeContains('getContext(\"2d\");')"
     next-level: 2
 2:
-    instructions: "<p>いいですね。次は、背景を水色にするために、「塗りつぶしの色を〇〇にする」というブロックを選んで、色を「みずいる」にしましょう。</p><img src=\"images/1-level2-1.png\">"
+    instructions: "<p>いいですね。次は、背景を水色にするために、「塗りつぶしの色を〇〇にする」というブロックを選んで、色を「みずいろ」にしましょう。</p><img src=\"images/1-level2-1.png\">"
     completes-when: "window.codeContains('ctx.fillStyle = \"lightblue\";')"
     next-level: 3
 3:

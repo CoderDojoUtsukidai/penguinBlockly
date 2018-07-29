@@ -302,3 +302,15 @@ Blockly.Blocks['penguin_gettime'] = {
   }
 };
 
+Blockly.Blocks['penguin_drawgrid'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("グリッドを描く");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+

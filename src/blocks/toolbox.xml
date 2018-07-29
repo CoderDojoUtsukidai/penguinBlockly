@@ -2,6 +2,7 @@
 <xml>
   <category name="&#x304A;&#x7D75;&#x63CF;&#x304D;">
     <block type="penguin_getcontext2d"/>
+    <block type="penguin_drawgrid"/>
     <block type="penguin_fillstyle"/>
     <block type="penguin_strokestyle"/>
     <block type="penguin_linewidth">

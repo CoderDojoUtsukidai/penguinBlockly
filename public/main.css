@@ -23,7 +23,7 @@ h1 a:hover {
   border-radius: 5px;
 }
 #tabNavContent .tab-pane {
-  height: 600px;
+  height: inherit;
 }
 .toolbar {
   margin-top: 2px;

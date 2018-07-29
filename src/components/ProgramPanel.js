@@ -8,12 +8,19 @@ import ProgramCode from './ProgramCode';
 export default class ProgramPanel extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {running: false, active: 'blocks'};
+        var scale = props.scale ? props.scale : 1.0;
+        this.state = {running: false, active: 'blocks', scale: scale};
         this.programBlocks = undefined;
         this.programCode = undefined;
         this.onHideCodeTab = this.onHideCodeTab.bind(this);
         this.onShowCodeTab = this.onShowCodeTab.bind(this);
+        this.resize = this.resize.bind(this);
         document.addEventListener('PROGRAM_RUNNING', this.onRunningUpdated.bind(this));
+    }
+
+    setScale(scale) {
+        this.setState({scale: scale});
+        this.resize();
     }
 
     onRunningUpdated(event) {
@@ -69,10 +76,27 @@ export default class ProgramPanel extends React.Component {
         window.setRunning = function(value) {
             programPanel.getCurrentProgram().setRunning(value);
         }
+        this.resize();
     }
 
     componentWillUnmount() {
         this.props.onRef(undefined);
+    }
+
+    resize() {
+        var g = document.getElementById("game");
+        var l = document.getElementById("leftColumn");
+        var p = document.getElementById("tabNavContent");
+        var w = window.innerWidth - (l.clientWidth + 20);
+        var h = Math.max(g.clientHeight, window.innerHeight - p.offsetTop - 5);
+        if (p.clientWidth != w || p.clientHeight != h) {
+            p.setAttribute("style", "width: " + w + "px; height: " + h + "px;");
+            // This is a hack to force resize
+            setTimeout(() => {
+                var e = new CustomEvent("resize");
+                window.dispatchEvent(e);
+            }, 1);
+        }
     }
 
     render() {

@@ -15,22 +15,6 @@ export default class ProgramBlocks extends Program {
 
     constructor(props) {
         super(props);
-        this.resize = this.resize.bind(this);
-    }
-
-    resize() {
-        console.log("resize");
-        var w = window.innerWidth - 850;
-        var h = document.getElementById("game").clientHeight;
-        var p = document.getElementById("tabNavContent");
-        if (p.clientWidth != w) {
-            p.setAttribute("style", "width: " + w + "px; height: " + h + "px;");
-            // This is a hack to force resize
-            setTimeout(() => {
-                var e = new CustomEvent("resize");
-                window.dispatchEvent(e);
-            }, 1);
-        }
     }
 
     componentDidMount() {
@@ -54,8 +38,6 @@ export default class ProgramBlocks extends Program {
             },
         );
         this.props.onRef(this);
-        window.onresize = this.resize;
-        this.resize();
     }
 
     componentWillUnmount() {

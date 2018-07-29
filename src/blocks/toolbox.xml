@@ -157,6 +157,11 @@
           <field name="NUM">480</field>
         </block>
       </value>
+      <value name="zoom">
+        <block type="math_number">
+          <field name="NUM">2.0</field>
+        </block>
+      </value>
     </block>
     <block type="penguin_gettime"/>
   </category>
@@ -736,12 +741,12 @@
                                 </value>
                                 <value name="width">
                                   <block type="math_number" id="@b8wX?_+gl~#aRf8mJVc">
-                                    <field name="NUM">16</field>
+                                    <field name="NUM">32</field>
                                   </block>
                                 </value>
                                 <value name="height">
                                   <block type="math_number" id="`/r@AEM?5yWpd.AAL?`e">
-                                    <field name="NUM">20</field>
+                                    <field name="NUM">40</field>
                                   </block>
                                 </value>
                                 <next>
@@ -799,6 +804,11 @@
                                             <field name="NUM">480</field>
                                           </block>
                                         </value>
+                                        <value name="zoom">
+                                          <block type="math_number" id="=l@yzo1pa=RaXjav46Cg">
+                                            <field name="NUM">2.0</field>
+                                          </block>
+                                        </value>
                                         <next>
                                           <block type="variables_set" id="U]:o_BnkO[(dW@#;GBUH">
                                             <field name="VAR" id="x-;88Q%YYwgzbbQv|R?D" variabletype="">コスチューム</field>
@@ -846,6 +856,11 @@
                                         <value name="dispy">
                                           <block type="math_number" id="`?0JHlL_?FUWK_KcyO=H">
                                             <field name="NUM">480</field>
+                                          </block>
+                                        </value>
+                                        <value name="zoom">
+                                          <block type="math_number" id="=l@yzo1pa=Raxjav46Cg">
+                                            <field name="NUM">2.0</field>
                                           </block>
                                         </value>
                                         <next>

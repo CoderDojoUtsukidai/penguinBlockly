@@ -277,6 +277,11 @@ Blockly.Blocks['penguin_displayimage'] = {
     this.appendValueInput("dispy")
         .setCheck("Number")
         .appendField("Y:");
+    this.appendValueInput("zoom")
+        .setCheck("Number")
+        .appendField("（拡大: ");
+    this.appendDummyInput()
+        .appendField("倍）");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);

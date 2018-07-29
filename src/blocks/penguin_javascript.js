@@ -100,9 +100,11 @@ Blockly.JavaScript['penguin_displayimage'] = function(block) {
   var value_height = Blockly.JavaScript.valueToCode(block, 'height', Blockly.JavaScript.ORDER_ATOMIC);
   var value_dispx = Blockly.JavaScript.valueToCode(block, 'dispx', Blockly.JavaScript.ORDER_ATOMIC);
   var value_dispy = Blockly.JavaScript.valueToCode(block, 'dispy', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_zoom = Blockly.JavaScript.valueToCode(block, 'zoom', Blockly.JavaScript.ORDER_ATOMIC);
   var code = 'var sprite = document.getElementById(' + value_image + ');\n' +
         'ctx.drawImage(sprite, ' + value_x + ', ' + value_y + ', ' + value_width + ', ' + value_height + ', ' +
-        value_dispx + ', ' + value_dispy + ', ' + value_width + ', ' + value_height + ');\n';
+        value_dispx + ', ' + value_dispy + ', ' + (1.0 * value_zoom * value_width) + ', ' +
+        (1.0 * value_zoom * value_height) + ');\n';
   return code;
 };
 

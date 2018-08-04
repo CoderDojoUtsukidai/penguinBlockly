@@ -93,10 +93,10 @@ export default class TutorialPanel extends React.Component {
     }
 
     render() {
-        const Dots = Object.keys(levels).map(l => <div key={"progress-dot-" + l} class={"progress-dot" + (l < this.state.currentLevel ? " level-completed" : (l == this.state.currentLevel ? " current-level" : ""))}></div>);
+        const Dots = Object.keys(levels).map(l => <div key={"progress-dot-" + l} class={"progress-dot" + (Number(l) < Number(this.state.currentLevel) ? " level-completed" : (Number(l) == Number(this.state.currentLevel) ? " current-level" : ""))}></div>);
         return (
   <div id="titlePanel">
-    <h1><a href="/">ペンギン ブロックリー</a></h1>
+    <h1><a href="#">ペンギン ブロックリー</a></h1>
     <div id="tutorialProgress">{Dots}</div>
     <div id="instructionsPanel"></div>
     <audio id="levelCompleteSound" src="media/win.mp3" hidden="true" volume="100"></audio>

@@ -119,6 +119,9 @@ Blockly.JavaScript['penguin_drawgrid'] = function(block) {
   var j = Blockly.JavaScript.variableDB_.getDistinctName("grid_y", Blockly.Variables.NAME_TYPE);
   var code = '////// GRID //////\n' +
     'var ' + i + ', ' + j + ';\n' +
+    'ctx.fillStyle = "black";\n' +
+    'ctx.strokeStyle = "black";\n' +
+    'ctx.lineWidth = 1;\n' +
     'ctx.beginPath();\n' +
     'for (' + i + ' = 0; ' + i + ' <= 10; ' + i + '++) {\n' +
     '    ctx.moveTo((' + i + ' * 100), 0);\n' +

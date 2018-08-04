@@ -52,12 +52,12 @@ export default class Toolbar extends React.Component {
     render() {
         return (
     <div class="toolbar">
-      <button type="button" id="runBtn" onClick={this.runProgram} class="btn btn-success" disabled={this.state.running}>実行（じっこう）</button>
-      <button type="button" id="debugBtn" onClick={this.debugProgram} class="btn btn-secondary" disabled={this.state.running}>ステップ実行</button>
-      <button type="button" id="stopBtn" onClick={this.stopProgram} class="btn btn-danger" disabled={!this.state.running}>止める</button>
+      <button type="button" id="runBtn" onClick={this.runProgram} class="btn btn-success" disabled={this.state.running} title="実行（じっこう）"><i class="fa fa-play"></i></button>
+      <button type="button" id="debugBtn" onClick={this.debugProgram} class="btn btn-secondary" disabled={this.state.running} title="ステップ実行"><i class="fa fa-step-forward"></i></button>
+      <button type="button" id="stopBtn" onClick={this.stopProgram} class="btn btn-danger" disabled={!this.state.running} title="プログラムを止める"><i class="fa fa-stop"></i></button>
       <div class="dropdown" style={{display: 'inline-block'}}>
         <a class="btn btn-info dropdown-toggle" href="#" role="button" id="saveDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          保存
+          <i class="fa fa-save"></i>
         </a>
         <div class="dropdown-menu" aria-labelledby="saveDropdownLink" style={{width: '400px'}}>
           <form class="px-4 py-3">
@@ -71,7 +71,7 @@ export default class Toolbar extends React.Component {
       </div>
       <div class="dropdown" style={{display: 'inline-block'}}>
         <a class="btn btn-info dropdown-toggle" href="#" role="button" id="loadDropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          読込
+          <i class="fa fa-upload"></i>
         </a>
         <div class="dropdown-menu" aria-labelledby="loadDropdownLink" style={{width: '400px'}}>
           <form class="px-4 py-3">

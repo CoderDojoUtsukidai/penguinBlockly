@@ -40,14 +40,23 @@ export default class App extends React.Component {
         if (w > 1600) {
             this.setState({scale: 1.0});
         }
-        else if (w > 1400) {
+        else if (w > 1500) {
             this.setState({scale: 0.85});
         }
-        else if (w > 1200) {
+        else if (w > 1400) {
             this.setState({scale: 0.75});
         }
+        else if (w > 1200) {
+            this.setState({scale: 0.6});
+        }
+        else if (w > 1000) {
+            this.setState({scale: 0.5});
+        }
+        else if (w > 800) {
+            this.setState({scale: 0.4});
+        }
         else {
-            this.setState({scale: 0.7});
+            this.setState({scale: 0.35});
         }
         if (this.gamePanel && this.programPanel) {
             this.gamePanel.setScale(this.state.scale);

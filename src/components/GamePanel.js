@@ -17,7 +17,7 @@ export default class GamePanel extends React.Component {
         this.props.onRef(this);
         var game = document.getElementById('game');
         var ctx = game.getContext('2d');
-        ctx.resetTransform();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.scale(this.state.scale, this.state.scale);
     }
 

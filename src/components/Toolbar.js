@@ -63,7 +63,7 @@ export default class Toolbar extends React.Component {
           <form class="px-4 py-3">
             <div class="form-group">
               <label for="saveFilename">ファイル名</label>
-              <input type="input" class="form-control" id="saveFilename" value={this.state.saveFilename} onChange={this.onFilenameChanged} />
+              <input type="input" class="form-control" id="saveFilename" value={this.state.saveFilename} onChange={this.onFilenameChanged} onKeyDown={function (e) { if (e.keyCode == 13) { e.preventDefault(); }}} />
             </div>
             <a role="button" id="saveBtn" onClick={this.saveProgram} class="btn btn-info" disabled={this.state.running} href="#">保存</a>
           </form>

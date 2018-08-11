@@ -102,6 +102,10 @@ export default class ProgramBlocks extends Program {
         }
     }
 
+    resize() {
+        Blockly.svgResize(this.workspace);
+    }
+
     render() {
         return (
         <div id="blocklyPanel" class="fit-parent"></div>

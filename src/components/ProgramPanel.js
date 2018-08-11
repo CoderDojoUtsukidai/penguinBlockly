@@ -69,6 +69,7 @@ export default class ProgramPanel extends React.Component {
             else if (e.target.id === 'blockly-tab') {
                 programPanel.setState({active: 'blocks'});
             }
+            window.dispatchEvent(new CustomEvent("resize"));
         });
         window.mustStop = function() {
             return programPanel.getCurrentProgram().mustStop;
@@ -91,11 +92,7 @@ export default class ProgramPanel extends React.Component {
         var h = Math.max(g.clientHeight, window.innerHeight - p.offsetTop - 5);
         if (p.clientWidth != w || p.clientHeight != h) {
             p.setAttribute("style", "width: " + w + "px; height: " + h + "px;");
-            // This is a hack to force resize
-            setTimeout(() => {
-                var e = new CustomEvent("resize");
-                window.dispatchEvent(e);
-            }, 1);
+            this.getCurrentProgram().resize();
         }
     }
 

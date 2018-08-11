@@ -64,5 +64,8 @@ export default class Program extends React.Component {
 
     discardUpdates() {
     }
+
+    resize() {
+    }
 };
 

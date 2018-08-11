@@ -141,6 +141,12 @@ const initWindow = function(interpreter, scope) {
     interpreter.setProperty(scope, 'requestAnimationFrame',
         interpreter.createAsyncFunction(requestAnimationFrameWrapper),
         Interpreter.NONENUMERABLE_DESCRIPTOR);
+
+    function drawGridWrapper() {
+        return interpreter.createPrimitive(window.penguin_drawgrid());
+    }
+    interpreter.setProperty(scope, 'penguin_drawgrid',
+        interpreter.createNativeFunction(drawGridWrapper));
 };
 
 const initHighlightBlock = function(interpreter, scope, workspace) {

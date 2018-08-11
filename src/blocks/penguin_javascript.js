@@ -115,61 +115,71 @@ Blockly.JavaScript['penguin_gettime'] = function(block) {
 };
 
 Blockly.JavaScript['penguin_drawgrid'] = function(block) {
-  var i = Blockly.JavaScript.variableDB_.getDistinctName("grid_x", Blockly.Variables.NAME_TYPE);
-  var j = Blockly.JavaScript.variableDB_.getDistinctName("grid_y", Blockly.Variables.NAME_TYPE);
-  var code = '////// GRID //////\n' +
-    'var ' + i + ', ' + j + ';\n' +
-    'ctx.fillStyle = "black";\n' +
-    'ctx.strokeStyle = "black";\n' +
-    'ctx.lineWidth = 1;\n' +
-    'ctx.beginPath();\n' +
-    'for (' + i + ' = 0; ' + i + ' <= 10; ' + i + '++) {\n' +
-    '    ctx.moveTo((' + i + ' * 100), 0);\n' +
-    '    ctx.lineTo((' + i + ' * 100), 10);\n' +
-    '    ctx.moveTo((' + i + ' * 100), 590);\n' +
-    '    ctx.lineTo((' + i + ' * 100), 600);\n' +
-    '    ctx.moveTo(0, (' + i + ' * 100));\n' +
-    '    ctx.lineTo(10, (' + i + ' * 100));\n' +
-    '    ctx.moveTo(790, (' + i + ' * 100));\n' +
-    '    ctx.lineTo(800, (' + i + ' * 100));\n' +
-    '    for (' + j + ' = 1; ' + j + ' <= 10; ' + j + '++) {\n' +
-    '        ctx.moveTo((' + i + ' * 100) - 1, (' + j + ' * 100));\n' +
-    '        ctx.lineTo((' + i + ' * 100) + 1, (' + j + ' * 100));\n' +
-    '        ctx.moveTo((' + i + ' * 100), (' + j + ' * 100) - 1);\n' +
-    '        ctx.lineTo((' + i + ' * 100), (' + j + ' * 100) + 1);\n' +
-    '    }\n' +
-    '}\n' +
-    'ctx.moveTo(395, 300);\n' +
-    'ctx.lineTo(405, 300);\n' +
-    'ctx.moveTo(400, 295);\n' +
-    'ctx.lineTo(400, 305);\n' +
-    'ctx.stroke();\n' +
-    'ctx.font = "10px Arial";\n' +
-    'for (' + i + ' = 1; ' + i + ' <= 9; ' + i + '++) {\n' +
-    '    ctx.fillText((' + i + ' * 100), (' + i + ' * 100) + 5, 12);\n' +
-    '    if (' + i + ' < 6) {\n' +
-    '        ctx.fillText((' + i + ' * 100), 5, (' + i + ' * 100) + 12);\n' +
-    '    }\n' +
-    '}\n' +
-    'ctx.fillText("(0, 0)", 5, 12);\n' +
-    'ctx.fillText("(800, 0)", 760, 12);\n' +
-    'ctx.fillText("(0, 600)", 5, 595);\n' +
-    'ctx.fillText("(800, 600)", 750, 595);\n' +
-    'ctx.fillText("(400, 300)", 405, 312);\n' +
-    'ctx.beginPath();\n' +
-    'ctx.moveTo(40, 30);\n' +
-    'ctx.lineTo(140, 30);\n' +
-    'ctx.lineTo(135, 25);\n' +
-    'ctx.moveTo(140, 30);\n' +
-    'ctx.lineTo(135, 35);\n' +
-    'ctx.moveTo(30, 40);\n' +
-    'ctx.lineTo(30, 140);\n' +
-    'ctx.lineTo(25, 135);\n' +
-    'ctx.moveTo(30, 140);\n' +
-    'ctx.lineTo(35, 135);\n' +
-    'ctx.stroke();\n' +
-    'ctx.fillText("X", 145, 33);\n' +
-    'ctx.fillText("Y", 27, 154);\n' +
-    '////// GRID //////\n\n';
+  var code = 'window.penguin_drawgrid();';
   return code;
 }
+
+window.penguin_drawgrid = function () {
+    var grid_x, grid_y;
+    var saved_fillstyle, saved_strokestyle, saved_font;
+    var game = document.getElementById("game");
+    var ctx = game.getContext("2d");
+    saved_fillstyle = ctx.fillStyle;
+    saved_strokestyle = ctx.strokeStyle;
+    saved_font = ctx.font;
+    ctx.fillStyle = "black";
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (grid_x = 0; grid_x <= 10; grid_x++) {
+        ctx.moveTo((grid_x * 100), 0);
+        ctx.lineTo((grid_x * 100), 10);
+        ctx.moveTo((grid_x * 100), 590);
+        ctx.lineTo((grid_x * 100), 600);
+        ctx.moveTo(0, (grid_x * 100));
+        ctx.lineTo(10, (grid_x * 100));
+        ctx.moveTo(790, (grid_x * 100));
+        ctx.lineTo(800, (grid_x * 100));
+        for (grid_y = 1; grid_y <= 10; grid_y++) {
+            ctx.moveTo((grid_x * 100) - 1, (grid_y * 100));
+            ctx.lineTo((grid_x * 100) + 1, (grid_y * 100));
+            ctx.moveTo((grid_x * 100), (grid_y * 100) - 1);
+            ctx.lineTo((grid_x * 100), (grid_y * 100) + 1);
+        }
+    }
+    ctx.moveTo(395, 300);
+    ctx.lineTo(405, 300);
+    ctx.moveTo(400, 295);
+    ctx.lineTo(400, 305);
+    ctx.stroke();
+    ctx.font = "12px Arial";
+    for (grid_x = 1; grid_x <= 9; grid_x++) {
+        ctx.fillText((grid_x * 100), (grid_x * 100) + 5, 12);
+        if (grid_x < 6) {
+            ctx.fillText((grid_x * 100), 5, (grid_x * 100) + 12);
+        }
+    }
+    ctx.fillText("(0, 0)", 5, 12);
+    ctx.fillText("(800, 0)", 750, 12);
+    ctx.fillText("(0, 600)", 5, 595);
+    ctx.fillText("(800, 600)", 740, 595);
+    ctx.fillText("(400, 300)", 405, 312);
+    ctx.beginPath();
+    ctx.moveTo(40, 30);
+    ctx.lineTo(140, 30);
+    ctx.lineTo(135, 25);
+    ctx.moveTo(140, 30);
+    ctx.lineTo(135, 35);
+    ctx.moveTo(30, 40);
+    ctx.lineTo(30, 140);
+    ctx.lineTo(25, 135);
+    ctx.moveTo(30, 140);
+    ctx.lineTo(35, 135);
+    ctx.stroke();
+    ctx.fillText("X", 145, 33);
+    ctx.fillText("Y", 27, 154);
+    ctx.fillStyle = saved_fillstyle;
+    ctx.strokeStyle = saved_strokestyle;
+    ctx.font = saved_font;
+};
+

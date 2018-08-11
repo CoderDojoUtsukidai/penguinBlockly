@@ -25,7 +25,12 @@ export default class Program extends React.Component {
         });
         var annotatedCode = annotatedLines.join("\n");
         if (!this.isAsynchronous(annotatedCode)) {
-            annotatedCode += '\nwindow.setRunning(false);\n';
+            annotatedCode = 'try {\n' +
+                annotatedCode + '\n' +
+                '} catch (err) {\n' +
+                '  alert("エラーが発生しました！\\n" + err.message);\n' +
+                '}\n' +
+                'window.setRunning(false);\n';
         }
         return annotatedCode;
     }

@@ -1,0 +1,102 @@
+1:
+    title: "使い方"
+    description: "ペンギンブロックリーの基本の使い方を習ってみよう"
+    image:
+    steps:
+        1:
+            instructions: "<p>さあ、はじめよう</p>"
+            completes-when: 
+            next-step: 
+2:
+    title: "田舎の風景"
+    description: "基本ブロックを使って、キレイな風景を描いてみよう"
+    image:
+    steps:
+        1:
+            instructions: "<p>お描きを始めるには、「お絵描き」のカテゴリで「絵を描く準備をする」というブロックを探そう。</p><img src=\"images/1-level1-1.png\">"
+            completes-when: "window.codeContains('getContext(\"2d\");')"
+            next-step: 2
+        2:
+            instructions: "<p>いいですね。次は、背景を水色にするために、「塗りつぶしの色を〇〇にする」というブロックを選んで、色を「みずいろ」にしましょう。</p><img src=\"images/1-level2-1.png\">"
+            completes-when: "window.codeContains('ctx.fillStyle = \"lightblue\";')"
+            next-step: 3
+        3:
+            instructions: "<p>出来ましたね。次はいよいよ、背景をみずいろで塗りましょう。「四角ぬる」というブロックを使って、左上をX=0、Y=0に設定し、幅を800ピクセルと高さを600ピクセルにしよう。</p><img src=\"images/1-level3-1.png\">"
+            completes-when: "window.codeContains('ctx.fillRect(0,0,800,600);')"
+            next-step: 4
+        4:
+            instructions: "<p>ではプログラムを実行してみよう。</p><img src=\"images/1-level4-1.png\">"
+            completes-when: "window.buttonPressed('runBtn')"
+            next-step: 5
+        5:
+            instructions: "<p>プログラムを実行できましたね。次は下の方に芝生を描きましょう。塗りつぶしの色を「みどり」にして、X: 0, Y: 500から幅800 x 高さ100ピクセルの四角をぬりましょう。</p>"
+            completes-when: "window.codeContains('ctx.fillStyle = \"green\";\\nctx.fillRect(0,500,800,100);')"
+            next-step: 6
+        6:
+            instructions: "<p>そうです。これで行けそうですね。プログラムを実行してみましょう。</p>"
+            completes-when: "window.buttonPressed('runBtn')"
+            next-step: 7
+        7:
+            instructions: "<p>空と、芝生はできましたか？次は、木を描いてみましょう。まず、「筆の色」を「ちゃいろ」に設定しよう。</p>"
+            completes-when: "window.codeContains('ctx.strokeStyle = \"brown\";')"
+            next-step: 8
+        8:
+            instructions: "<p>では、木の形を描くために「形を描く」と言うブロックを置いてみましょう。</p>"
+            completes-when: "window.codeContains('ctx.beginPath();\\nctx.stroke();')"
+            next-step: 9
+        9:
+            instructions: "<p>次はペンをX: 200, Y: 500まで動かそう。</p>"
+            completes-when: "window.codeContains('ctx.moveTo(200,500);')"
+            next-step: 10
+        10:
+            instructions: "<p>そして、線をX: 200, Y: 400までに描こう。</p>"
+            completes-when: "window.codeContains('ctx.lineTo(200,400);')"
+            next-step: 11
+        11:
+            instructions: "<p>よっし、実行してみよう！</p>"
+            completes-when: "window.buttonPressed('runBtn')"
+            next-step: 12
+        12:
+            instructions: "<p>そっか、これだと細すぎるよね。筆の太さを10にするブロックを「ペンを動かす」の前に置きましょう。</p>"
+            completes-when: "window.codeContains('  ctx.lineWidth = 10;\\n  ctx.moveTo(200,500);')"
+            next-step: 13
+        13:
+            instructions: "<p>さあ、これでどうでしょう？実行してみよう！</p>"
+            completes-when: "window.buttonPressed('runBtn')"
+            next-step: 14
+        14:
+            instructions: "<p>じゃあ、えだを描くためにその下にまた「形を描く」ブロックを置こう。</p>"
+            completes-when: "window.codeContains('ctx.beginPath();\\nctx.stroke();')"
+            next-step: 15
+        15:
+            instructions: "<p>いいね。今度、ペンの太さを5にしてみよう。</p>"
+            completes-when: "window.codeContains('ctx.lineWidth = 5;')"
+            next-step: 16
+        16:
+            instructions: "<p>そして、枝を描き始める点（X: 200, Y: 400）までにペンを動かそう。</p>"
+            completes-when: "window.codeContains('  ctx.lineWidth = 5;\\n  ctx.moveTo(200,400);')"
+            next-step: 17
+        17:
+            instructions: "<p>で、そこから、X: 150, Y: 350まで線を描こう。</p>"
+            completes-when: "window.codeContains('  ctx.moveTo(200,400);\\n  ctx.lineTo(150,350);')"
+            next-step: 18
+        18:
+            instructions: "<p>どんな感じかな？実行してみよう。</p>"
+            completes-when: "window.buttonPressed('runBtn')"
+            next-step: 19
+        19:
+            instructions: "<p>描けましたか？次は、もう一本の枝を描くために、またペンをX: 200, Y: 400までに動かそう</p>"
+            completes-when: "window.codeContains('  ctx.lineTo(150,350);\\n  ctx.moveTo(200,400);')"
+            next-step: 20
+        20:
+            instructions: "<p>この枝は、X: 220, Y: 380まで描いてみよう。</p>"
+            completes-when: "window.codeContains('  ctx.moveTo(200,400);\\n  ctx.lineTo(220,380);')"
+            next-step: 21
+        21:
+            instructions: "<p>また実行してみよう。</p>"
+            completes-when: "window.buttonPressed('runBtn')"
+            next-step: 22
+        22:
+            instructions: "<p>キレイな風景ができましたね。素晴らしい！<br />その後、お日さまやその他の物を足してみてください。</p>"
+            completes-when: 
+            next-step: 

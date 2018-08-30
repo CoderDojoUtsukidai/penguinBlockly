@@ -1,3 +1,7 @@
+'use strict';
+
+const sprites = require('../data/sprites.dat');
+
 Blockly.Blocks['penguin_getcontext2d'] = {
   init: function() {
     this.appendDummyInput()
@@ -9,7 +13,7 @@ Blockly.Blocks['penguin_getcontext2d'] = {
   }
 };
 
-var colors = [
+const colors = [
     ["赤","red"],
     ["オレンジ","orange"],
     ["黄色","yellow"],
@@ -282,6 +286,39 @@ Blockly.Blocks['penguin_displayimage'] = {
         .appendField("（拡大: ");
     this.appendDummyInput()
         .appendField("倍）");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['penguin_displaysprite'] = {
+  init: function() {
+    var sprite_names = Object.keys(sprites).map(n => [n, n]);
+    var yes_no = [ ['普通', false], ['左右逆', true] ];
+    this.appendDummyInput()
+        .appendField("スプライト")
+        .appendField(new Blockly.FieldDropdown(sprite_names), "name");
+    this.appendValueInput("costume")
+        .setCheck("Number")
+        .appendField("のコスチューム");
+    this.appendValueInput("dispx")
+        .setCheck("Number")
+        .appendField("を表示する X:");
+    this.appendValueInput("dispy")
+        .setCheck("Number")
+        .appendField("Y:");
+    this.appendValueInput("zoom")
+        .setCheck("Number")
+        .appendField("（拡大: ");
+    this.appendDummyInput()
+        .appendField("倍、")
+        .appendField(new Blockly.FieldDropdown(yes_no), "flip");
+    this.appendDummyInput()
+        .appendField("）");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);

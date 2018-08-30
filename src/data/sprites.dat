@@ -1,0 +1,12 @@
+{
+    "mario":
+    {
+        "image": "img_donkeykong",
+        "costumes":
+        [
+            { "x": 0,  "y": 140, "width": 16, "height": 20 },
+            { "x": 20, "y": 140, "width": 16, "height": 20 }
+        ]
+    }
+}
+

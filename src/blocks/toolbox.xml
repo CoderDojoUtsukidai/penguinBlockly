@@ -164,6 +164,28 @@
         </block>
       </value>
     </block>
+    <block type="penguin_displaysprite">
+      <value name="costume">
+        <block type="math_number">
+          <field name="NUM">0</field>
+        </block>
+      </value>
+      <value name="dispx">
+        <block type="math_number">
+          <field name="NUM">200</field>
+        </block>
+      </value>
+      <value name="dispy">
+        <block type="math_number">
+          <field name="NUM">480</field>
+        </block>
+      </value>
+      <value name="zoom">
+        <block type="math_number">
+          <field name="NUM">2.0</field>
+        </block>
+      </value>
+    </block>
     <block type="penguin_gettime"/>
   </category>
   <category name="&#x6587;&#x5B57;&#x3068;&#x51FA;&#x529B;">

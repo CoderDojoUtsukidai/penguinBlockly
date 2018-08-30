@@ -23,6 +23,10 @@ module.exports = {
                 test: /\.xml$/,
                 loader: 'raw-loader',
             },
+            {
+                test: /\.dat$/,
+                loader: 'json-loader',
+            },
         ]
     },
     output: {

@@ -1,3 +1,7 @@
+'use strict';
+
+const sprites = require('../data/sprites.dat');
+
 Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
 Blockly.JavaScript.addReservedWords('highlightBlock');
 Blockly.JavaScript.addReservedWords('highlightLine');
@@ -106,6 +110,42 @@ Blockly.JavaScript['penguin_displayimage'] = function(block) {
         'ctx.drawImage(' + sprite_var + ', ' + value_x + ', ' + value_y + ', ' + value_width + ', ' + value_height + ', ' +
         value_dispx + ', ' + value_dispy + ', ' + (1.0 * value_zoom * value_width) + ', ' +
         (1.0 * value_zoom * value_height) + ');\n';
+  return code;
+};
+
+Blockly.JavaScript['penguin_displaysprite'] = function(block) {
+  var sprite_name = block.getFieldValue('name');
+  var sprite_costume_index = Number(Blockly.JavaScript.valueToCode(block, 'costume', Blockly.JavaScript.ORDER_ATOMIC));
+  var sprite = sprites[sprite_name];
+  if (!sprite) {
+    return 'alert("スプライト' + sprite_name + 'は存在しません！");';
+  }
+  var value_image = sprite["image"];
+  var costume = sprite["costumes"][sprite_costume_index];
+  if (!costume) {
+    return 'alert("スプライト' + sprite_name + 'にコスチューム' + sprite_costume_index + 'は存在しません！");';
+  }
+  var value_x = costume["x"];
+  var value_y = costume["y"];
+  var value_width = costume["width"];
+  var value_height = costume["height"];
+  var value_dispx = Blockly.JavaScript.valueToCode(block, 'dispx', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_dispy = Blockly.JavaScript.valueToCode(block, 'dispy', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_flip = block.getFieldValue('flip');
+  var value_zoom = Blockly.JavaScript.valueToCode(block, 'zoom', Blockly.JavaScript.ORDER_ATOMIC);
+  var sprite_var = Blockly.JavaScript.variableDB_.getDistinctName("sprite", Blockly.Variables.NAME_TYPE);
+  var disp_width = 1.0 * value_zoom * value_width;
+  var disp_height = 1.0 * value_zoom * value_height;
+  var code = 'var ' + sprite_var + ' = document.getElementById("' + value_image + '");\n' +
+        'ctx.save();\n' +
+        'ctx.translate(' + value_dispx + (value_flip ? (' + ' + disp_width) : '') + ', 0);\n';
+  if (value_flip) {
+    code += 'ctx.scale(-1, 1);\n';
+  }
+  code += 'ctx.drawImage(' + sprite_var + ', ' + value_x + ', ' + value_y + ', ' +
+        value_width + ', ' + value_height + ', 0, ' + value_dispy + ', ' +
+        disp_width + ', ' + disp_height + ');\n' +
+        'ctx.restore();\n';
   return code;
 };
 

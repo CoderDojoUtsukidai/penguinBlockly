@@ -351,3 +351,87 @@ Blockly.Blocks['penguin_drawgrid'] = {
   }
 };
 
+Blockly.Blocks['penguin_setRobotIp'] = {
+  init: function() {
+    this.appendValueInput("ip")
+        .setCheck("String")
+        .appendField("ロボットと");
+    this.appendDummyInput()
+        .appendField("で接続する");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(238);
+    this.setTooltip("ロボットに接続するIPアドレスを指定します");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['penguin_moveForward'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("前へ進む");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(238);
+    this.setTooltip("前へ進みます");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['penguin_moveBackward'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("後ろにさがる");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(238);
+    this.setTooltip("後ろにさがります");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['penguin_stop'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("止まる");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(238);
+    this.setTooltip("止まります");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['penguin_turnAngle'] = {
+  init: function() {
+    this.appendValueInput("angle")
+        .setCheck("Number")
+        .appendField("");
+    this.appendDummyInput()
+        .appendField("度に曲がる");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(238);
+    this.setTooltip("ある角度に曲がります");
+    this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['penguin_wait'] = {
+  init: function() {
+    this.appendValueInput("time_sec")
+        .setCheck("Number")
+        .appendField("");
+    this.appendDummyInput()
+        .appendField("秒を待つ");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(238);
+    this.setTooltip("ある時間を待つ");
+    this.setHelpUrl("");
+  }
+};
+

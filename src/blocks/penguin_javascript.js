@@ -223,3 +223,57 @@ window.penguin_drawgrid = function () {
     ctx.font = saved_font;
 };
 
+var penguin_robotIp = '172.24.1.2';
+
+window.penguin_setRobotIp = function (ip) {
+  penguin_robotIp = ip;
+};
+
+window.penguin_sendCommandToRobot = function (cmd) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "http://" + penguin_robotIp + "/" + cmd, true);
+  xhr.send();
+};
+
+Blockly.JavaScript['penguin_setRobotIp'] = function(block) {
+  var value_ip = Blockly.JavaScript.valueToCode(block, 'ip', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'penguin_setRobotIp(' + value_ip + ');\n';
+  return code;
+}
+
+Blockly.JavaScript['penguin_moveForward'] = function(block) {
+  var code = 'penguin_sendCommandToRobot("FD");\n';
+  return code;
+}
+
+Blockly.JavaScript['penguin_moveBackward'] = function(block) {
+  var code = 'penguin_sendCommandToRobot("BK");\n';
+  return code;
+}
+
+Blockly.JavaScript['penguin_stop'] = function(block) {
+  var code = 'penguin_sendCommandToRobot("ST");\n';
+  return code;
+}
+
+Blockly.JavaScript['penguin_turnAngle'] = function(block) {
+  var value_angle = Blockly.JavaScript.valueToCode(block, 'angle', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'penguin_sendCommandToRobot("ang?val=' + value_angle + '");\n';
+  return code;
+}
+
+window.penguin_wait = function (time_sec) {
+  var time_ms = time_sec * 1000;
+  var start = new Date().getTime();
+  var end = start;
+  while(end < start + time_ms) {
+    end = new Date().getTime();
+  }
+};
+
+Blockly.JavaScript['penguin_wait'] = function(block) {
+  var value_time_sec = Blockly.JavaScript.valueToCode(block, 'time_sec', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = 'penguin_wait(' + value_time_sec + ');\n';
+  return code;
+}
+

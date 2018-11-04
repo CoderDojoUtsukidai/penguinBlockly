@@ -147,6 +147,18 @@ const initWindow = function(interpreter, scope) {
     }
     interpreter.setProperty(scope, 'penguin_drawgrid',
         interpreter.createNativeFunction(drawGridWrapper));
+
+    function setRobotIpWrapper(ip) {
+        return interpreter.createPrimitive(window.penguin_setRobotIp(ip));
+    }
+    interpreter.setProperty(scope, 'penguin_setRobotIp',
+        interpreter.createNativeFunction(setRobotIpWrapper));
+
+    function sendCommandToRobotWrapper(cmd) {
+        return interpreter.createPrimitive(window.penguin_sendCommandToRobot(cmd));
+    }
+    interpreter.setProperty(scope, 'penguin_sendCommandToRobot',
+        interpreter.createNativeFunction(sendCommandToRobotWrapper));
 };
 
 const initHighlightBlock = function(interpreter, scope, workspace) {
@@ -184,12 +196,22 @@ const initAlert = function(interpreter, scope) {
         interpreter.createNativeFunction(alertWrapper));
 };
 
+const initWait = function(interpreter, scope) {
+    var waitWrapper = function(time_sec, callback) {
+        setTimeout(callback, time_sec);
+        return true;
+    };
+    interpreter.setProperty(scope, 'penguin_wait',
+        interpreter.createAsyncFunction(waitWrapper));
+};
+
 function createInterpreter(code, workspace, editor) {
     function initialize(interpreter, scope) {
         initDocument(interpreter, scope);
         initConsole(interpreter, scope);
         initWindow(interpreter, scope);
         initAlert(interpreter, scope);
+        initWait(interpreter, scope);
         if (workspace) {
             initHighlightBlock(interpreter, scope, workspace);
         }

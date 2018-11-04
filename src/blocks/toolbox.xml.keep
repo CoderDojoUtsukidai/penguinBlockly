@@ -164,55 +164,7 @@
         </block>
       </value>
     </block>
-    <block type="penguin_displaysprite">
-      <value name="costume">
-        <block type="math_number">
-          <field name="NUM">0</field>
-        </block>
-      </value>
-      <value name="dispx">
-        <block type="math_number">
-          <field name="NUM">200</field>
-        </block>
-      </value>
-      <value name="dispy">
-        <block type="math_number">
-          <field name="NUM">480</field>
-        </block>
-      </value>
-      <value name="zoom">
-        <block type="math_number">
-          <field name="NUM">2.0</field>
-        </block>
-      </value>
-    </block>
     <block type="penguin_gettime"/>
-  </category>
-  <category name="Robot">
-    <block type="penguin_setRobotIp">
-      <value name="ip">
-        <block type="text">
-          <field name="TEXT">172.24.1.2</field>
-        </block>
-      </value>
-    </block>
-    <block type="penguin_moveForward"/>
-    <block type="penguin_moveBackward"/>
-    <block type="penguin_stop"/>
-    <block type="penguin_turnAngle">
-      <value name="angle">
-        <block type="math_number">
-          <field name="NUM">90</field>
-        </block>
-      </value>
-    </block>
-    <block type="penguin_wait">
-      <value name="time_sec">
-        <block type="math_number">
-          <field name="NUM">1</field>
-        </block>
-      </value>
-    </block>
   </category>
   <category name="&#x6587;&#x5B57;&#x3068;&#x51FA;&#x529B;">
     <block type="text"/>
@@ -551,6 +503,676 @@
         </next>
       </block>
     </category>
+    <category name="&#x7530;&#x820E;&#x306E;&#x98A8;&#x666F; 2">
+      <variables>
+        <variable type="" id="m763kirUhO=TGIL8y(9N">x</variable>
+        <variable type="" id="8,n/2+U}Mq36h.Azaw#?">y</variable>
+      </variables>
+      <block type="penguin_getcontext2d" id="{?{S(h!qLu~9+8|sqqUf" x="9" y="9">
+        <next>
+          <block type="penguin_clearrect" id="`iP._71rw=#z+j{ewM11">
+            <value name="x">
+              <block type="math_number" id="h.f[IdL#]4=r,|ZrO[dn">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+            <value name="y">
+              <block type="math_number" id="h=!koJS~M|`G[1c=wDH9">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+            <value name="width">
+              <block type="math_number" id="2_(`GESem?3N@~J%i+y]">
+                <field name="NUM">800</field>
+              </block>
+            </value>
+            <value name="height">
+              <block type="math_number" id="nl+Ne2/Skxdb[Zkw2Dpl">
+                <field name="NUM">600</field>
+              </block>
+            </value>
+            <next>
+              <block type="penguin_fillstyle" id="%l(|m.irwrl#}iDdr6+1">
+                <field name="color">lightblue</field>
+                <next>
+                  <block type="penguin_fillrect" id="o#fO{oo0DJ6D79uj{(;d">
+                    <value name="x">
+                      <block type="math_number" id="U+!J3HC245a@jYg!e)ij">
+                        <field name="NUM">0</field>
+                      </block>
+                    </value>
+                    <value name="y">
+                      <block type="math_number" id="fL3PZP,9B6b5$nRFW7G)">
+                        <field name="NUM">0</field>
+                      </block>
+                    </value>
+                    <value name="width">
+                      <block type="math_number" id="L8?d{E/.34mT,yj8@-+4">
+                        <field name="NUM">800</field>
+                      </block>
+                    </value>
+                    <value name="height">
+                      <block type="math_number" id="0[UQDZ$:q]|5X]$ULl/f">
+                        <field name="NUM">600</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="penguin_fillstyle" id="W]_oflp$K{1MymA.CK?.">
+                        <field name="color">green</field>
+                        <next>
+                          <block type="penguin_fillrect" id="og2zth*[L.S?L]$b8Bj_">
+                            <value name="x">
+                              <block type="math_number" id="H6Wao:,_|uTlsJK(Pid)">
+                                <field name="NUM">0</field>
+                              </block>
+                            </value>
+                            <value name="y">
+                              <block type="math_number" id="8^F#x]Hi|a2dU+#H:QW:">
+                                <field name="NUM">500</field>
+                              </block>
+                            </value>
+                            <value name="width">
+                              <block type="math_number" id="FLi8FP3%;U.8O)~.O[?a">
+                                <field name="NUM">800</field>
+                              </block>
+                            </value>
+                            <value name="height">
+                              <block type="math_number" id="V{E80CiHYlXj$;/}W~%d">
+                                <field name="NUM">100</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="penguin_fillstyle" id="mi3Z]LN]$dUCrg].hg|w">
+                                <field name="color">yellow</field>
+                                <next>
+                                  <block type="penguin_fillpath" id="IwzC;Ik%[{2o:@s:gcdo">
+                                    <statement name="path_block">
+                                      <block type="penguin_circle" id="amB$ED})~0~{ZE-*Q56J">
+                                        <value name="x">
+                                          <block type="math_number" id="d-Tam}u:*$6jiJRNVoQJ">
+                                            <field name="NUM">600</field>
+                                          </block>
+                                        </value>
+                                        <value name="y">
+                                          <block type="math_number" id="IfM}Ti7-=?=Cs4sj0Orv">
+                                            <field name="NUM">200</field>
+                                          </block>
+                                        </value>
+                                        <value name="radius">
+                                          <block type="math_number" id="n[Y{7ng(w`2.8eE(fd/m">
+                                            <field name="NUM">50</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </statement>
+                                    <next>
+                                      <block type="procedures_callnoreturn" id="bedKW78O9gGg^GH-{V@7">
+                                        <mutation name="&#x6728;&#x3092;&#x63CF;&#x304F;">
+                                          <arg name="x"/>
+                                          <arg name="y"/>
+                                        </mutation>
+                                        <value name="ARG0">
+                                          <block type="math_number" id="Et2+8KyML=}/]Q4sEaV]">
+                                            <field name="NUM">200</field>
+                                          </block>
+                                        </value>
+                                        <value name="ARG1">
+                                          <block type="math_number" id="MJr+S_io`C-Kwo(+q$0p">
+                                            <field name="NUM">500</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="procedures_callnoreturn" id="SbG:rZT=Thx:;%*JkI9K">
+                                            <mutation name="&#x6728;&#x3092;&#x63CF;&#x304F;">
+                                              <arg name="x"/>
+                                              <arg name="y"/>
+                                            </mutation>
+                                            <value name="ARG0">
+                                              <block type="math_number" id="bQajFk8+d!4:#*eO96(l">
+                                                <field name="NUM">400</field>
+                                              </block>
+                                            </value>
+                                            <value name="ARG1">
+                                              <block type="math_number" id="E2f3Uzc_*m[xj3wOUwOr">
+                                                <field name="NUM">520</field>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="procedures_callnoreturn" id="RMlWCspOWNu5*yWHNt[D">
+                                                <mutation name="&#x96F2;&#x3092;&#x63CF;&#x304F;">
+                                                  <arg name="x"/>
+                                                  <arg name="y"/>
+                                                </mutation>
+                                                <value name="ARG0">
+                                                  <block type="math_number" id="x*|d%?)80XjE1txY8Pn6">
+                                                    <field name="NUM">300</field>
+                                                  </block>
+                                                </value>
+                                                <value name="ARG1">
+                                                  <block type="math_number" id=",h{w!yE*T0;vTJ)h][N~">
+                                                    <field name="NUM">250</field>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="procedures_callnoreturn" id=".R[x6Swd,/(ybakZ8DOZ">
+                                                    <mutation name="&#x96F2;&#x3092;&#x63CF;&#x304F;">
+                                                      <arg name="x"/>
+                                                      <arg name="y"/>
+                                                    </mutation>
+                                                    <value name="ARG0">
+                                                      <block type="math_number" id="V$,9se(8y7-utx4C=,f}">
+                                                        <field name="NUM">100</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="ARG1">
+                                                      <block type="math_number" id="@2UbVI(2!`iPvgeZ2c;s">
+                                                        <field name="NUM">150</field>
+                                                      </block>
+                                                    </value>
+                                                    <next>
+                                                      <block type="procedures_callnoreturn" id="?fXt6;8a%cC/yJE$Q[4+">
+                                                        <mutation name="&#x96F2;&#x3092;&#x63CF;&#x304F;">
+                                                          <arg name="x"/>
+                                                          <arg name="y"/>
+                                                        </mutation>
+                                                        <value name="ARG0">
+                                                          <block type="math_number" id="@wL%Nzaz?_kFg%r,vifH">
+                                                            <field name="NUM">400</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="ARG1">
+                                                          <block type="math_number" id="/RGsQD1tEa[A+`.?s1XG">
+                                                            <field name="NUM">75</field>
+                                                          </block>
+                                                        </value>
+                                                        <next>
+                                                          <block type="penguin_drawgrid" id="2JK|HlkeLdJOtFxL{((B"/>
+                                                        </next>
+                                                      </block>
+                                                    </next>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+      <block type="procedures_defnoreturn" id="dRtyy`/V-?!_~?FoIE^2" x="297" y="315">
+        <mutation>
+          <arg name="x"/>
+          <arg name="y"/>
+        </mutation>
+        <field name="NAME">&#x6728;&#x3092;&#x63CF;&#x304F;</field>
+        <comment pinned="false" h="80" w="160">&#x3053;&#x306E;&#x95A2;&#x6570;&#x306E;&#x8AAC;&#x660E;&#x2026;</comment>
+        <statement name="STACK">
+          <block type="penguin_strokestyle" id="hs3_=umY!V~(Ud4o#8p$">
+            <field name="color">brown</field>
+            <next>
+              <block type="penguin_strokepath" id="sXkeG^Y2lrzV-$v_3V]*">
+                <statement name="path_block">
+                  <block type="penguin_linewidth" id="C%aaRJ.uM`K3C25mGY4z">
+                    <value name="width">
+                      <block type="math_number" id="_iw_G}]62Cl~}g]UwnDN">
+                        <field name="NUM">10</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="penguin_moveto" id="2;|7quaR99DY%DtQTZF-">
+                        <value name="x">
+                          <block type="variables_get" id="4~,J_Fm9X8f}1t[#W=!b">
+                            <field name="VAR" id="m763kirUhO=TGIL8y(9N" variabletype="">x</field>
+                          </block>
+                        </value>
+                        <value name="y">
+                          <block type="variables_get" id="pr6NS[F^^|#w.T3M4bRp">
+                            <field name="VAR" id="8,n/2+U}Mq36h.Azaw#?" variabletype="">y</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="penguin_lineto" id="XKyx/$a^ulZT7ctbUWfa">
+                            <value name="x">
+                              <block type="variables_get" id="E)^mCPAoPMF#5.xURPRd">
+                                <field name="VAR" id="m763kirUhO=TGIL8y(9N" variabletype="">x</field>
+                              </block>
+                            </value>
+                            <value name="y">
+                              <block type="math_arithmetic" id="uRB2L$$SOZj3^sC4Jhpt">
+                                <field name="OP">MINUS</field>
+                                <value name="A">
+                                  <block type="variables_get" id="K)4usrd[Ak)1WM/tT|yF">
+                                    <field name="VAR" id="8,n/2+U}Mq36h.Azaw#?" variabletype="">y</field>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="math_number" id="+-^NyRqtZmiSRU8n+Q@G">
+                                    <field name="NUM">100</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <next>
+                  <block type="penguin_strokepath" id="E!OR;MRW3VW%Bopk|Y-7">
+                    <statement name="path_block">
+                      <block type="penguin_linewidth" id="%Rf/5^wyKN[BrP!,sl3S">
+                        <value name="width">
+                          <block type="math_number" id="NyT^}f%?f$rA4nWd}nh=">
+                            <field name="NUM">5</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="penguin_moveto" id="WDp4fgD%2,|aw#i~Pb|F">
+                            <value name="x">
+                              <block type="variables_get" id="A-ZhqGiib^`46D}!or@Q">
+                                <field name="VAR" id="m763kirUhO=TGIL8y(9N" variabletype="">x</field>
+                              </block>
+                            </value>
+                            <value name="y">
+                              <block type="math_arithmetic" id="DMQZ9-xmU`o#6K1[Z9`Z">
+                                <field name="OP">MINUS</field>
+                                <value name="A">
+                                  <block type="variables_get" id="P$6oc@+rs6DuTrNbpdi8">
+                                    <field name="VAR" id="8,n/2+U}Mq36h.Azaw#?" variabletype="">y</field>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="math_number" id="/5aZqO46ZnB6#*He2jrQ">
+                                    <field name="NUM">100</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="penguin_lineto" id=")U$!-lr(iun7N]P5t;X4">
+                                <value name="x">
+                                  <block type="math_arithmetic" id="sKun+}}#D8g-+~.vSUS{">
+                                    <field name="OP">MINUS</field>
+                                    <value name="A">
+                                      <block type="variables_get" id="ehlFgETA:/hx(WPa_%v2">
+                                        <field name="VAR" id="m763kirUhO=TGIL8y(9N" variabletype="">x</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="math_number" id="Jd[Z%?XLoI[1j{?O{W[j">
+                                        <field name="NUM">50</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="y">
+                                  <block type="math_arithmetic" id="EUcB}%CD0dyE|q4T2m1f">
+                                    <field name="OP">MINUS</field>
+                                    <value name="A">
+                                      <block type="variables_get" id="@oU5f7?qw_rRCk1RZOKu">
+                                        <field name="VAR" id="8,n/2+U}Mq36h.Azaw#?" variabletype="">y</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="math_number" id="(:qz?4e}^+:El,}Nn4^T">
+                                        <field name="NUM">150</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="penguin_moveto" id="o_hp6/ow(R_$Xb-i!8Y%">
+                                    <value name="x">
+                                      <block type="variables_get" id="v2Aki_yU@z9zTiu9V4=X">
+                                        <field name="VAR" id="m763kirUhO=TGIL8y(9N" variabletype="">x</field>
+                                      </block>
+                                    </value>
+                                    <value name="y">
+                                      <block type="math_arithmetic" id="=Kc}Qt5R_/2K$CMQ0N_9">
+                                        <field name="OP">MINUS</field>
+                                        <value name="A">
+                                          <block type="variables_get" id="ms5twU07#:SvLg0PPM)*">
+                                            <field name="VAR" id="8,n/2+U}Mq36h.Azaw#?" variabletype="">y</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="math_number" id="vbT%Xs5o:hId@IYJ)l!@">
+                                            <field name="NUM">100</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="penguin_lineto" id="jI)y-T3e81yF`WV5apQT">
+                                        <value name="x">
+                                          <block type="math_arithmetic" id="1q*%_3@[hCP]5]hnInt0">
+                                            <field name="OP">ADD</field>
+                                            <value name="A">
+                                              <block type="variables_get" id="vV2J.iJ(R27c~C}5XXt:">
+                                                <field name="VAR" id="m763kirUhO=TGIL8y(9N" variabletype="">x</field>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <block type="math_number" id=")BuFPng$uXo)=,E.3f40">
+                                                <field name="NUM">20</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <value name="y">
+                                          <block type="math_arithmetic" id="ls}_1{g9wN;6y*{E$|pv">
+                                            <field name="OP">MINUS</field>
+                                            <value name="A">
+                                              <block type="variables_get" id="uzd0=#7vKIZ?nrG(i/Xh">
+                                                <field name="VAR" id="8,n/2+U}Mq36h.Azaw#?" variabletype="">y</field>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <block type="math_number" id="dSOPK#JZh-/VB`gg,r[(">
+                                                <field name="NUM">120</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="penguin_fillstyle" id="kWM@lthFEPO+F$89]RYg">
+                        <field name="color">lightgreen</field>
+                        <next>
+                          <block type="controls_repeat_ext" id="zhrIU1mJt$-~I0)+Z:22">
+                            <value name="TIMES">
+                              <block type="math_number" id="G~JAzea+fr]~E%[x^.zQ">
+                                <field name="NUM">50</field>
+                              </block>
+                            </value>
+                            <statement name="DO">
+                              <block type="penguin_fillpath" id="[Tmvlx@taaZNOwaGrb!X">
+                                <statement name="path_block">
+                                  <block type="penguin_circle" id="Ax}r(P|#[Fx-RIra7:g0">
+                                    <value name="x">
+                                      <block type="math_arithmetic" id="Jb9f[shc=k^.buWIWF$u">
+                                        <field name="OP">ADD</field>
+                                        <value name="A">
+                                          <block type="variables_get" id="wyG`tn?nnOoeoE5Fv@Hd">
+                                            <field name="VAR" id="m763kirUhO=TGIL8y(9N" variabletype="">x</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="math_random_int" id="rT|7qt}|]N0jiv#acphk">
+                                            <value name="FROM">
+                                              <block type="math_number" id="QjHQP*1Bf~C[St4rDd7S">
+                                                <field name="NUM">-50</field>
+                                              </block>
+                                            </value>
+                                            <value name="TO">
+                                              <block type="math_number" id="O7q4/U/}{2S|J=(U0CQ|">
+                                                <field name="NUM">50</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <value name="y">
+                                      <block type="math_arithmetic" id="%jaVt.Iu4m%{F{+_g-rx">
+                                        <field name="OP">MINUS</field>
+                                        <value name="A">
+                                          <block type="variables_get" id=",j~=kXe{#yzW;Z?^88Uq">
+                                            <field name="VAR" id="8,n/2+U}Mq36h.Azaw#?" variabletype="">y</field>
+                                          </block>
+                                        </value>
+                                        <value name="B">
+                                          <block type="math_random_int" id="h-p~hr{(WsENfDO*ol?-">
+                                            <value name="FROM">
+                                              <block type="math_number" id="kumEFlJd*Ojft?$3D6tP">
+                                                <field name="NUM">100</field>
+                                              </block>
+                                            </value>
+                                            <value name="TO">
+                                              <block type="math_number" id="-C,/K(5k-=aG.acQr19w">
+                                                <field name="NUM">200</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <value name="radius">
+                                      <block type="math_number" id="z);DvTTEb}R~S6m;s!$g">
+                                        <field name="NUM">5</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </statement>
+                              </block>
+                            </statement>
+                            <next>
+                              <block type="penguin_fillstyle" id="F?s7*?^By[{T3)Dw`O:)">
+                                <field name="color">orange</field>
+                                <next>
+                                  <block type="penguin_fillpath" id=",Id!DjQ?k)NEIQ6+VQ.?">
+                                    <statement name="path_block">
+                                      <block type="penguin_circle" id=")5~.(tLj0,;Z-Kp!RI3B">
+                                        <value name="x">
+                                          <block type="math_arithmetic" id="~#/QF*8mV$s,bEB#46O|">
+                                            <field name="OP">MINUS</field>
+                                            <value name="A">
+                                              <block type="variables_get" id="-~*8|%Ku/PANhw5$`K]8">
+                                                <field name="VAR" id="m763kirUhO=TGIL8y(9N" variabletype="">x</field>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <block type="math_number" id="i@He9bLgKPYI0qcn91pe">
+                                                <field name="NUM">50</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <value name="y">
+                                          <block type="math_arithmetic" id="tO.keafNxRy.s0`3Gn/2">
+                                            <field name="OP">MINUS</field>
+                                            <value name="A">
+                                              <block type="variables_get" id="qXPRh-_)dx.6`:GPD$,l">
+                                                <field name="VAR" id="8,n/2+U}Mq36h.Azaw#?" variabletype="">y</field>
+                                              </block>
+                                            </value>
+                                            <value name="B">
+                                              <block type="math_number" id="]rsb{ty(LJ;n3mApc9R[">
+                                                <field name="NUM">140</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <value name="radius">
+                                          <block type="math_number" id="{Y:*ZaiwT[2mlA/[5}4?">
+                                            <field name="NUM">5</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </statement>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+      <block type="procedures_defnoreturn" id="?FMiWjSr2reDcc)Q(.;+" x="297" y="1125">
+        <mutation>
+          <arg name="x"/>
+          <arg name="y"/>
+        </mutation>
+        <field name="NAME">&#x96F2;&#x3092;&#x63CF;&#x304F;</field>
+        <comment pinned="false" h="80" w="160">&#x3053;&#x306E;&#x95A2;&#x6570;&#x306E;&#x8AAC;&#x660E;&#x2026;</comment>
+        <statement name="STACK">
+          <block type="penguin_fillstyle" id="yZSQkYki$T-Y}6p[OO!i">
+            <field name="color">white</field>
+            <next>
+              <block type="penguin_fillpath" id="}iY*.:bE#HiVV?[iOZLz">
+                <statement name="path_block">
+                  <block type="penguin_circle" id="RX(fB5bcj@kG[4;:yIdl">
+                    <value name="x">
+                      <block type="variables_get" id="~m1,,ZP6jq.A:gJYstZn">
+                        <field name="VAR" id="m763kirUhO=TGIL8y(9N" variabletype="">x</field>
+                      </block>
+                    </value>
+                    <value name="y">
+                      <block type="variables_get" id="j:#B)P!;;A?W0}G5Rp,:">
+                        <field name="VAR" id="8,n/2+U}Mq36h.Azaw#?" variabletype="">y</field>
+                      </block>
+                    </value>
+                    <value name="radius">
+                      <block type="math_number" id="J;pb}wqjHajehDMsL?dL">
+                        <field name="NUM">20</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="penguin_circle" id="uih4s1rONyX8(vmT~(K}">
+                        <value name="x">
+                          <block type="math_arithmetic" id="H8]?@G/;Eo:^keWNUS9{">
+                            <field name="OP">ADD</field>
+                            <value name="A">
+                              <block type="variables_get" id="R.-Zv(PBWt)g(9-N#8lf">
+                                <field name="VAR" id="m763kirUhO=TGIL8y(9N" variabletype="">x</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="math_number" id="=DCSFT1S@#CG_#UPKnf:">
+                                <field name="NUM">20</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="y">
+                          <block type="math_arithmetic" id="SP)nS[K8IDu@^)m@J=Fi">
+                            <field name="OP">MINUS</field>
+                            <value name="A">
+                              <block type="variables_get" id="YaTrH$aoDv)L|qM_Moj}">
+                                <field name="VAR" id="8,n/2+U}Mq36h.Azaw#?" variabletype="">y</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="math_number" id="j]CG7i?g%b*9rU=j!xfn">
+                                <field name="NUM">20</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="radius">
+                          <block type="math_number" id="jjnHa_*v/q%BKpOE(@5%">
+                            <field name="NUM">20</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="penguin_circle" id="jmmQZ6]MXVt2mH)ga#~c">
+                            <value name="x">
+                              <block type="math_arithmetic" id="/LnldZS0#7k1Nx]?_kD^">
+                                <field name="OP">ADD</field>
+                                <value name="A">
+                                  <block type="variables_get" id="oSRPTJ}LbY}o{?lsl}$:">
+                                    <field name="VAR" id="m763kirUhO=TGIL8y(9N" variabletype="">x</field>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="math_number" id="E.JEL!2qrE,Y*?YB!6Mx">
+                                    <field name="NUM">20</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="y">
+                              <block type="variables_get" id="mZn.}r9W]NkayA1;i:M/">
+                                <field name="VAR" id="8,n/2+U}Mq36h.Azaw#?" variabletype="">y</field>
+                              </block>
+                            </value>
+                            <value name="radius">
+                              <block type="math_number" id="NpMIR6.J[/5ozNUwUM:!">
+                                <field name="NUM">20</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="penguin_circle" id="tkk3BZ1s840=-}b2mL]%">
+                                <value name="x">
+                                  <block type="math_arithmetic" id=")7#[4frc!Y63-$:u+.UD">
+                                    <field name="OP">ADD</field>
+                                    <value name="A">
+                                      <block type="variables_get" id="s~)gknlc;1XIxSin1dY8">
+                                        <field name="VAR" id="m763kirUhO=TGIL8y(9N" variabletype="">x</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="math_number" id="_r/1d6zW|P?W93xH^S}N">
+                                        <field name="NUM">50</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="y">
+                                  <block type="math_arithmetic" id="5;npuW]Tz!R{f5x98[ry">
+                                    <field name="OP">MINUS</field>
+                                    <value name="A">
+                                      <block type="variables_get" id="*E)NaTDoH)V|ss,Uw3vH">
+                                        <field name="VAR" id="8,n/2+U}Mq36h.Azaw#?" variabletype="">y</field>
+                                      </block>
+                                    </value>
+                                    <value name="B">
+                                      <block type="math_number" id="LTTl.yJ6;n3{I;-Xe,sQ">
+                                        <field name="NUM">5</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="radius">
+                                  <block type="math_number" id="pk1tqoa:sen5Z@1]eI}?">
+                                    <field name="NUM">20</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </category>
     <category name="&#x52D5;&#x304F;&#x30DC;&#x30FC;&#x30EB;">
       <variables>
         <variable type="" id="%hqk*.WtWb6?[?dG^mSb">x</variable>
@@ -709,8 +1331,8 @@
     </category>
     <category name="&#x6B69;&#x304D;&#x5C0F;&#x50E7;">
       <variables>
-        <variable type="" id="B2:t1r,td-=A4fO,R8kl">前回時刻</variable>
-        <variable type="" id="x-;88Q%YYwgzbbQv|R?D">コスチューム</variable>
+        <variable type="" id="B2:t1r,td-=A4fO,R8kl">&#x524D;&#x56DE;&#x6642;&#x523B;</variable>
+        <variable type="" id="x-;88Q%YYwgzbbQv|R?D">&#x30B3;&#x30B9;&#x30C1;&#x30E5;&#x30FC;&#x30E0;</variable>
       </variables>
       <block type="penguin_getcontext2d" id="WbjW./XkH]P%+v5nIF?7" x="9" y="9">
         <next>
@@ -737,13 +1359,13 @@
             </value>
             <next>
               <block type="variables_set" id="j6Zp/oJ^H#zC(.Nm7|pv">
-                <field name="VAR" id="B2:t1r,td-=A4fO,R8kl" variabletype="">前回時刻</field>
+                <field name="VAR" id="B2:t1r,td-=A4fO,R8kl" variabletype="">&#x524D;&#x56DE;&#x6642;&#x523B;</field>
                 <value name="VALUE">
                   <block type="penguin_gettime" id="lYjNwb2Zz`0;N,j*d-V]"/>
                 </value>
                 <next>
                   <block type="variables_set" id="{z6hmAyL);cLY),n|~?{">
-                    <field name="VAR" id="x-;88Q%YYwgzbbQv|R?D" variabletype="">コスチューム</field>
+                    <field name="VAR" id="x-;88Q%YYwgzbbQv|R?D" variabletype="">&#x30B3;&#x30B9;&#x30C1;&#x30E5;&#x30FC;&#x30E0;</field>
                     <value name="VALUE">
                       <block type="math_number" id="i|6)=}Xo46v;?#oK}g?I">
                         <field name="NUM">0</field>
@@ -764,7 +1386,7 @@
                                     </value>
                                     <value name="B">
                                       <block type="variables_get" id="$c?q$(8CpT8FDio71Ip,">
-                                        <field name="VAR" id="B2:t1r,td-=A4fO,R8kl" variabletype="">前回時刻</field>
+                                        <field name="VAR" id="B2:t1r,td-=A4fO,R8kl" variabletype="">&#x524D;&#x56DE;&#x6642;&#x523B;</field>
                                       </block>
                                     </value>
                                   </block>
@@ -806,7 +1428,7 @@
                                         <field name="OP">EQ</field>
                                         <value name="A">
                                           <block type="variables_get" id="1pFy[1?HNye$+o1tDp]!">
-                                            <field name="VAR" id="x-;88Q%YYwgzbbQv|R?D" variabletype="">コスチューム</field>
+                                            <field name="VAR" id="x-;88Q%YYwgzbbQv|R?D" variabletype="">&#x30B3;&#x30B9;&#x30C1;&#x30E5;&#x30FC;&#x30E0;</field>
                                           </block>
                                         </value>
                                         <value name="B">
@@ -860,7 +1482,7 @@
                                         </value>
                                         <next>
                                           <block type="variables_set" id="U]:o_BnkO[(dW@#;GBUH">
-                                            <field name="VAR" id="x-;88Q%YYwgzbbQv|R?D" variabletype="">コスチューム</field>
+                                            <field name="VAR" id="x-;88Q%YYwgzbbQv|R?D" variabletype="">&#x30B3;&#x30B9;&#x30C1;&#x30E5;&#x30FC;&#x30E0;</field>
                                             <value name="VALUE">
                                               <block type="math_number" id=",_TW4.p=7S2Amxe,GHmQ">
                                                 <field name="NUM">1</field>
@@ -914,7 +1536,7 @@
                                         </value>
                                         <next>
                                           <block type="variables_set" id="/|b8JU_iKfD[zfK(qEz=">
-                                            <field name="VAR" id="x-;88Q%YYwgzbbQv|R?D" variabletype="">コスチューム</field>
+                                            <field name="VAR" id="x-;88Q%YYwgzbbQv|R?D" variabletype="">&#x30B3;&#x30B9;&#x30C1;&#x30E5;&#x30FC;&#x30E0;</field>
                                             <value name="VALUE">
                                               <block type="math_number" id="(bBCx(S(j=b.z0g%uS#@">
                                                 <field name="NUM">0</field>
@@ -926,7 +1548,7 @@
                                     </statement>
                                     <next>
                                       <block type="variables_set" id="w4Ulj1rz%x)~F8;`4u}{">
-                                        <field name="VAR" id="B2:t1r,td-=A4fO,R8kl" variabletype="">前回時刻</field>
+                                        <field name="VAR" id="B2:t1r,td-=A4fO,R8kl" variabletype="">&#x524D;&#x56DE;&#x6642;&#x523B;</field>
                                         <value name="VALUE">
                                           <block type="penguin_gettime" id="}U8GhUy.^}^3t#R52[}["/>
                                         </value>
